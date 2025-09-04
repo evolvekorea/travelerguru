@@ -101,12 +101,17 @@ main{
 
 .card-img{
   width:100%;
-  aspect-ratio: 16/9;    /* CLS 완화 */
+  aspect-ratio: 1 / 1;   /* 1:1 정사각형 */
   height:auto;
-  object-fit:cover; display:block;
+  object-fit:cover;
+  display:block;
   background:linear-gradient(135deg,#ececec,#e2e2e2);
 }
-.hero-row .row.scroller .card-img{ aspect-ratio: 16/9; }
+
+/* 히어로 배너도 동일하게 정사각형으로 */
+.hero-row .row.scroller .card-img{
+  aspect-ratio: 1 / 1;
+}
 
 .card-body{ padding:10px 12px 12px; }
 
