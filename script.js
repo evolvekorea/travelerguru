@@ -1,6 +1,6 @@
 // script.js
 
-// ===== 1) 카테고리 소스 정의 (원하면 "hotel"을 "stay"로 바꿔도 됨) =====
+// ===== 1) 카테고리 소스 정의 
 const CATEGORIES = [
   { key: 'travel', label: '여행', json: 'travel/index.json' },
   { key: 'food',   label: '맛집', json: 'food/index.json'   },
@@ -100,7 +100,7 @@ async function render(){
   {
     const heroEl = qs('[data-row="hero"]');
     const heroPager = qs('[data-pager="hero"]');
-    const merged = [...map.travel, ...map.food, ...map.hotel, ...map.other]
+    const merged = [...map.travel, ...map.food, ...map.stay, ...map.other]
       .sort((a,b)=> (b.date||'').localeCompare(a.date||''))
       .slice(0, 5); // 히어로 5장
 
