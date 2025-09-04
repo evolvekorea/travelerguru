@@ -290,3 +290,94 @@ footer{
     background: transparent;
   }
 }
+
+/* =========================
+   Category List Page
+========================= */
+.page-header{
+  position:sticky; top:0; z-index:50;
+  background:#ebe7df; border-bottom:1px solid var(--line);
+  padding:12px 14px;
+}
+.page-title{ margin:0; font-size:18px; font-weight:800; }
+
+.breadcrumb{ padding:10px 14px 0; color:#666; font-size:12px; }
+.breadcrumb a{ color:#666; text-decoration:none; }
+
+.toolbar{ display:flex; gap:8px; padding:10px 12px; background:var(--bg); position:sticky; top:52px; z-index:40; }
+.tool-input,.tool-select{
+  flex:1; padding:10px 12px;
+  border-radius:12px; border:1px solid #ded8cf;
+  background:#fff; font-size:14px;
+}
+
+.grid{
+  display:grid; grid-template-columns: repeat(2, 1fr);
+  gap:12px; padding:12px;
+}
+@media (min-width:700px){
+  .grid{ grid-template-columns: repeat(3, 1fr); }
+}
+.grid .card-img{ aspect-ratio: 1 / 1; }
+.grid .card{ box-shadow: var(--shadow); }
+.empty{ padding:28px 14px; color:#777; font-size:14px; }
+
+
+/* =========================
+   Post Page
+========================= */
+.post-header{ padding:16px 14px 8px; background:#ebe7df; border-bottom:1px solid var(--line); }
+.post-title{ margin:0 0 6px; font-size:22px; line-height:1.3; }
+.post-meta{ color:#777; font-size:12px; }
+
+.post-hero{ margin:12px; border-radius:18px; overflow:hidden; box-shadow:var(--shadow); background:#ddd; }
+.post-hero img, .post-hero video{
+  width:100%; display:block; object-fit:cover;
+  aspect-ratio: 1/1; /* 1:1 정사각형 */
+  background:#eee;
+}
+
+.post-body{ padding: 0 14px 14px; }
+.post-body h2{ font-size:18px; margin:18px 0 8px; }
+.post-body p{ margin:10px 0; font-size:15px; color:#333; line-height:1.68; }
+.post-body img{ width:100%; border-radius:12px; margin:12px 0; object-fit:cover; background:#eee; }
+
+.post-tags{ display:flex; gap:8px; flex-wrap:wrap; padding:12px 14px 0; }
+.tag{ font-size:12px; background:#f1eee7; border:1px solid #e7e1d9; padding:6px 10px; border-radius:999px; color:#444; }
+
+.share{ display:flex; gap:8px; padding:8px 14px; }
+.share a{ text-decoration:none; border:1px solid #ded8cf; background:#fff; padding:8px 12px; border-radius:10px; font-size:13px; color:#333; }
+
+.post-nav{ display:flex; justify-content:space-between; gap:8px; padding:12px 14px 20px; }
+.post-nav a{ flex:1; text-decoration:none; background:#fff; border:1px solid #e2dbd2; border-radius:12px; padding:10px; color:#333; text-align:center; }
+
+.related{ padding:10px 12px 24px; }
+.related .row.scroller{ grid-auto-columns: 62%; }
+.related .card-img{ aspect-ratio:1/1; }
+
+/* =========================
+   Star Badge on Thumbnails
+========================= */
+.star-badge{
+  position:absolute;
+  top:8px; left:8px;
+  z-index:2;
+  display:inline-flex; align-items:center; gap:6px;
+  padding:6px 8px;
+  border-radius:999px;
+  background:rgba(0,0,0,.55);
+  color:#fff;
+  font-size:12px; font-weight:700;
+  line-height:1;
+  box-shadow: 0 4px 12px rgba(0,0,0,.25);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+}
+.star-badge .stars{
+  letter-spacing:.8px;
+  font-size:12px;
+}
+.star-badge .score{
+  font-size:11px; opacity:.9;
+}
+.card{ position:relative; } /* 배지가 카드 안에서 position 잡히도록 */

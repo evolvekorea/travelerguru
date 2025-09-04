@@ -62,6 +62,12 @@ function attachPager(scroller, pager){
   }, { passive:true });
 }
 
+// (추가) 별 문자열 생성 헬퍼 (정수 1~5)
+function renderStars(n=0){
+  const v = Math.max(0, Math.min(5, parseInt(n,10) || 0));
+  return '★'.repeat(v) + '☆'.repeat(5 - v);
+}
+
 // 카드 DOM 생성
 function createCard(item, catLabel){
   const a = document.createElement('a');

@@ -3,14 +3,16 @@
     "title": "산토리니 선셋 포인트 3곳",
     "excerpt": "케이블카~피라~이아로 이어지는 석양 루트를 소개합니다.",
     "thumb": "/travel/images/santorini-sunset.jpg",
-    "url": "/travel/santorini-sunset.html",
-    "date": "2025-09-03"
+    "url": "/travel/1.html",
+    "date": "2025-09-03",
+    "rating": 5
   },
   {
     "title": "교토 1일 코스",
     "excerpt": "후시미이나리부터 기온거리까지, 대중교통 동선 팁.",
     "thumb": "/travel/images/kyoto-1day.jpg",
     "url": "/travel/kyoto-1day.html",
-    "date": "2025-09-01"
+    "date": "2025-09-01",
+    "rating": 5
   }
 ]
