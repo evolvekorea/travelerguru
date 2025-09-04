@@ -2,170 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <!-- 메인 페이지 -->
    <url>
-       <loc>https://www.survivaloffice.com/</loc>
-       <lastmod>2024-11-11</lastmod>
+       <loc>https://www.travelerguru.co.kr/</loc>
+       <lastmod>2025-09-04</lastmod>
        <changefreq>daily</changefreq>
        <priority>1.0</priority>
    </url>
 
    <url>
-       <loc>https://survivaloffice.com/</loc>
-       <lastmod>2024-11-11</lastmod>
+       <loc>https://travelerguru.co.kr/</loc>
+       <lastmod>2025-09-04</lastmod>
        <changefreq>daily</changefreq>
        <priority>1.0</priority>
    </url>
 
-   <!-- rest + 하위 페이지 -->
-   <url>
-       <loc>https://www.survivaloffice.com/rest/</loc>
-       <lastmod>2024-11-05</lastmod>
-       <changefreq>monthly</changefreq>
-       <priority>0.7</priority>
-   </url>
-   <url>
-       <loc>https://www.survivaloffice.com/rest/upupup</loc>
-       <lastmod>2024-11-05</lastmod>
-       <changefreq>monthly</changefreq>
-       <priority>0.7</priority>
-   </url>
-   <url>
-       <loc>https://www.survivaloffice.com/rest/planet</loc>
-       <lastmod>2024-12-11</lastmod>
-       <changefreq>monthly</changefreq>
-       <priority>0.7</priority>
-   </url>      
-    <url>
-    <loc>https://www.survivaloffice.com/rest/LRLR</loc>
-    <lastmod>2024-12-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    </url>  
-    <url>
-    <loc>https://www.survivaloffice.com/rest/828250</loc>
-    <lastmod>2024-12-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    </url> 
-    <url>
-    <loc>https://www.survivaloffice.com/rest/mosquitohunter</loc>
-    <lastmod>2025-01-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    </url>  
-    <loc>https://www.survivaloffice.com/rest/ddong</loc>
-    <lastmod>2025-02-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    </url>  
-    <loc>https://www.survivaloffice.com/rest/mole</loc>
-    <lastmod>2025-02-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    </url>  
-
-      <!-- TEST + 하위 페이지 -->
-   <url>
-       <loc>https://www.survivaloffice.com/test/</loc>
-       <lastmod>2025-02-15</lastmod>
-       <changefreq>weekly</changefreq>
-       <priority>0.5</priority>
-   </url>
-    <url>
-       <loc>https://www.survivaloffice.com/test/eyetest1</loc>
-       <lastmod>2025-04-01</lastmod>
-       <changefreq>monthly</changefreq>
-       <priority>0.5</priority>
-   </url>
-    <url>
-       <loc>https://www.survivaloffice.com/test/eyetest2</loc>
-       <lastmod>2025-04-01</lastmod>
-       <changefreq>monthly</changefreq>
-       <priority>0.5</priority>
-   </url>
-    <url>
-       <loc>https://www.survivaloffice.com/test/eyetest3</loc>
-       <lastmod>2025-04-01</lastmod>
-       <changefreq>monthly</changefreq>
-       <priority>0.5</priority>
-   </url>
-    <url>
-       <loc>https://www.survivaloffice.com/test/mentalmath1</loc>
-       <lastmod>2025-06-01</lastmod>
-       <changefreq>monthly</changefreq>
-       <priority>0.5</priority>
-   </url>   
-       <url>
-       <loc>https://www.survivaloffice.com/test/egenteto</loc>
-       <lastmod>2025-07-01</lastmod>
-       <changefreq>monthly</changefreq>
-       <priority>0.5</priority>
-   </url>   
-       <url>
-       <loc>https://www.survivaloffice.com/test/psychopath</loc>
-       <lastmod>2025-08-22</lastmod>
-       <changefreq>monthly</changefreq>
-       <priority>0.5</priority>
-   </url>
-       <url>
-       <loc>https://www.survivaloffice.com/test/1004hogu</loc>
-       <lastmod>2025-08-25</lastmod>
-       <changefreq>monthly</changefreq>
-       <priority>0.5</priority>
-   </url>      
-       <url>
-       <loc>https://www.survivaloffice.com/test/jumggon</loc>
-       <lastmod>2025-08-25</lastmod>
-       <changefreq>monthly</changefreq>
-       <priority>0.5</priority>
-   </url>    
-
-   <!-- work + 하위 페이지 -->
-   <url>
-       <loc>https://www.survivaloffice.com/work/</loc>
-       <lastmod>2024-11-01</lastmod>
-       <changefreq>weekly</changefreq>
-       <priority>0.9</priority>
-   </url>
-   <url>
-       <loc>https://www.survivaloffice.com/work/tarot</loc>
-       <lastmod>2024-10-30</lastmod>
-       <changefreq>weekly</changefreq>
-       <priority>0.8</priority>
-   </url>
-   <url>
-       <loc>https://www.survivaloffice.com/work/todo</loc>
-       <lastmod>2024-10-28</lastmod>
-       <changefreq>weekly</changefreq>
-       <priority>0.8</priority>
-   </url>
-   <url>
-       <loc>https://www.survivaloffice.com/work/stress</loc>
-       <lastmod>2024-10-28</lastmod>
-       <changefreq>weekly</changefreq>
-       <priority>0.8</priority>
-   </url>
-   <url>
-       <loc>https://www.survivaloffice.com/work/roulette</loc>
-       <lastmod>2024-10-28</lastmod>
-       <changefreq>weekly</changefreq>
-       <priority>0.8</priority>
-   </url>
-   <url>
-       <loc>https://www.survivaloffice.com/work/fire</loc>
-       <lastmod>2024-11-07</lastmod>
-       <changefreq>monthly</changefreq>
-       <priority>0.6</priority>
-   </url>    
-    <url>
-       <loc>https://www.survivaloffice.com/work/name</loc>
-       <lastmod>2025-08-23</lastmod>
-       <changefreq>monthly</changefreq>
-       <priority>0.6</priority>
-   </url>    
-       <url>
-       <loc>https://www.survivaloffice.com/work/babyname</loc>
-       <lastmod>2025-08-24</lastmod>
-       <changefreq>monthly</changefreq>
-       <priority>0.6</priority>
-   </url>    
 </urlset>
