@@ -4,7 +4,7 @@
 const CATEGORIES = [
   { key: 'travel', label: '여행', json: 'travel/index.json' },
   { key: 'food',   label: '맛집', json: 'food/index.json'   },
-  { key: 'hotel',  label: '숙소', json: 'hotel/index.json'  },
+  { key: 'stay',  label: '숙소', json: 'stay/index.json'  },
   { key: 'other',  label: '기타', json: 'other/index.json'  },
 ];
 
