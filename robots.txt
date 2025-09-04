@@ -3,4 +3,4 @@ Allow: /
 Sitemap: http://www.travelerguru.co.kr/sitemap.xml
 
 
-#DaumWebMasterTool:4c60a5a5390682e81c771b6e278600d7e7848b1ab7919abd6ddd77d84b900260:Gr7+WQLwnb/HEjbpoxiswQ==
+#DaumWebMasterTool:1e40c8f94ec1494ce84db55a8354f10f1f25ccff25a13e966d2ea14d225f3737:N0czcylUGMa/jXrvHEpVZA==
