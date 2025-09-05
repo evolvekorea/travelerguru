@@ -10,18 +10,18 @@ const CATEGORIES = [
 
 // ===== 2) JSON 스키마 안내 =====
 /*
-각 카테고리 폴더의 index.json 예시 (배포 시 폴더에 파일로 추가):
+각 카테고리 폴더의 index.json 예시:
 
 [
   {
     "title": "오사카 스시야 투어",
     "excerpt": "현지인들이 가는 스시집 Top3를 돌아본 코스입니다.",
-    "thumb": "/food/images/osaka-sushi.jpg",     // ← 썸네일 이미지 경로 (절대/상대 가능)
-    "url": "/food/osaka-sushi.html",             // ← 글(HTML) 경로
-    "date": "2025-09-01"                         // ← 최신순 정렬용 (YYYY-MM-DD)
+    "thumb": "/food/images/osaka-sushi.jpg",
+    "url": "/food/osaka-sushi.html",
+    "date": "2025-09-01"
   }
 ]
-※ 영상 카드는 thumb를 영상 썸네일로, url은 영상 상세/외부 플랫폼으로.
+※ 영상 카드는 thumb = 영상 썸네일, url = 영상 상세/외부 플랫폼.
 */
 
 // ===== 3) 유틸 =====
@@ -54,7 +54,7 @@ function attachPager(scroller, pager){
     dots().forEach((d,i)=> d.classList.toggle('is-active', i===idx));
   };
 
-  // 초기 동기화 1회
+  // 초기 동기화
   requestAnimationFrame(sync);
 
   scroller.addEventListener('scroll', () => {
@@ -62,7 +62,7 @@ function attachPager(scroller, pager){
   }, { passive:true });
 }
 
-// (추가) 별 문자열 생성 헬퍼 (정수 1~5)
+// (옵션) 별 문자열 생성 헬퍼 (정수 1~5) — 나중에 배지 쓸 때 사용
 function renderStars(n=0){
   const v = Math.max(0, Math.min(5, parseInt(n,10) || 0));
   return '★'.repeat(v) + '☆'.repeat(5 - v);
@@ -151,14 +151,14 @@ async function render(){
     map[cat.key] = await loadCategory(cat);
   }
 
-  // 히어로: 카테고리 섞어서 상위 몇개 (최신 5개)
+  // 히어로: 카테고리 섞어서 상위 몇개 (최신 10개)
   {
     const heroEl = qs('[data-row="hero"]');
     const heroPager = qs('[data-pager="hero"]');
     if (heroEl) {
       const merged = [...(map.travel||[]), ...(map.food||[]), ...(map.stay||[]), ...(map.other||[])]
         .sort((a,b)=> (b.date||'').localeCompare(a.date||''))
-        .slice(0, 5);
+        .slice(0, 10); // ★ 10개
 
       merged.forEach(item=>{
         // 어떤 카테고리인지 라벨 찾기 (url 경로로 추정)
@@ -170,12 +170,12 @@ async function render(){
     }
   }
 
-  // 카테고리별 행
+  // 카테고리별 행 (각 10개)
   for(const cat of CATEGORIES){
     const row   = qs(`[data-row="${cat.key}"]`);
     const pager = qs(`[data-pager="${cat.key}"]`);
     if (!row) continue;
-    const list = (map[cat.key] || []).slice(0, 12); // 각 섹션 최대 12개
+    const list = (map[cat.key] || []).slice(0, 10); // ★ 각 섹션 최대 10개
     list.forEach(item => row.appendChild(createCard(item, cat.label)));
     renderPager(pager, list.length, 0);
     attachPager(row, pager);
