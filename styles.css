@@ -70,7 +70,7 @@ main{
    Horizontal Scroller
 ========================= */
 .row.scroller{
-  display:grid; grid-auto-flow:column; grid-auto-columns: 78%;
+  display:grid; grid-auto-flow:column; grid-auto-columns: 48%; /* ↓ 절반 수준으로 축소 */
   gap:12px; overflow-x:auto; padding:8px 2px 2px;
   scroll-snap-type:x mandatory;
   -webkit-overflow-scrolling:touch;
@@ -79,7 +79,7 @@ main{
 .row.scroller::-webkit-scrollbar{ display:none; } /* Chrome/Safari */
 
 @media (min-width:460px){
-  .row.scroller{ grid-auto-columns: 62%; }
+  .row.scroller{ grid-auto-columns: 32%; } /* 데스크탑/태블릿에서도 더 작게 */
 }
 
 /* =========================
@@ -142,16 +142,7 @@ main{
   overflow: hidden;
 }
 
-/* 최신 표준(line-clamp) */
-@supports (line-clamp: 2) and (block-overflow: ellipsis) {
-  .card-excerpt{
-    max-height: none;
-    line-clamp: 2;
-    block-overflow: ellipsis;
-  }
-}
-
-/* WebKit 구버전 */
+/* WebKit 계열 line-clamp (VSCode 경고 회피: block-overflow 사용 안 함) */
 @supports (-webkit-line-clamp: 2) {
   .card-excerpt{
     display: -webkit-box;
@@ -164,9 +155,21 @@ main{
 /* =========================
    Pager (dots)
 ========================= */
-.pager{ display:flex; gap:6px; padding:8px 0 10px 6px; }
-.pager .dot{ width:8px; height:8px; border-radius:999px; background:#cdc8c0; }
-.pager .dot.is-active{ width:22px; background:#222; }
+.pager{
+  display:flex;
+  justify-content:center; /* ← 가운데 정렬 */
+  align-items:center;
+  gap:6px;
+  padding:8px 0 10px;
+  width:100%;
+}
+.pager .dot{
+  width:8px; height:8px; border-radius:999px; background:#cdc8c0;
+  transition: all .2s ease;
+}
+.pager .dot.is-active{
+  width:22px; background:#222;
+}
 
 /* =========================
    Tab Bar
@@ -322,7 +325,6 @@ footer{
 .grid .card{ box-shadow: var(--shadow); }
 .empty{ padding:28px 14px; color:#777; font-size:14px; }
 
-
 /* =========================
    Post Page
 ========================= */
@@ -352,7 +354,7 @@ footer{
 .post-nav a{ flex:1; text-decoration:none; background:#fff; border:1px solid #e2dbd2; border-radius:12px; padding:10px; color:#333; text-align:center; }
 
 .related{ padding:10px 12px 24px; }
-.related .row.scroller{ grid-auto-columns: 62%; }
+.related .row.scroller{ grid-auto-columns: 48%; } /* related도 동일 축소감 */
 .related .card-img{ aspect-ratio:1/1; }
 
 /* =========================
