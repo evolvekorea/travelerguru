@@ -65,7 +65,11 @@ function attachPager(scroller, pager){
 // (옵션) 별 문자열 생성 헬퍼 (정수 1~5) — 나중에 배지 쓸 때 사용
 function renderStars(n=0){
   const v = Math.max(0, Math.min(5, parseInt(n,10) || 0));
-  return '★'.repeat(v) + '☆'.repeat(5 - v);
+  let html = '';
+  for(let i=1; i<=5; i++){
+    html += `<span class="star ${i<=v ? 'filled' : 'empty'}">★</span>`;
+  }
+  return html;
 }
 
 // 카드 DOM 생성
