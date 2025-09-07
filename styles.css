@@ -364,27 +364,27 @@ footer{
   position:absolute;
   top:8px; right:8px;
   z-index:2;
-  display:inline-flex; align-items:center; gap:6px;
+  display:inline-flex;       /* flex로 변경 */
+  gap:0;                     /* 별 간격 강제 0 */
   padding:6px 8px;
   border-radius:999px;
   background:rgba(0,0,0,.55);
   color:#fff;
-  font-size:12px; font-weight:700;
+  font-size:12px;            /* 다시 부모에서도 정상 폰트 크기 유지 */
   line-height:1;
-  box-shadow: 0 4px 12px rgba(0,0,0,.25);
+  box-shadow:0 4px 12px rgba(0,0,0,.25);
   -webkit-backdrop-filter: blur(3px);
   backdrop-filter: blur(3px);
 }
+
 .star-badge .star {
-  font-size: 12px;
+  display:inline-block;
+  font-size:12px;            /* 별 크기 */
+  margin:0;                  /* 간격 제거 */
+  padding:0;
 }
-.star-badge .star.filled {
-  color: gold;       /* 채워진 별 = 노란색 */
-}
-.star-badge .star.empty {
-  color: #ddd;       /* 빈 별 = 회색 */
-}
-.star-badge .score{
-  display: none;
-}
-.card{ position:relative; } /* 배지가 카드 안에서 position 잡히도록 */
+
+.star-badge .star.filled { color: gold; }
+.star-badge .star.empty  { color: #ddd; }
+
+.star-badge .score{ display:none; }

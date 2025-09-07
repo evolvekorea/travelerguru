@@ -72,13 +72,23 @@ function renderStars(n=0){
   return html;
 }
 
-// 카드 DOM 생성
+// 카드 DOM 생성 (★ 수정본)
 function createCard(item, catLabel){
   const a = document.createElement('a');
   a.href = item.url || '#';
   a.className = 'card';
+
+  // 별점 (index.json에 rating: 1~5 넣어두면 표시됨)
+  const ratingNum = Math.max(0, Math.min(5, Number(item.rating || 0)));
+  const badge = ratingNum > 0
+    ? `<span class="star-badge" aria-label="별점 ${ratingNum}점">
+         ${renderStars(ratingNum)}
+         <span class="score">${ratingNum}</span>
+       </span>`
+    : '';
+
   a.innerHTML = `
-    <!-- ↓↓↓ 썸네일 이미지 URL 넣는 곳 (index.json의 thumb 필드 사용) -->
+    ${badge}
     <img class="card-img" src="${item.thumb || ''}" alt="${item.title || ''}" loading="lazy">
     <div class="card-body">
       <span class="card-cat"># ${catLabel}</span>
