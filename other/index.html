@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="ko" data-cat="travel">
+<html lang="ko" data-cat="other">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>여행 글 목록 - 구루의 트래블 노트</title>
-  <link rel="canonical" href="https://www.travelerguru.co.kr/travel/">
+  <title>기타 유용한 정보 글목록 - 구루의 트래블 노트</title>
+  <link rel="canonical" href="https://www.travelerguru.co.kr/other/">
   <link rel="stylesheet" href="../styles.css">
   <link rel="icon" href="data:,">
-  <meta name="description" content="여행 카테고리: 트래블 루트, 포인트, 팁 모음">
+  <meta name="description" content="기타 카테고리: 기타 유용한 정보">
   <!-- OG -->
-  <meta property="og:title" content="여행 글 목록" />
-  <meta property="og:description" content="구루의 트래블 노트 - 여행 카테고리" />
-  <meta property="og:url" content="https://www.travelerguru.co.kr/travel/" />
+  <meta property="og:title" content="기타 글 목록" />
+  <meta property="og:description" content="구루의 트래블 노트 - 기타 카테고리" />
+  <meta property="og:url" content="https://www.travelerguru.co.kr/other/" />
   <meta property="og:type" content="website" />
   <style>
     /* 페이지 전용(그리드) */
@@ -34,11 +34,11 @@
 <body>
 
 <header class="page-header">
-  <h1 class="page-title">여행</h1>
+  <h1 class="page-title">기타</h1>
 </header>
 
 <nav class="breadcrumb">
-  <a href="/">홈</a> › <strong>여행</strong>
+  <a href="/">홈</a> › <strong>기타</strong>
 </nav>
 
 <section class="toolbar" aria-label="필터">
@@ -67,9 +67,9 @@
 <nav class="tabbar">
   <a class="tab" href="/"><span>🏠</span><em>홈</em></a>
   <a class="tab" href="/food/"><span>🍜</span><em>맛집</em></a>
-  <a class="tab is-active" href="/travel/"><span>🧭</span><em>여행</em></a>
+  <a class="tab" href="/travel/"><span>🧭</span><em>여행</em></a>
   <a class="tab" href="/stay/"><span>🛏️</span><em>숙소</em></a>
-  <a class="tab" href="/other/"><span>📎</span><em>기타</em></a>
+  <a class="tab is-active" href="/other/"><span>📎</span><em>기타</em></a>
 </nav>
 
 <script>
@@ -86,7 +86,7 @@
   const emptyEl = document.getElementById('empty');
   const q = document.getElementById('q');
   const sortSel = document.getElementById('sort');
-  const ratingSel = document.getElementById('rating');  // ★ 추가
+  const ratingSel = document.getElementById('rating');
 
   let raw = [], view = [];
 
@@ -95,12 +95,20 @@
     a.href = item.url || '#';
     a.className = 'card';
     a.setAttribute('data-rating', (item.rating ?? ''));
-    const badge = (typeof item.rating !== 'undefined' && item.rating !== null)
-      ? `<span class="star-badge" aria-label="별점 ${item.rating}점">
-           <span class="stars">${'★'.repeat(item.rating||0)}${'☆'.repeat(5-(item.rating||0))}</span>
-           <span class="score">${item.rating}</span>
+
+    // ★ 별점 HTML 생성
+    const ratingNum = Math.max(0, Math.min(5, Number(item.rating || 0)));
+    const starsHTML = Array.from({ length: 5 }, (_, i) =>
+      `<span class="star ${i < ratingNum ? 'filled' : 'empty'}">★</span>`
+    ).join('');
+
+    const badge = ratingNum > 0
+      ? `<span class="star-badge" aria-label="별점 ${ratingNum}점">
+           ${starsHTML}
+           <span class="score">${ratingNum}</span>
          </span>`
       : '';
+
     a.innerHTML = `
       ${badge}
       <img class="card-img" src="${item.thumb || ''}" alt="${item.title || ''}" loading="lazy">
@@ -119,9 +127,7 @@
   }
 
   function apply(){
-    // 키워드 필터
     const keyword = (q.value || '').trim().toLowerCase();
-    // 별점 필터 (예: 4+)
     const r = parseInt(ratingSel.value || 0, 10) || 0;
 
     view = raw.filter(it => {
@@ -133,7 +139,6 @@
       return okKeyword && okRating;
     });
 
-    // 정렬
     const s = sortSel.value;
     if (s === 'new') view.sort((a,b)=> (b.date||'').localeCompare(a.date||''));
     if (s === 'old') view.sort((a,b)=> (a.date||'').localeCompare(b.date||''));
@@ -144,12 +149,10 @@
   }
 
   (async function init(){
-    // 같은 폴더면 index.json, 아니면 상대경로 사용
-    const jsonPath = (CAT_KEY === 'travel') ? 'index.json' : CONF.json;
+    const jsonPath = (CAT_KEY === 'food') ? 'index.json' : CONF.json;
     const res = await fetch(jsonPath, { cache: 'no-store' });
     raw = await res.json();
 
-    // URL 쿼리로 별점 초기화 지원 (?rating=4)
     const usp = new URLSearchParams(location.search);
     const initR = usp.get('rating');
     if (initR) ratingSel.value = initR;
