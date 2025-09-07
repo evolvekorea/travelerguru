@@ -46,6 +46,22 @@
     "url": "/food/6",
     "date": "2025-09-07",
     "rating": 4
+  },
+  {
+    "title": "광화문 추어탕 맛집 추천, 정동추어탕 솔직 후기",
+    "excerpt": "광화문 추어탕 맛집 추천, 정동추어탕 솔직 후기",
+    "thumb": "/food/images/j4.webp",
+    "url": "/food/7",
+    "date": "2025-09-07",
+    "rating": 4
+  },
+  {
+    "title": "수요미식회에 나온 닭도리탕 맛집, 풍년닭도리탕 정동직영점 솔직 후기",
+    "excerpt": "풍년닭도리탕 정동직영점",
+    "thumb": "/food/images/p1.webp",
+    "url": "/food/8",
+    "date": "2025-09-08",
+    "rating": 5
   }
 ]
 
