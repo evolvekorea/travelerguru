@@ -38,34 +38,22 @@
 <body>
 
   <!-- 헤더 -->
-  <header class="tg-header">
-    <button class="icon-btn" aria-label="메뉴">☰</button>
-    <h1 class="brand">구루의 트래블 노트</h1>
-    <button class="icon-btn" aria-label="검색">🔎</button>
-  </header>
+<header class="tg-header">
+  <div class="spacer" aria-hidden="true"></div>
+
+  <h1 class="brand">
+    <a href="/">구루의 트래블 노트</a>
+  </h1>
+
+  <!-- 오른쪽 SNS 아이콘 -->
+  <nav class="header-sns">
+    <a class="sns-btn insta" href="https://www.instagram.com/traveler_guru1" target="_blank" rel="noopener" aria-label="인스타그램">📸</a>
+    <a class="sns-btn yt" href="https://www.youtube.com/@travelerguru30" target="_blank" rel="noopener" aria-label="유튜브">▶️</a>
+  </nav>
+</header>
 
   <main>
-    <!-- SNS Split Links: 인스타 / 유튜브 -->
-    <section class="social-split" aria-label="SNS 바로가기">
-      <a class="social-card insta" href="https://www.instagram.com/traveler_guru1" target="_blank" rel="noopener noreferrer">
-        <!-- ↓↓↓ 인스타 배경 이미지 URL -->
-        <img src="https://www.travelerguru.co.kr/images/instar.png" alt="인스타그램 바로가기" loading="lazy">
-        <span class="social-overlay">
-          <span class="social-emoji">📸</span>
-          <strong>인스타그램</strong>
-        </span>
-      </a>
 
-      <a class="social-card yt" href="https://www.youtube.com/@travelerguru30" target="_blank" rel="noopener noreferrer">
-        <!-- ↓↓↓ 유튜브 배경 이미지 URL -->
-        <img src="여기에_유튜브_배경.jpg" alt="유튜브 바로가기" loading="lazy">
-        <span class="social-overlay">
-          <span class="social-emoji">▶️</span>
-          <strong>유튜브</strong>
-        </span>
-      </a>
-    </section>
-    
     <!-- 히어로(상단 가로 스크롤 배너, 필요 없으면 지워도 됨) -->
     <section class="hero-row" aria-label="추천">
       <h2 class="row-title">오늘의 추천</h2>
