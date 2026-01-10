@@ -132,7 +132,7 @@ main{
 /* -------------------------
    Excerpt (2줄 말줄임)
 ------------------------- */
-/* 기본(모든 브라우저) – 2줄 높이만큼 잘라내기 */
+/* 기본(모든 브라우저) – 높이 제한으로 fallback */
 .card-excerpt{
   margin: 0;
   font-size: 13px;
@@ -142,12 +142,13 @@ main{
   overflow: hidden;
 }
 
-/* WebKit 계열 line-clamp (VSCode 경고 회피: block-overflow 사용 안 함) */
-@supports (-webkit-line-clamp: 2) {
+/* 표준 + WebKit 같이 선언 (린터 경고 해소 목적 포함) */
+@supports (line-clamp: 2) or (-webkit-line-clamp: 2) {
   .card-excerpt{
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+    display: -webkit-box;          /* WebKit 구현에 필요 */
+    -webkit-box-orient: vertical;  /* WebKit 구현에 필요 */
+    -webkit-line-clamp: 2;         /* 크롬/사파리 등 */
+    line-clamp: 2;                 /* 표준(지원되는 경우) */
     overflow: hidden;
   }
 }
