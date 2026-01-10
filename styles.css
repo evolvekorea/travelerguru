@@ -447,3 +447,93 @@ footer{
     grid-auto-columns: 18%;
   }
 }
+
+/* =========================================================
+   PC = MOBILE APP FRAME (header/main/tabbar unified)
+   - Paste at END of styles.css
+========================================================= */
+
+@media (min-width: 900px){
+
+  /* 1) 페이지를 가운데 "앱 프레임"처럼 */
+  body{
+    background: var(--bg);
+  }
+
+  /* header/main/tabbar를 동일 폭으로 통일 */
+  .tg-header,
+  main,
+  .tabbar{
+    width: 420px;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* 2) 헤더도 프레임 폭에 맞춰 고정(전체폭 sticky 느낌 제거) */
+  .tg-header{
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+    border-left: 1px solid rgba(0,0,0,.06);
+    border-right: 1px solid rgba(0,0,0,.06);
+    border-bottom: 1px solid var(--line);
+    border-radius: 0; /* 필요하면 16px로 */
+  }
+
+  /* 3) 본문도 프레임 내부처럼(양옆 라인) */
+  main{
+    border-left: 1px solid rgba(0,0,0,.06);
+    border-right: 1px solid rgba(0,0,0,.06);
+    padding: 12px;
+    padding-bottom: calc(var(--tabbar-h) + 12px); /* 탭바 공간 확보 */
+  }
+
+  /* 4) 문제의 핵심: tabbar를 "프레임 폭"에만 fixed */
+  .tabbar{
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+    bottom: 0;
+    border-left: 1px solid rgba(0,0,0,.06);
+    border-right: 1px solid rgba(0,0,0,.06);
+    border-top: 1px solid var(--line);
+  }
+
+  /* 5) PC에서 모바일 느낌 유지: 행/카드 비율 모바일 규칙으로 되돌림 */
+  .row.scroller{
+    grid-auto-columns: 48%;
+    gap: 12px;
+  }
+
+  .card-img{
+    aspect-ratio: 1 / 1;
+  }
+
+  .hero-row .row.scroller .card-img{
+    aspect-ratio: 1 / 1;
+  }
+
+  /* 6) PC 전용 튜닝(22%, 18%, 4:3, 16:10)을 확실히 무력화 */
+  .related .row.scroller{
+    grid-auto-columns: 48%;
+  }
+}
+
+/* =========================================================
+   Optional: 더 "앱" 같게 보이게(PC에서만)
+   - 필요 없으면 아래 블록 통째로 삭제
+========================================================= */
+@media (min-width: 900px){
+  /* 프레임 바깥 여백 */
+  body{
+    padding: 20px 0;
+  }
+
+  /* 프레임에 그림자(앱 화면 느낌) */
+  main{
+    box-shadow: 0 16px 40px rgba(0,0,0,.10);
+    background: var(--bg);
+  }
+}

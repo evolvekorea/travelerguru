@@ -332,3 +332,71 @@ main{ padding-top: 0; }
     */
   }
 }
+
+/* =========================================
+   PC에서도 모바일처럼(앱처럼) 보이게: 고정 폭 컨테이너
+   - food/styles.css 맨 아래에 그대로 붙여넣기
+========================================= */
+
+/* 0) 기준 폭(원하는 값으로 조절 가능) */
+:root{
+  --app-maxw: 480px; /* 420~520 추천 */
+}
+
+/* 1) PC에서 전체를 모바일 폭으로 가운데 정렬 */
+@media (min-width: 900px){
+  /* 페이지 상단(타이틀/빵크럼/필터/본문)을 같은 폭으로 맞춤 */
+  .page-header,
+  .breadcrumb,
+  .toolbar,
+  main{
+    max-width: var(--app-maxw);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* main 기본 padding이 너무 넓으면 모바일 느낌 깨짐 → 축소(선택) */
+  main{
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  /* 그리드는 “모바일처럼 2열” 고정 */
+  .grid{
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  /* 상단 타이틀/빵크럼 여백도 모바일 톤으로 */
+  .page-header{ padding-left: 14px; padding-right: 14px; }
+  .breadcrumb{ padding-left: 14px; padding-right: 14px; }
+
+  /* toolbar도 폭 안에서만 */
+  .toolbar{
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  /* 하단 탭바도 모바일 폭으로 가운데 고정 */
+  .tabbar{
+    position: fixed;             /* PC에서도 모바일처럼 하단 고정 */
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(100%, var(--app-maxw));
+    max-width: var(--app-maxw);
+    border-left: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    border-top-left-radius: 14px;  /* 선택: 앱 느낌 */
+    border-top-right-radius: 14px; /* 선택: 앱 느낌 */
+    overflow: hidden;
+  }
+
+  /* 하단 탭바가 fixed면 본문이 가려질 수 있어서 여백 확보 */
+  body{
+    padding-bottom: var(--tabbar-h);
+  }
+}
+
+/* 2) 화면이 매우 큰 PC에서도 너무 얇아 보이면 살짝 넓혀주기(선택) */
+@media (min-width: 1400px){
+  :root{ --app-maxw: 520px; }
+}
