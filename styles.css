@@ -74,7 +74,8 @@ main{
   gap:12px; overflow-x:auto; padding:8px 2px 2px;
   scroll-snap-type:x mandatory;
   -webkit-overflow-scrolling:touch;
-  scrollbar-width: none;           /* Firefox */
+  scrollbar-width: none;   
+  overscroll-behavior-x: contain;        /* Firefox */
 }
 .row.scroller::-webkit-scrollbar{ display:none; } /* Chrome/Safari */
 
@@ -537,3 +538,5 @@ footer{
     background: var(--bg);
   }
 }
+
+.pager { pointer-events:none; }
