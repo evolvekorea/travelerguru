@@ -361,6 +361,10 @@ footer{
 .related .row.scroller{ grid-auto-columns: 48%; } /* related도 동일 축소감 */
 .related .card-img{ aspect-ratio:1/1; }
 
+.row.scroller{
+  touch-action: pan-y; /* 세로 스크롤 기본 허용 + 가로는 JS로 처리 */
+}
+
 /* =========================
    Star Badge on Thumbnails
 ========================= */

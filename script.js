@@ -119,42 +119,87 @@ async function loadCategory(cat){
 function enhanceDesktopScrollers(root = document){
   const scrollers = root.querySelectorAll('.row.scroller');
 
-  // 1) 마우스 휠 세로 → 가로로 매핑
+  // 1) 마우스 휠 세로 → 가로로 매핑 (단, 끝에 닿으면 세로 스크롤 허용)
   scrollers.forEach(scroller => {
     scroller.addEventListener('wheel', (e) => {
-      // Shift 누르면 브라우저 기본 가로 스크롤 허용
-      if (e.shiftKey) return;
+      if (e.shiftKey) return; // Shift는 기본 가로 스크롤 허용
 
-      // 세로 입력이 강하면 가로로 변환
+      const canScrollX = scroller.scrollWidth > scroller.clientWidth + 1;
+      if (!canScrollX) return; // 가로 스크롤 여지가 없으면 건드리지 않음
+
+      // 세로 입력이 강할 때만 가로로 전환
       if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        const atLeft  = scroller.scrollLeft <= 0;
+        const atRight = scroller.scrollLeft + scroller.clientWidth >= scroller.scrollWidth - 1;
+
+        // 휠 방향
+        const goingRight = e.deltaY > 0;
+        const goingLeft  = e.deltaY < 0;
+
+        // 끝에 닿았고 더 진행하려는 방향이면 -> 페이지 세로 스크롤을 막지 않음
+        if ((atRight && goingRight) || (atLeft && goingLeft)) {
+          return;
+        }
+
         scroller.scrollLeft += e.deltaY;
-        e.preventDefault(); // 페이지 전체 세로 스크롤 방지
+        e.preventDefault();
       }
     }, { passive: false });
   });
 
-  // 2) 드래그로 가로 스크롤
+  // 2) 드래그로 가로 스크롤 (클릭과 드래그를 임계값으로 구분)
   scrollers.forEach(scroller => {
-    let isDown = false, startX = 0, startLeft = 0, pid = null;
+    let isDown = false;
+    let startX = 0;
+    let startLeft = 0;
+    let moved = false;
+    const THRESHOLD = 6; // px
 
     scroller.addEventListener('pointerdown', (e) => {
+      // 좌클릭만
+      if (e.button !== 0) return;
+
       isDown = true;
-      pid = e.pointerId;
-      scroller.setPointerCapture(pid);
+      moved = false;
       startX = e.clientX;
       startLeft = scroller.scrollLeft;
+
+      // pointer capture는 유지하되, 클릭/드래그 구분을 threshold로 처리
+      scroller.setPointerCapture(e.pointerId);
     });
 
     scroller.addEventListener('pointermove', (e) => {
       if (!isDown) return;
       const dx = e.clientX - startX;
+
+      if (Math.abs(dx) > THRESHOLD) moved = true;
+      if (!moved) return;
+
       scroller.scrollLeft = startLeft - dx;
+      // 드래그 중에는 텍스트 선택/클릭 방지
+      e.preventDefault();
+    }, { passive: false });
+
+    scroller.addEventListener('pointerup', (e) => {
+      isDown = false;
+      try { scroller.releasePointerCapture(e.pointerId); } catch(_) {}
     });
 
-    const release = () => { isDown = false; pid = null; };
-    scroller.addEventListener('pointerup', release);
-    scroller.addEventListener('pointercancel', release);
-    scroller.addEventListener('mouseleave', release);
+    scroller.addEventListener('pointercancel', (e) => {
+      isDown = false;
+      try { scroller.releasePointerCapture(e.pointerId); } catch(_) {}
+    });
+
+    // 드래그로 판단된 경우에만 링크 클릭 막기 (PC에서 "클릭 안 됨" 방지용)
+    scroller.addEventListener('click', (e) => {
+      if (!moved) return;
+      const a = e.target.closest('a');
+      if (a) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      moved = false;
+    }, true);
   });
 }
 
