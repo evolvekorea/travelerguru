@@ -363,8 +363,10 @@ footer{
 .related .row.scroller{ grid-auto-columns: 48%; } /* related도 동일 축소감 */
 .related .card-img{ aspect-ratio:1/1; }
 
+/* ✅ 가로 스크롤(스와이프) 살리기 */
 .row.scroller{
-  touch-action: pan-y; /* 세로 스크롤 기본 허용 + 가로는 JS로 처리 */
+  touch-action: pan-x pan-y;   /* 가로+세로 모두 허용 */
+  -ms-touch-action: pan-x pan-y; /* 구형 MS 대응(있어도 무해) */
 }
 
 /* =========================
