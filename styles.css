@@ -542,3 +542,28 @@ footer{
 }
 
 .pager { pointer-events:none; }
+
+/* SNS 아이콘 공통 */
+.sns-ico{
+  width: 18px;
+  height: 18px;
+  display: block;
+  fill: currentColor; /* 기본은 글자색 따라감 */
+}
+
+/* YouTube 로고 느낌: 재생삼각형이 더 선명하게 보이도록 */
+.sns-btn.yt{
+  color: #e11d48; /* 원하면 #ff0000로 */
+}
+
+/* Instagram 로고 느낌 */
+.sns-btn.insta{
+  color: #d62976; /* 원하면 #d62976 같은 핑크 계열로 */
+}
+
+/* 유튜브 아이콘은 브랜드 컬러 고정 */
+.sns-ico.yt-ico{
+  width: 20px;
+  height: 20px;
+  display: block;
+}
