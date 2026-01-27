@@ -117,6 +117,20 @@
        <priority>1.0</priority>
    </url>
 
+   <url>
+       <loc>https://travelerguru.co.kr/other/2</loc>
+       <lastmod>2025-11-26</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>1.0</priority>
+   </url>
+
+   <url>
+       <loc>https://travelerguru.co.kr/other/3</loc>
+       <lastmod>2026-01-27</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>1.0</priority>
+   </url>
+
     <!-- travel + 하위페이지 -->
    <url>
        <loc>https://travelerguru.co.kr/travel</loc>
