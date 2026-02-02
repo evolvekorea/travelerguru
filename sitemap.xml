@@ -189,6 +189,13 @@
        <changefreq>daily</changefreq>
        <priority>1.0</priority>
    </url>
+   <url>
+       <loc>https://travelerguru.co.kr/stay/2</loc>
+       <lastmod>2026-02-02</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>1.0</priority>
+   </url>
+
 
 
 </urlset>
