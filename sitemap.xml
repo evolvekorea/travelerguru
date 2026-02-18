@@ -154,6 +154,12 @@
        <changefreq>daily</changefreq>
        <priority>1.0</priority>
    </url>
+   <url>
+       <loc>https://travelerguru.co.kr/food/22</loc>
+       <lastmod>2026-02-18</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>1.0</priority>
+   </url>
 
 
 
