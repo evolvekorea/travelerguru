@@ -52,14 +52,14 @@
 
 <header class="tg-header">
   <a class="icon-btn" href="/other/" aria-label="뒤로">←</a>
-  <h1 class="brand">기타</h1>
+  <h1 class="brand">여행 가이드</h1>
   <span class="icon-btn" aria-hidden="true"> </span>
 </header>
 
 <article>
   <header class="post-header">
     <div class="post-wrap">
-      <div class="post-meta">카테고리: 기타 · 2025-11-26</div>
+      <div class="post-meta">카테고리: 여행 가이드 · 2025-11-26</div>
       <h1 class="post-title">발리행 대한항공 KE433 비즈니스 후기, 프레스티지 스위트 2.0</h1>
     </div>
   </header>
@@ -234,13 +234,6 @@
   <div class="row scroller" id="rel-row"></div>
 </section>
 
-<nav class="tabbar">
-  <a class="tab" href="/"><span>🏠</span><em>홈</em></a>
-  <a class="tab" href="/food/"><span>🍜</span><em>맛집</em></a>
-  <a class="tab" href="/travel/"><span>🧭</span><em>여행</em></a>
-  <a class="tab" href="/stay/"><span>🛏️</span><em>숙소</em></a>
-  <a class="tab is-active" href="/other/"><span>📎</span><em>기타</em></a>
-</nav>
 
 <!-- 쿠팡 광고 -->
 <script src="https://ads-partners.coupang.com/g.js"></script>
@@ -308,7 +301,7 @@
   const ROW = document.getElementById('rel-row');
   if (!ROW) return;
 
-  const LABELS = { travel:'여행', food:'맛집', stay:'숙소', other:'기타' };
+  const LABELS = { travel:'여행', food:'맛집', stay:'숙소', other:'여행 가이드' };
 
   // URL 정규화: 절대화 → /index.html, 끝 슬래시 제거
   const normPath = (u) => {
@@ -361,12 +354,10 @@
           </span>`
         : '';
 
-      const catLabel = LABELS[it._cat] || '기타';
       a.innerHTML = `
         ${badge}
         <img class="card-img" src="${it.thumb||''}" alt="${it.title||''}" loading="lazy">
         <div class="card-body">
-          <span class="card-cat"># ${catLabel}</span>
           <h3 class="card-title">${it.title||''}</h3>
           <p class="card-excerpt">${it.excerpt||''}</p>
         </div>`;

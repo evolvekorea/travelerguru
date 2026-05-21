@@ -25,7 +25,6 @@
     <div style="width:38px"></div>
   </header>
 
-  <!-- ★ 국가 커버: src 에 이미지 경로 입력 -->
   <div class="cp-hero" id="cpHero">
     <img class="cp-hero-img" id="cpHeroImg" src="" alt="대한민국" loading="eager" onerror="this.style.display='none'" />
     <div class="cp-hero-overlay">
@@ -35,10 +34,7 @@
     </div>
   </div>
 
-  <!-- 카테고리 모자이크 -->
   <div class="cp-cat-mosaic">
-
-    <!-- ★ 여행기록 커버: src 에 이미지 경로 입력 (예: src="travel/cover.jpg") -->
     <a class="cp-cat-card-img cp-cat-wide" href="travel/" id="catTravel">
       <img class="cp-cat-bg" src="" alt="여행기록" onerror="this.style.display='none'" />
       <div class="cp-cat-info">
@@ -47,9 +43,7 @@
         <span class="cp-cat-count" id="cnt-travel">--</span>
       </div>
     </a>
-
     <div class="cp-cat-row">
-      <!-- ★ 맛집 커버: src 에 이미지 경로 입력 (예: src="food/cover.jpg") -->
       <a class="cp-cat-card-img" href="food/" id="catFood">
         <img class="cp-cat-bg" src="" alt="맛집" onerror="this.style.display='none'" />
         <div class="cp-cat-info">
@@ -58,7 +52,6 @@
           <span class="cp-cat-count" id="cnt-food">--</span>
         </div>
       </a>
-      <!-- ★ 숙소 커버: src 에 이미지 경로 입력 (예: src="stay/cover.jpg") -->
       <a class="cp-cat-card-img" href="stay/" id="catStay">
         <img class="cp-cat-bg" src="" alt="숙소" onerror="this.style.display='none'" />
         <div class="cp-cat-info">
@@ -68,19 +61,24 @@
         </div>
       </a>
     </div>
-
   </div>
-
-  <div style="padding:12px 18px 16px">
-    <ins class="adsbygoogle" style="display:block;min-height:60px"
-         data-ad-client="ca-pub-6532882266109488" data-ad-slot="0000000000"
-         data-ad-format="auto" data-full-width-responsive="true"></ins>
-  </div>
-  <script>try{(adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){}</script>
 
   <script>
   (async function () {
     const COUNTRY = 'korea';
+
+    // ================================================================
+    // ★★★ 커버 이미지 직접 수정 ★★★
+    //   원하는 이미지 경로를 입력하세요.
+    //   비워두면 가장 최근 게시물 썸네일이 자동으로 채워집니다.
+    // ================================================================
+    const COVERS = {
+      hero:   '',   // 국가 히어로 배경  예) 'food/images/p1.webp'
+      travel: '',   // 여행기록 카테고리 예) 'travel/images/cover.webp'
+      food:   '',   // 맛집 카테고리    예) 'food/images/p1.webp'
+      stay:   '',   // 숙소 카테고리    예) 'stay/images/cover.webp'
+    };
+    // ================================================================
 
     async function loadJSON(url) {
       try { const r = await fetch(url); return r.ok ? r.json() : []; } catch { return []; }
@@ -99,22 +97,23 @@
     // 국가 히어로 자동 채움
     const heroImg = document.getElementById('cpHeroImg');
     const countEl = document.getElementById('cpCount');
-    if (heroImg && !heroImg.src && allPosts.length) heroImg.src = allPosts[0].thumb || '';
+    if (heroImg) heroImg.src = COVERS.hero || (allPosts.length ? allPosts[0].thumb : '');
     if (countEl) countEl.textContent = `${allPosts.length}개의 기록`;
 
-    // 카테고리 개수 + 썸네일 자동 채움
+    // 카테고리 개수 + 썸네일
     const cats = [
-      { posts: travel.filter(p=>p.country===COUNTRY), countId:'cnt-travel', imgId:'catTravel' },
-      { posts: food.filter(p=>p.country===COUNTRY),   countId:'cnt-food',   imgId:'catFood'   },
-      { posts: stay.filter(p=>p.country===COUNTRY),   countId:'cnt-stay',   imgId:'catStay'   },
+      { posts: travel.filter(p=>p.country===COUNTRY), countId:'cnt-travel', imgId:'catTravel', coverKey:'travel' },
+      { posts: food.filter(p=>p.country===COUNTRY),   countId:'cnt-food',   imgId:'catFood',   coverKey:'food'   },
+      { posts: stay.filter(p=>p.country===COUNTRY),   countId:'cnt-stay',   imgId:'catStay',   coverKey:'stay'   },
     ];
-    cats.forEach(({ posts, countId, imgId }) => {
+    cats.forEach(({ posts, countId, imgId, coverKey }) => {
+      const sorted = [...posts].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
       const cEl = document.getElementById(countId);
       if (cEl) cEl.textContent = `${posts.length}개`;
       const card = document.getElementById(imgId);
       if (card) {
         const bg = card.querySelector('.cp-cat-bg');
-        if (bg && !bg.getAttribute('src') && posts.length) bg.src = posts[0].thumb || '';
+        if (bg) bg.src = COVERS[coverKey] || (sorted.length ? sorted[0].thumb : '');
       }
     });
   })();
