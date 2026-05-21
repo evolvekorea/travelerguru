@@ -22,7 +22,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
     </a>
     <div class="cat-header-center"><h1 class="cat-header-title">인도네시아</h1></div>
-    <div style="width:38px"></div>
+    <div style="width:18px"></div>
   </header>
 
   <div class="cp-hero" id="cpHero">
@@ -63,61 +63,124 @@
     </div>
   </div>
 
-  <script>
-  (async function () {
-    const COUNTRY = 'indonesia';
+<script>
+(async function () {
+  const COUNTRY = 'indonesia';
 
-    // ================================================================
-    // ★★★ 커버 이미지 직접 수정 ★★★
-    //   원하는 이미지 경로를 입력하세요.
-    //   비워두면 가장 최근 게시물 썸네일이 자동으로 채워집니다.
-    // ================================================================
-    const COVERS = {
-      hero:   '',   // 국가 히어로 배경  예) 'travel/images/1.webp'
-      travel: '',   // 여행기록 카테고리 예) 'travel/images/1.webp'
-      food:   '',   // 맛집 카테고리    예) 'food/images/Tukies1.webp'
-      stay:   '',   // 숙소 카테고리    예) 'stay/images/Kamandalu1.webp'
+  // ================================================================
+  // ★★★ 커버 이미지 직접 수정 ★★★
+  // ================================================================
+  const COVERS = {
+    hero:   './stay/images/Kamandalu1.webp',
+    travel: './travel/images/7.webp',
+    food:   './food/images/pison2.webp',
+    stay:   './stay/images/Kamandalu2.webp',
+  };
+  // ================================================================
+
+  async function loadJSON(url) {
+    try {
+      const r = await fetch(url);
+      return r.ok ? r.json() : [];
+    } catch {
+      return [];
+    }
+  }
+
+  const [food, travel, stay, other] = await Promise.all([
+    loadJSON('food/index.json'),
+    loadJSON('travel/index.json'),
+    loadJSON('stay/index.json'),
+    loadJSON('../other/index.json'),
+  ]);
+
+  const allPosts = [...food, ...travel, ...stay, ...other]
+    .filter(p => p.country === COUNTRY)
+    .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+  // ================================================================
+  // 국가 히어로
+  // ================================================================
+  const heroImg = document.getElementById('cpHeroImg');
+  const countEl = document.getElementById('cpCount');
+
+  if (heroImg) {
+    heroImg.style.display = 'block';
+
+    const heroSrc =
+      COVERS.hero ||
+      (allPosts.length ? allPosts[0].thumb : '');
+
+    heroImg.src = heroSrc;
+
+    heroImg.onerror = function () {
+      console.log('Hero image load fail:', heroSrc);
     };
-    // ================================================================
+  }
 
-    async function loadJSON(url) {
-      try { const r = await fetch(url); return r.ok ? r.json() : []; } catch { return []; }
+  if (countEl) {
+    countEl.textContent = `${allPosts.length}개의 기록`;
+  }
+
+  // ================================================================
+  // 카테고리 카드
+  // ================================================================
+  const cats = [
+    {
+      posts: travel.filter(p => p.country === COUNTRY),
+      countId: 'cnt-travel',
+      imgId: 'catTravel',
+      coverKey: 'travel'
+    },
+    {
+      posts: food.filter(p => p.country === COUNTRY),
+      countId: 'cnt-food',
+      imgId: 'catFood',
+      coverKey: 'food'
+    },
+    {
+      posts: stay.filter(p => p.country === COUNTRY),
+      countId: 'cnt-stay',
+      imgId: 'catStay',
+      coverKey: 'stay'
+    },
+  ];
+
+  cats.forEach(({ posts, countId, imgId, coverKey }) => {
+
+    const sorted = [...posts].sort((a, b) =>
+      (b.date || '').localeCompare(a.date || '')
+    );
+
+    const cEl = document.getElementById(countId);
+
+    if (cEl) {
+      cEl.textContent = `${posts.length}개`;
     }
 
-    const [food, travel, stay, other] = await Promise.all([
-      loadJSON('food/index.json'),
-      loadJSON('travel/index.json'),
-      loadJSON('stay/index.json'),
-      loadJSON('../other/index.json'),
-    ]);
+    const card = document.getElementById(imgId);
 
-    const allPosts = [...food, ...travel, ...stay, ...other]
-      .filter(p => p.country === COUNTRY)
-      .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+    if (card) {
+      const bg = card.querySelector('.cp-cat-bg');
 
-    // 국가 히어로 자동 채움
-    const heroImg = document.getElementById('cpHeroImg');
-    const countEl = document.getElementById('cpCount');
-    if (heroImg) heroImg.src = COVERS.hero || (allPosts.length ? allPosts[0].thumb : '');
-    if (countEl) countEl.textContent = `${allPosts.length}개의 기록`;
+      if (bg) {
 
-    // 카테고리 개수 + 썸네일
-    const cats = [
-      { posts: travel.filter(p=>p.country===COUNTRY), countId:'cnt-travel', imgId:'catTravel', coverKey:'travel' },
-      { posts: food.filter(p=>p.country===COUNTRY),   countId:'cnt-food',   imgId:'catFood',   coverKey:'food'   },
-      { posts: stay.filter(p=>p.country===COUNTRY),   countId:'cnt-stay',   imgId:'catStay',   coverKey:'stay'   },
-    ];
-    cats.forEach(({ posts, countId, imgId, coverKey }) => {
-      const sorted = [...posts].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
-      const cEl = document.getElementById(countId);
-      if (cEl) cEl.textContent = `${posts.length}개`;
-      const card = document.getElementById(imgId);
-      if (card) {
-        const bg = card.querySelector('.cp-cat-bg');
-        if (bg) bg.src = COVERS[coverKey] || (sorted.length ? sorted[0].thumb : '');
+        bg.style.display = 'block';
+
+        const imgSrc =
+          COVERS[coverKey] ||
+          (sorted.length ? sorted[0].thumb : '');
+
+        bg.src = imgSrc;
+
+        bg.onerror = function () {
+          console.log('Category image load fail:', imgSrc);
+        };
       }
-    });
-  })();
-  </script>
+    }
+  });
+
+})();
+</script>
 </body>
 </html>
