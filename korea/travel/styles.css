@@ -1,0 +1,402 @@
+/* =========================
+   토큰 & 베이스
+========================= */
+:root{
+  --bg:#faf8f4;
+  --paper:#ffffff;
+  --ink:#222;
+  --muted:#777;
+  --line:#e7e1d9;
+  --primary:#3563e9;
+  --accent:#f3efe7;
+  --shadow:0 6px 20px rgba(0,0,0,.06);
+
+  --radius:18px;
+  --maxw: 840px;   /* 전체 컨테이너 최대폭 */
+  --readw: 680px;  /* 본문(글줄) 최대폭 */
+}
+
+*{ box-sizing: border-box; }
+html, body{ margin:0; padding:0; }
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+               "Apple SD Gothic Neo", "Noto Sans KR", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* 이미지 기본 접근성 */
+img{ max-width:100%; height:auto; display:block; }
+img[alt=""]{ filter:brightness(.98); }
+
+/* 링크 기본 */
+a{ color:inherit; text-decoration:none; }
+
+/* =========================
+   상단 헤더 (사이트 공통)
+========================= */
+.tg-header{
+  position:sticky; top:0; z-index:10;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:8px;
+  padding:10px 14px;
+  background:#f0ece4cc;
+  backdrop-filter:saturate(120%) blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.tg-header .brand{ margin:0; font-size:16px; font-weight:700; letter-spacing:0.2px; }
+.icon-btn{ display:inline-flex; align-items:center; justify-content:center; min-width:28px; height:28px; }
+
+/* =========================
+   아티클 레이아웃 (상세 글)
+========================= */
+article{ max-width:var(--maxw); margin:0 auto; }
+
+/* 포스트 헤더 */
+.post-header{
+  padding:20px 14px 12px;
+  background:linear-gradient(180deg,#efeae1, #f7f4ee 60%, transparent);
+  border-bottom:1px solid var(--line);
+}
+.post-wrap{ max-width:var(--readw); margin:0 auto; }
+.post-title{ margin:6px 0 4px; font-size:28px; line-height:1.25; letter-spacing:-0.2px; }
+.post-meta{ color:var(--muted); font-size:12px; }
+
+/* 히어로 9:16 */
+.post-hero{
+  margin:14px auto; max-width:420px;
+  border-radius:var(--radius); overflow:hidden;
+  background:#ddd; box-shadow:var(--shadow);
+}
+.ar-9x16{ aspect-ratio:9/16; width:100%; object-fit:cover; background:linear-gradient(135deg,#eee,#ddd); }
+
+/* 태그 칩 */
+.post-tags{
+  display:flex; gap:8px; flex-wrap:wrap;
+  padding:6px 14px 0; max-width:var(--readw); margin:0 auto;
+}
+.tag{
+  font-size:12px; color:#444;
+  background:#f5f2ec; border:1px solid var(--line);
+  padding:6px 10px; border-radius:999px;
+}
+
+/* 본문 카드 */
+.post-body{ padding: 8px 14px 22px; }
+.prose{
+  max-width:var(--readw); margin:0 auto;
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:18px 16px;
+  box-shadow:var(--shadow);
+}
+.prose h2{ font-size:20px; margin:18px 0 8px; }
+.prose p{ margin:12px 0; font-size:16px; line-height:1.75; color:#2b2b2b; }
+.prose ul{ margin:10px 0 14px 22px; }
+.prose li{ margin:6px 0; }
+
+/* 콜아웃(팁) */
+.callout{
+  display:flex; gap:10px; align-items:flex-start;
+  background:#f6f9ff; border:1px solid #e4ecff;
+  padding:12px; border-radius:12px; margin:14px 0;
+}
+.callout b{ color:#2d55ff; }
+
+/* Figure + 캡션 */
+figure{ margin:16px 0; }
+.frame{
+  border-radius:14px; overflow:hidden;
+  border:1px solid var(--line);
+  background:#eee; box-shadow:var(--shadow);
+}
+.frame img{ width:100%; object-fit:cover; }
+figcaption{ font-size:12px; color:#666; margin-top:6px; text-align:center; }
+
+/* 스크롤 갤러리(세로 9:16 카드) */
+.scroll-gallery{
+  display:grid; grid-auto-flow:column; grid-auto-columns:80%;
+  gap:10px; overflow-x:auto; padding-bottom:8px;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+}
+.scroll-gallery .card{
+  scroll-snap-align:center;
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:14px; overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.scroll-gallery img{ width:100%; aspect-ratio:9/16; object-fit:cover; }
+.scroll-gallery .cap{ padding:8px 10px; font-size:13px; color:#444; }
+
+/* 광고 영역 */
+.ad-wrap{ margin:18px 0; }
+.ad-note{ text-align:center; color:#888; font-size:12px; margin-top:6px; }
+
+/* =========================
+   관련 글 카드 (가로 스크롤)
+========================= */
+.related{ padding:10px 12px 32px; max-width:var(--maxw); margin:0 auto; }
+.row.scroller{
+  display:grid;
+  grid-auto-flow:column;
+  grid-auto-columns:48%;
+  gap:12px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+}
+.card{
+  position:relative; display:block;
+  background:var(--paper); border:1px solid var(--line);
+  border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);
+  scroll-snap-align:center;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.card:hover{ transform:translateY(-2px); box-shadow:0 10px 28px rgba(0,0,0,.08); }
+.card-img{ width:100%; aspect-ratio:4/5; object-fit:cover; background:#eee; display:block; }
+.card-body{ padding:8px 10px; }
+.card-title{ font-size:14px; line-height:1.35; margin:4px 0 2px; }
+.card-excerpt{ font-size:12px; color:#555; margin:0; }
+.card-cat{ font-size:12px; color:#888; }
+
+/* =========================
+   탭바
+========================= */
+.tabbar{
+  position:sticky; bottom:0; z-index:5;
+  display:grid; grid-template-columns:repeat(5,1fr);
+  border-top:1px solid var(--line);
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(10px);
+}
+.tab{
+  display:flex; flex-direction:column; align-items:center; gap:2px;
+  padding:8px 0; font-size:12px; color:#333;
+}
+.tab.is-active{ color:var(--primary); font-weight:700; }
+
+/* =========================
+   데스크탑 업스케일
+========================= */
+@media (min-width: 900px){
+  .post-hero{ max-width:500px; }
+  .scroll-gallery{ grid-auto-columns:48%; }
+  .row.scroller{ grid-auto-columns: 32%; }
+
+  .combo{
+    display:grid; grid-template-columns: 9fr 11fr;
+    gap:18px; align-items:start;
+  }
+}
+
+/* 광고 컨테이너 */
+#ad, #coupang-ad{ width:100%; }
+.ad-wrap iframe[src*="ads-partners.coupang.com"]{
+  width:100% !important;
+  max-width:100% !important;
+  display:block;
+  border:0;
+}
+
+/* 별점 배지 */
+.star-badge{
+  position:absolute; top:8px; right:8px;
+  letter-spacing: 1px;
+  display:inline-flex; align-items:center;
+  padding:6px 8px; border-radius:12px;
+  background:rgba(255,255,255,.9);
+  border:1px solid #e7e1d9;
+  box-shadow: var(--shadow);
+}
+.star-badge .star{ font-size:12px; line-height:1; display:inline-block; }
+.star-badge .star.filled{ color:#FFC107; }
+.star-badge .star.empty{  color:#D9D9D9; }
+.star-badge .score{ display:none; }
+
+/* =========================================================
+   CATEGORY PAGE (food/travel/stay/other) — FINAL
+   목표:
+   - 상단 비침/틈 제거
+   - toolbar만 sticky
+   - 모바일에서 select 삐져나옴 방지
+========================================================= */
+
+/* 1) page-header / breadcrumb는 유지하되 "고정 해제" */
+.page-header{
+  position: static;
+  background:#ebe7df;
+  border-bottom:1px solid var(--line);
+  padding:12px 14px;
+  z-index: auto;
+}
+.page-title{ margin:0; font-size:18px; font-weight:800; }
+
+.breadcrumb{
+  position: static;
+  padding:10px 14px 0;
+  color:#666;
+  font-size:12px;
+  background: transparent;
+}
+.breadcrumb a{ color:#666; text-decoration:none; }
+
+/* 2) toolbar만 sticky + 완전 불투명 배경 + 그림자(비침 체감 제거) */
+.toolbar{
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 6px 18px rgba(0,0,0,.06);
+
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  padding:10px 12px;
+
+  max-width:100%;
+  overflow: hidden;
+}
+
+/* 3) flex 아이템 축소 허용(삐져나옴 핵심) */
+.toolbar > *{ min-width:0; }
+
+/* 4) input / select 공통 스타일(네 HTML 구조에 맞춤) */
+.tool-input{
+  flex: 1 1 320px;
+  width: 100%;
+  min-width: 0;
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid #ded8cf;
+  background:#fff;
+  font-size:14px;
+}
+
+.tool-select{
+  flex: 0 1 160px;
+  width: 160px;
+  max-width:100%;
+  min-width:0;
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid #ded8cf;
+  background:#fff;
+  font-size:14px;
+}
+
+/* 5) 모바일: 검색 1줄 + select 2개 2열 (select 고집을 width:0으로 제압) */
+@media (max-width: 480px){
+  .tool-input{ flex: 1 1 100%; }
+
+  .tool-select{
+    flex: 1 1 0;
+    width: 0;        /* 핵심 */
+    min-width: 0;    /* 핵심 */
+  }
+}
+
+/* 6) grid는 toolbar 밑으로 자연스럽게 흐르게(추가 여백 불필요) */
+main{ padding-top: 0; }
+
+/* =========================
+   Category grid: force 2 columns on mobile
+========================= */
+
+/* 카테고리 목록 그리드: 무조건 2열 */
+.grid{
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px;
+  padding: 12px;
+}
+
+/* 카드가 1열을 강제로 먹는 상황 방지 */
+.grid .card{
+  width: 100% !important;
+  max-width: 100% !important;
+  grid-column: auto !important;
+}
+
+/* 이미지가 너무 커 보이면 모바일에서만 조금 납작하게(선택) */
+@media (max-width: 480px){
+  .grid .card-img{
+    aspect-ratio: 1 / 1; /* 유지하고 싶으면 그대로 */
+    /* 더 작게 보이고 싶으면 아래로 변경
+    aspect-ratio: 4 / 3;
+    */
+  }
+}
+
+/* =========================================
+   PC에서도 모바일처럼(앱처럼) 보이게: 고정 폭 컨테이너
+   - food/styles.css 맨 아래에 그대로 붙여넣기
+========================================= */
+
+/* 0) 기준 폭(원하는 값으로 조절 가능) */
+:root{
+  --app-maxw: 480px; /* 420~520 추천 */
+}
+
+/* 1) PC에서 전체를 모바일 폭으로 가운데 정렬 */
+@media (min-width: 900px){
+  /* 페이지 상단(타이틀/빵크럼/필터/본문)을 같은 폭으로 맞춤 */
+  .page-header,
+  .breadcrumb,
+  .toolbar,
+  main{
+    max-width: var(--app-maxw);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* main 기본 padding이 너무 넓으면 모바일 느낌 깨짐 → 축소(선택) */
+  main{
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  /* 그리드는 “모바일처럼 2열” 고정 */
+  .grid{
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  /* 상단 타이틀/빵크럼 여백도 모바일 톤으로 */
+  .page-header{ padding-left: 14px; padding-right: 14px; }
+  .breadcrumb{ padding-left: 14px; padding-right: 14px; }
+
+  /* toolbar도 폭 안에서만 */
+  .toolbar{
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  /* 하단 탭바도 모바일 폭으로 가운데 고정 */
+  .tabbar{
+    position: fixed;             /* PC에서도 모바일처럼 하단 고정 */
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(100%, var(--app-maxw));
+    max-width: var(--app-maxw);
+    border-left: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    border-top-left-radius: 14px;  /* 선택: 앱 느낌 */
+    border-top-right-radius: 14px; /* 선택: 앱 느낌 */
+    overflow: hidden;
+  }
+
+  /* 하단 탭바가 fixed면 본문이 가려질 수 있어서 여백 확보 */
+  body{
+    padding-bottom: var(--tabbar-h);
+  }
+}
+
+/* 2) 화면이 매우 큰 PC에서도 너무 얇아 보이면 살짝 넓혀주기(선택) */
+@media (min-width: 1400px){
+  :root{ --app-maxw: 520px; }
+}

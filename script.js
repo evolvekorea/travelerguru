@@ -1,160 +1,297 @@
-// script.js
+/* =============================================
+   travelerguru — script.js (homepage)
+   ============================================= */
 
-// ===== 1) 카테고리 소스 정의 =====
-const CATEGORIES = [
-  { key: 'travel', label: '여행', json: 'travel/index.json' },
-  { key: 'food',   label: '맛집', json: 'food/index.json'   },
-  { key: 'stay',   label: '숙소', json: 'stay/index.json'   },
-  { key: 'other',  label: '기타', json: 'other/index.json'  },
+const COUNTRIES = [
+  { key: 'korea', name: '대한민국', flag: '🇰🇷', url: 'korea/' },
+  { key: 'bali',  name: '발리',    flag: '🌴',  url: 'bali/'  },
 ];
 
-// ===== 2) JSON 스키마 안내 =====
-/*
-각 카테고리 폴더의 index.json 예시:
+const GUIDE_ICONS = {
+  '에어포트': '🚗', '항공': '✈️', 'KE': '✈️',
+  '비즈니스': '✈️', '여행': '🧳', '호텔': '🏨', '리조트': '🏝️',
+};
 
-[
-  {
-    "title": "오사카 스시야 투어",
-    "excerpt": "현지인들이 가는 스시집 Top3를 돌아본 코스입니다.",
-    "thumb": "/food/images/osaka-sushi.jpg",
-    "url": "/food/osaka-sushi.html",
-    "date": "2025-09-01"
+function getGuideIcon(title) {
+  for (const [kw, ico] of Object.entries(GUIDE_ICONS)) {
+    if (title.includes(kw)) return ico;
   }
-]
-※ 영상 카드는 thumb = 영상 썸네일, url = 영상 상세/외부 플랫폼.
-*/
-
-// ===== 3) 유틸 =====
-const qs  = (s, el=document) => el.querySelector(s);
-const qsa = (s, el=document) => el.querySelectorAll(s);
-
-// 페이지 점(도트) 렌더
-function renderPager(container, total, activeIdx=0){
-  if (!container) return;
-  container.innerHTML = '';
-  for(let i=0; i<total; i++){
-    const d = document.createElement('span');
-    d.className = 'dot' + (i===activeIdx ? ' is-active':'');
-    container.appendChild(d);
-  }
+  return '📋';
 }
 
-// 스크롤 위치에 따라 pager 활성화 업데이트 (카드 너비 ≈ 1페이지 가정)
-function attachPager(scroller, pager){
-  if(!scroller || !pager) return;
-  const dots = () => [...pager.children];
+function formatDate(d) {
+  if (!d) return '';
+  return d.replace(/-/g, '.');
+}
 
-  const sync = () => {
-    const first = scroller.firstElementChild;
-    if (!first) return;
-    const style = getComputedStyle(scroller);
-    const gap = parseFloat(style.columnGap || style.gap || 12) || 12;
-    const cardWidth = first.getBoundingClientRect().width || 1;
-    const idx = Math.round(scroller.scrollLeft / (cardWidth + gap));
-    dots().forEach((d,i)=> d.classList.toggle('is-active', i===idx));
+async function fetchJSON(url) {
+  try {
+    const r = await fetch(url, { cache: 'no-store' });
+    if (!r.ok) return [];
+    return await r.json();
+  } catch { return []; }
+}
+
+// ── Hero (여행기록 only) ──────────────────────
+function initHero(travelPosts) {
+  const track  = document.getElementById('heroTrack');
+  const dotsEl = document.getElementById('heroDots');
+  if (!track) return;
+
+  const items = travelPosts
+    .sort((a, b) => (b.date || '').localeCompare(a.date || ''))
+    .slice(0, 8);
+
+  if (items.length === 0) {
+    track.closest('.hero-section').style.display = 'none';
+    return;
+  }
+
+  let current = 0;
+  let timer   = null;
+
+  items.forEach((item, i) => {
+    const slide = document.createElement('div');
+    slide.className = 'hero-slide';
+
+    const inner = document.createElement('a');
+    inner.className = 'hero-slide-inner';
+    inner.href = item.url || '#';
+    inner.innerHTML = `
+      <img class="hero-slide-img"
+           src="${item.thumb || ''}" alt="${item.title || ''}"
+           loading="${i === 0 ? 'eager' : 'lazy'}"
+           onerror="this.style.opacity='0'">
+      <div class="hero-slide-gradient"></div>
+      <div class="hero-slide-body">
+        <span class="hero-slide-cat">여행기록 · ${formatDate(item.date)}</span>
+        <h3 class="hero-slide-title">${item.title || ''}</h3>
+        <p class="hero-slide-excerpt">${item.excerpt || ''}</p>
+      </div>
+    `;
+    slide.appendChild(inner);
+    track.appendChild(slide);
+
+    if (items.length > 1) {
+      const dot = document.createElement('span');
+      dot.className = 'hero-dot' + (i === 0 ? ' is-active' : '');
+      dot.addEventListener('click', () => goTo(i));
+      dotsEl.appendChild(dot);
+    }
+  });
+
+  function goTo(idx) {
+    current = ((idx % items.length) + items.length) % items.length;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    [...dotsEl.children].forEach((d, i) =>
+      d.classList.toggle('is-active', i === current));
+  }
+
+  function startAuto() {
+    if (items.length <= 1) return;
+    stopAuto();
+    timer = setInterval(() => goTo(current + 1), 5500);
+  }
+  function stopAuto() { if (timer) clearInterval(timer); }
+
+  startAuto();
+  track.addEventListener('mouseenter', stopAuto);
+  track.addEventListener('mouseleave', startAuto);
+
+  let sx = 0;
+  track.addEventListener('touchstart', e => { sx = e.touches[0].clientX; stopAuto(); }, { passive: true });
+  track.addEventListener('touchend', e => {
+    const diff = sx - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) goTo(current + (diff > 0 ? 1 : -1));
+    startAuto();
+  }, { passive: true });
+}
+
+// ── Country Grid ─────────────────────────────
+function initCountries(allPosts) {
+  const grid = document.getElementById('countryGrid');
+  if (!grid) return;
+
+  COUNTRIES.forEach(c => {
+    const posts = allPosts
+      .filter(p => p.country === c.key)
+      .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+    if (posts.length === 0) return;
+
+    const thumb = posts[0]?.thumb || '';
+    const card  = document.createElement('a');
+    card.className = 'country-card';
+    card.href = c.url;
+    card.innerHTML = `
+      <img class="country-card-img" src="${thumb}" alt="${c.name}"
+           loading="lazy" onerror="this.style.opacity='0'">
+      <div class="country-card-overlay"></div>
+      <div class="country-card-body">
+        <span class="country-card-name">${c.name}</span>
+        <span class="country-card-count">지금까지 ${posts.length}개</span>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// ── Guide Section (image-focused) ────────────
+function initGuide(otherPosts) {
+  const gridEl = document.getElementById('guideGrid');
+  if (!gridEl) return;
+
+  const items = otherPosts
+    .sort((a, b) => (b.date || '').localeCompare(a.date || ''))
+    .slice(0, 4);
+
+  items.forEach(item => {
+    const icon = getGuideIcon(item.title || '');
+    const card = document.createElement('a');
+    card.className = 'guide-card';
+    card.href = item.url || '#';
+
+    if (item.thumb) {
+      card.innerHTML = `
+        <img class="guide-card-img" src="${item.thumb}" alt="${item.title || ''}"
+             loading="lazy" onerror="this.style.display='none';this.nextSibling.style.display='flex'">
+        <div class="guide-card-fallback-icon" style="display:none">${icon}</div>
+        <div class="guide-card-overlay"></div>
+        <div class="guide-card-body">
+          <p class="guide-card-title">${item.title || ''}</p>
+        </div>
+      `;
+    } else {
+      card.innerHTML = `
+        <div class="guide-card-fallback-icon">${icon}</div>
+        <div class="guide-card-overlay"></div>
+        <div class="guide-card-body">
+          <p class="guide-card-title">${item.title || ''}</p>
+        </div>
+      `;
+    }
+    gridEl.appendChild(card);
+  });
+}
+
+// ── Search ────────────────────────────────────
+function initSearch(allPosts) {
+  const overlay    = document.getElementById('searchOverlay');
+  const searchBtn  = document.getElementById('searchBtn');
+  const searchBack = document.getElementById('searchBack');
+  const input      = document.getElementById('searchInput');
+  const results    = document.getElementById('searchResults');
+  if (!overlay || !searchBtn) return;
+
+  const open  = () => {
+    overlay.classList.add('is-open');
+    overlay.removeAttribute('aria-hidden');
+    setTimeout(() => input?.focus(), 60);
+  };
+  const close = () => {
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+    if (input)   input.value = '';
+    if (results) results.innerHTML = '<p class="search-empty">검색어를 입력하세요</p>';
   };
 
-  // 초기 동기화
-  requestAnimationFrame(sync);
+  searchBtn.addEventListener('click', open);
+  searchBack?.addEventListener('click', close);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && overlay.classList.contains('is-open')) close();
+  });
 
-  scroller.addEventListener('scroll', () => {
-    window.requestAnimationFrame(sync);
-  }, { passive:true });
-}
-
-// (옵션) 별 문자열 생성 헬퍼 (정수 1~5) — 나중에 배지 쓸 때 사용
-function renderStars(n=0){
-  const v = Math.max(0, Math.min(5, parseInt(n,10) || 0));
-  let html = '';
-  for(let i=1; i<=5; i++){
-    html += `<span class="star ${i<=v ? 'filled' : 'empty'}">★</span>`;
-  }
-  return html;
-}
-
-// 카드 DOM 생성 (★ 수정본)
-function createCard(item, catLabel){
-  const a = document.createElement('a');
-  a.href = item.url || '#';
-  a.className = 'card';
-
-  // 별점 (index.json에 rating: 1~5 넣어두면 표시됨)
-  const ratingNum = Math.max(0, Math.min(5, Number(item.rating || 0)));
-  const badge = ratingNum > 0
-    ? `<span class="star-badge" aria-label="별점 ${ratingNum}점">
-         ${renderStars(ratingNum)}
-         <span class="score">${ratingNum}</span>
-       </span>`
-    : '';
-
-  a.innerHTML = `
-    ${badge}
-    <img class="card-img" src="${item.thumb || ''}" alt="${item.title || ''}" loading="lazy">
-    <div class="card-body">
-      <span class="card-cat"># ${catLabel}</span>
-      <h3 class="card-title">${item.title || ''}</h3>
-      <p class="card-excerpt">${item.excerpt || ''}</p>
-    </div>
-  `;
-  return a;
-}
-
-// ===== 4) 데이터 로드 & 렌더 =====
-async function loadCategory(cat){
-  try{
-    const res = await fetch(cat.json, { cache: 'no-store' });
-    if(!res.ok) throw new Error('load fail: ' + cat.json);
-    /** @type {Array} */
-    const list = await res.json();
-    // 최신순 정렬 (date DESC)
-    list.sort((a,b)=> (b.date||'').localeCompare(a.date||''));
-    return list;
-  }catch(e){
-    console.warn('[loadCategory]', e);
-    return [];
-  }
-}
-
-
-async function render(){
-  // 각 카테고리 로드
-  const map = {};
-  for(const cat of CATEGORIES){
-    map[cat.key] = await loadCategory(cat);
-  }
-
-  // 히어로: 카테고리 섞어서 상위 몇개 (최신 10개)
-  {
-    const heroEl = qs('[data-row="hero"]');
-    const heroPager = qs('[data-pager="hero"]');
-    if (heroEl) {
-      const merged = [...(map.travel||[]), ...(map.food||[]), ...(map.stay||[]), ...(map.other||[])]
-        .sort((a,b)=> (b.date||'').localeCompare(a.date||''))
-        .slice(0, 10); // ★ 10개
-
-      merged.forEach(item=>{
-        // 어떤 카테고리인지 라벨 찾기 (url 경로로 추정)
-        const cat = CATEGORIES.find(c => (item.url||'').startsWith('/'+c.key)) || CATEGORIES[0];
-        heroEl.appendChild(createCard(item, cat.label));
+  let debounce;
+  input?.addEventListener('input', () => {
+    clearTimeout(debounce);
+    debounce = setTimeout(() => {
+      const q = input.value.trim().toLowerCase();
+      if (!q) { results.innerHTML = '<p class="search-empty">검색어를 입력하세요</p>'; return; }
+      const hits = allPosts.filter(p =>
+        (p.title || '').toLowerCase().includes(q) ||
+        (p.excerpt || '').toLowerCase().includes(q)
+      ).slice(0, 20);
+      if (!hits.length) { results.innerHTML = `<p class="search-no-result">'${input.value}' 검색 결과가 없습니다</p>`; return; }
+      results.innerHTML = '';
+      hits.forEach(item => {
+        const a = document.createElement('a');
+        a.className = 'search-item';
+        a.href = item.url || '#';
+        a.innerHTML = `
+          <img class="search-item-thumb" src="${item.thumb || ''}" alt=""
+               loading="lazy" onerror="this.style.opacity='0'">
+          <div class="search-item-body">
+            <p class="search-item-title">${item.title || ''}</p>
+            <p class="search-item-meta">${item._catLabel || ''} · ${formatDate(item.date)}</p>
+          </div>
+        `;
+        results.appendChild(a);
       });
-      renderPager(heroPager, merged.length, 0);
-      attachPager(heroEl, heroPager);
-    }
-  }
-
-  // 카테고리별 행 (각 10개)
-  for(const cat of CATEGORIES){
-    const row   = qs(`[data-row="${cat.key}"]`);
-    const pager = qs(`[data-pager="${cat.key}"]`);
-    if (!row) continue;
-    const list = (map[cat.key] || []).slice(0, 10); // ★ 각 섹션 최대 10개
-    list.forEach(item => row.appendChild(createCard(item, cat.label)));
-    renderPager(pager, list.length, 0);
-    attachPager(row, pager);
-  }
-
-  // PC 가로 스크롤 UX 개선(휠/드래그) 활성화
-  enhanceDesktopScrollers(document);
+    }, 220);
+  });
 }
 
-document.addEventListener('DOMContentLoaded', render);
+// ── Drawer ────────────────────────────────────
+function initDrawer() {
+  const menuBtn  = document.getElementById('menuBtn');
+  const drawer   = document.getElementById('drawer');
+  const backdrop = document.getElementById('drawerBackdrop');
+  const closeBtn = document.getElementById('drawerClose');
+  if (!menuBtn || !drawer) return;
+
+  const open  = () => { drawer.classList.add('is-open'); backdrop.classList.add('is-open'); document.body.style.overflow = 'hidden'; };
+  const close = () => { drawer.classList.remove('is-open'); backdrop.classList.remove('is-open'); document.body.style.overflow = ''; };
+
+  menuBtn.addEventListener('click', open);
+  closeBtn?.addEventListener('click', close);
+  backdrop.addEventListener('click', close);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && drawer.classList.contains('is-open')) close();
+  });
+}
+
+// ── Subscribe ─────────────────────────────────
+function initSubscribe() {
+  const form    = document.getElementById('subscribeForm');
+  const success = document.getElementById('subscribeSuccess');
+  if (!form) return;
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    form.hidden = true;
+    if (success) success.hidden = false;
+  });
+}
+
+// ── Main ──────────────────────────────────────
+async function main() {
+  const [
+    baliFoodPosts, baliTravelPosts, baliStayPosts,
+    korFoodPosts, otherPosts,
+  ] = await Promise.all([
+    fetchJSON('bali/food/index.json'),
+    fetchJSON('bali/travel/index.json'),
+    fetchJSON('bali/stay/index.json'),
+    fetchJSON('korea/food/index.json'),
+    fetchJSON('other/index.json'),
+  ]);
+
+  const foodPosts   = [...baliFoodPosts,   ...korFoodPosts];
+  const travelPosts = [...baliTravelPosts];
+  const stayPosts   = [...baliStayPosts];
+
+  foodPosts.forEach(p   => { p._catLabel = '맛집'; });
+  travelPosts.forEach(p => { p._catLabel = '여행기록'; });
+  stayPosts.forEach(p   => { p._catLabel = '숙소'; });
+  otherPosts.forEach(p  => { p._catLabel = '가이드'; });
+
+  const allPosts = [...foodPosts, ...travelPosts, ...stayPosts, ...otherPosts];
+
+  initHero(travelPosts);
+  initCountries(allPosts);
+  initGuide(otherPosts);
+  initSearch(allPosts);
+  initDrawer();
+  initSubscribe();
+}
+
+document.addEventListener('DOMContentLoaded', main);

@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="여행가 구루의 트래블 노트, 맛집, 여행, 숙소 등" />
-  <meta name="keywords" content="여행가구루, 맛집, 여행, 숙소, 구루, 트래블러, 트래블러 구루" />
+  <meta name="keywords" content="여행가구루, 맛집, 여행, 숙소, 구루, 트래블러" />
   <link rel="canonical" href="https://travelerguru.co.kr/" />
 
-  <!-- Google Adsense 코드 -->
+  <!-- Google Adsense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6532882266109488" crossorigin="anonymous"></script>
 
-  <!-- Google Analytics 코드 -->
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-5TV9LY53LD"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -19,135 +19,166 @@
     gtag('config', 'G-5TV9LY53LD');
   </script>
 
-  <!-- 네이버 인증 태그 -->
+  <!-- 네이버 인증 -->
   <meta name="naver-site-verification" content="d8debc2895ddaeb9b1a69ff6753d9529e42f51ca" />
 
-  <title>여행가 구루의 트래블 노트</title>
+  <title>travelerguru — 여행가 구루의 트래블 노트</title>
+
+  <!-- Playfair Display (display font) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- 소셜 공유 미리보기 -->
-  <meta property="og:title" content="여행가 구루의 트래블 노트" />
+  <meta property="og:title" content="travelerguru — 여행가 구루의 트래블 노트" />
   <meta property="og:description" content="여행가 구루의 트래블 노트, 맛집, 여행, 숙소 등" />
   <meta property="og:url" content="https://www.travelerguru.co.kr" />
   <meta property="og:image" content="https://www.travelerguru.co.kr/images/head_image.jpg" />
   <meta property="og:type" content="website" />
-
-  <!-- 오류 보안 -->
   <link rel="icon" href="data:," />
 </head>
 <body>
 
   <!-- 헤더 -->
-<header class="tg-header">
-  <div class="spacer" aria-hidden="true"></div>
-
-  <h1 class="brand">
-    <a href="/">여행가 구루의 트래블 노트</a>
-  </h1>
-
-  <!-- 오른쪽 SNS 아이콘 -->
-<nav class="header-sns">
-  <a class="sns-btn insta"
-     href="https://www.instagram.com/traveler_guru1"
-     target="_blank" rel="noopener"
-     aria-label="인스타그램">
-    <!-- Instagram SVG -->
-    <svg class="sns-ico" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3z"/>
-      <path d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
-      <path d="M17.5 6.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-    </svg>
-  </a>
-
-    <a class="sns-btn yt"
-      href="https://www.youtube.com/@traveler_guru1"
-      target="_blank" rel="noopener"
-      aria-label="유튜브">
-      <!-- YouTube 공식 느낌 SVG -->
-      <svg class="sns-ico yt-ico" viewBox="0 0 24 24" aria-hidden="true">
-        <!-- 빨간 둥근 캡슐 -->
-        <path
-          d="M23 7.5a3.5 3.5 0 0 0-2.5-2.5C18.4 4.5 12 4.5 12 4.5s-6.4 0-8.5.5A3.5 3.5 0 0 0 1 7.5 36 36 0 0 0 .5 12a36 36 0 0 0 .5 4.5 3.5 3.5 0 0 0 2.5 2.5c2.1.5 8.5.5 8.5.5s6.4 0 8.5-.5a3.5 3.5 0 0 0 2.5-2.5A36 36 0 0 0 23.5 12a36 36 0 0 0-.5-4.5z"
-          fill="#FF0000"/>
-        <!-- 흰색 재생 삼각형 -->
-        <path d="M10 15.5V8.5L16 12l-6 3.5z" fill="#fff"/>
+  <header class="tg-header">
+    <button class="hd-btn menu-btn" id="menuBtn" aria-label="메뉴">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
       </svg>
-    </a>
-</nav>
-</header>
+    </button>
+    <h1 class="brand"><a href="/">travelerguru</a></h1>
+    <button class="hd-btn search-btn" id="searchBtn" aria-label="검색">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+    </button>
+  </header>
+
+  <!-- 검색 오버레이 -->
+  <div class="search-overlay" id="searchOverlay" aria-hidden="true">
+    <div class="search-box">
+      <button class="search-back" id="searchBack" aria-label="뒤로">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+      <input type="search" id="searchInput" class="search-input"
+             placeholder="여행지, 맛집을 검색하세요" autocomplete="off" />
+    </div>
+    <div class="search-results" id="searchResults">
+      <p class="search-empty">검색어를 입력하세요</p>
+    </div>
+  </div>
+
+  <!-- 사이드 드로어 -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <nav class="drawer" id="drawer">
+    <div class="drawer-head">
+      <span class="drawer-brand">travelerguru</span>
+      <button class="drawer-close" id="drawerClose">✕</button>
+    </div>
+    <ul class="drawer-list">
+      <li><a href="/" class="drawer-link is-active">홈</a></li>
+      <li><a href="korea/" class="drawer-link">한국</a></li>
+      <li><a href="bali/" class="drawer-link">발리</a></li>
+      <li><a href="other/" class="drawer-link">여행 가이드</a></li>
+    </ul>
+    <div class="drawer-footer">
+      <a href="https://www.instagram.com/traveler_guru1" target="_blank" rel="noopener" class="drawer-sns">Instagram</a>
+      <a href="https://www.youtube.com/@traveler_guru1" target="_blank" rel="noopener" class="drawer-sns">YouTube</a>
+    </div>
+  </nav>
 
   <main>
 
-    <!-- 히어로(상단 가로 스크롤 배너, 필요 없으면 지워도 됨) -->
-    <section class="hero-row" aria-label="추천">
-      <h2 class="row-title">오늘의 추천</h2>
-      <div class="row scroller" data-row="hero">
-        <!-- JS가 카드 삽입 -->
+    <!-- 히어로: 여행기록 (travel 카테고리만) -->
+    <section class="hero-section" aria-label="여행기록">
+      <div class="hero-label-row">
+        <span class="hero-section-label">여행기록</span>
       </div>
-      <div class="pager" data-pager="hero"></div>
+      <div class="hero-wrapper">
+        <div class="hero-track" id="heroTrack"></div>
+      </div>
+      <div class="hero-dots" id="heroDots"></div>
     </section>
 
-    <!-- 카테고리별 가로 슬라이드 4개 -->
-    <section id="sec-travel" class="post-row" aria-label="여행">
-      <div class="row-head">
-        <h2 class="row-title">여행</h2>
-        <a href="travel/" class="row-more">더보기 ›</a>
-      </div>
-      <div class="row scroller" data-row="travel"></div>
-      <div class="pager" data-pager="travel"></div>
-    </section>
-
-    <section id="sec-food" class="post-row" aria-label="맛집">
-      <div class="row-head">
-        <h2 class="row-title">맛집</h2>
-        <a href="food/" class="row-more">더보기 ›</a>
-      </div>
-      <div class="row scroller" data-row="food"></div>
-      <div class="pager" data-pager="food"></div>
-    </section>
-
-    <section id="sec-stay" class="post-row" aria-label="숙소">
-      <div class="row-head">
-        <h2 class="row-title">숙소</h2>
-        <a href="stay/" class="row-more">더보기 ›</a>
-      </div>
-      <div class="row scroller" data-row="stay"></div>
-      <div class="pager" data-pager="stay"></div>
-    </section>
-
-    <section id="sec-other" class="post-row" aria-label="기타">
-      <div class="row-head">
-        <h2 class="row-title">기타</h2>
-        <a href="other/" class="row-more">더보기 ›</a>
-      </div>
-      <div class="row scroller" data-row="other"></div>
-      <div class="pager" data-pager="other"></div>
-    </section>
-
-    <!-- 광고 예시 -->
+    <!-- 광고 -->
     <section class="ad-wrap">
       <ins class="adsbygoogle"
-           style="display:block;min-height:90px"
+           style="display:block;min-height:60px"
            data-ad-client="ca-pub-6532882266109488"
            data-ad-slot="0000000000"
            data-ad-format="auto"
            data-full-width-responsive="true"></ins>
     </section>
 
+    <!-- 국가별 여행 기록 -->
+    <section class="country-section" aria-label="국가별 여행 기록">
+      <div class="section-header">
+        <h2 class="section-title">국가별 여행 기록</h2>
+        <p class="section-desc">여러 나라의 여행 기록을 확인해보세요</p>
+      </div>
+      <div class="country-grid" id="countryGrid"></div>
+    </section>
+
+    <!-- 여행 가이드 -->
+    <section class="guide-section" aria-label="여행 가이드">
+      <div class="section-header">
+        <h2 class="section-title">여행 가이드</h2>
+        <p class="section-desc">여행 준비에 도움이 되는 정보들을 모아봤어요</p>
+      </div>
+      <div class="guide-grid" id="guideGrid"></div>
+      <a href="other/" class="section-more-btn">더보기 →</a>
+    </section>
+
+    <!-- 구독하기 -->
+    <section class="subscribe-section">
+      <div class="subscribe-icon">✉️</div>
+      <h2 class="subscribe-title">새로운 여행 기록을 놓치지 마세요</h2>
+      <p class="subscribe-desc">이메일을 구독하시면 새로운 글 소식을<br>가장 먼저 받아보실 수 있어요.</p>
+      <form class="subscribe-form" id="subscribeForm" novalidate>
+        <input type="email" class="subscribe-input" id="subscribeEmail"
+               placeholder="이메일 주소를 입력해주세요" autocomplete="email" />
+        <button type="submit" class="subscribe-btn">구독하기</button>
+      </form>
+      <p class="subscribe-success" id="subscribeSuccess" hidden>구독해 주셔서 감사합니다! 🎉</p>
+    </section>
+
   </main>
 
-  <!-- 하단 탭 (선택) -->
-  <nav class="tabbar" aria-label="탭">
-    <a class="tab is-active" href="#"><span>🏠</span><em>홈</em></a>
-    <a class="tab" href="food/"><span>🍜</span><em>맛집</em></a>
-    <a class="tab" href="travel/"><span>🧭</span><em>여행</em></a>
-    <a class="tab" href="stay/"><span>🛏️</span><em>숙소</em></a>
-    <a class="tab" href="other/"><span>📎</span><em>기타</em></a>
-  </nav>
+  <!-- 푸터 -->
+  <footer class="tg-footer">
+    <p class="footer-brand">travelerguru</p>
+    <p class="footer-tagline">여행을 기록하는 구루, 소식을 전합니다.</p>
+    <div class="footer-sns">
+      <a href="https://www.instagram.com/traveler_guru1" target="_blank" rel="noopener"
+         aria-label="인스타그램" class="footer-sns-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+      <a href="https://www.youtube.com/@traveler_guru1" target="_blank" rel="noopener"
+         aria-label="유튜브" class="footer-sns-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M22.5 6.5a2.8 2.8 0 0 0-2-2C18.8 4 12 4 12 4s-6.8 0-8.5.5a2.8 2.8 0 0 0-2 2A29 29 0 0 0 1 12a29 29 0 0 0 .5 5.5 2.8 2.8 0 0 0 2 2C5.2 20 12 20 12 20s6.8 0 8.5-.5a2.8 2.8 0 0 0 2-2A29 29 0 0 0 23 12a29 29 0 0 0-.5-5.5z"/>
+          <polygon points="10,15 16,12 10,9" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+    </div>
+    <nav class="footer-nav">
+      <a href="#">소개</a><span>·</span>
+      <a href="#">문의</a><span>·</span>
+    </nav>
+    <p class="footer-copy">© 2026 travelerguru. All rights reserved.</p>
+  </footer>
 
   <script defer src="script.js"></script>
-  <script>
-    try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
-  </script>
+  <script>try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}</script>
 </body>
 </html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="발리 여행기록 — travelerguru" />
+  <link rel="canonical" href="https://travelerguru.co.kr/bali/" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6532882266109488" crossorigin="anonymous"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5TV9LY53LD"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-5TV9LY53LD');</script>
+  <title>발리 — travelerguru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="icon" href="data:," />
+</head>
+<body>
+
+  <header class="cat-header">
+    <a href="../" class="cat-back" aria-label="홈으로">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </a>
+    <div class="cat-header-center"><h1 class="cat-header-title">발리</h1></div>
+    <div style="width:38px"></div>
+  </header>
+
+  <!-- ★ 국가 커버: src 에 이미지 경로 입력 -->
+  <div class="cp-hero" id="cpHero">
+    <img class="cp-hero-img" id="cpHeroImg" src="" alt="발리" loading="eager" onerror="this.style.display='none'" />
+    <div class="cp-hero-overlay">
+      <span class="cp-hero-flag">🌴</span>
+      <span class="cp-hero-name">발리</span>
+      <span class="cp-hero-count" id="cpCount">-- 개의 기록</span>
+    </div>
+  </div>
+
+  <!-- 카테고리 모자이크 -->
+  <div class="cp-cat-mosaic">
+
+    <!-- ★ 여행기록 커버: src 에 이미지 경로 입력 (예: src="travel/cover.jpg") -->
+    <a class="cp-cat-card-img cp-cat-wide" href="travel/" id="catTravel">
+      <img class="cp-cat-bg" src="" alt="여행기록" onerror="this.style.display='none'" />
+      <div class="cp-cat-info">
+        <span class="cp-cat-icon">✈️</span>
+        <span class="cp-cat-name">여행기록</span>
+        <span class="cp-cat-count" id="cnt-travel">--</span>
+      </div>
+    </a>
+
+    <div class="cp-cat-row">
+      <!-- ★ 맛집 커버: src 에 이미지 경로 입력 (예: src="food/cover.jpg") -->
+      <a class="cp-cat-card-img" href="food/" id="catFood">
+        <img class="cp-cat-bg" src="" alt="맛집" onerror="this.style.display='none'" />
+        <div class="cp-cat-info">
+          <span class="cp-cat-icon">🍽️</span>
+          <span class="cp-cat-name">맛집</span>
+          <span class="cp-cat-count" id="cnt-food">--</span>
+        </div>
+      </a>
+      <!-- ★ 숙소 커버: src 에 이미지 경로 입력 (예: src="stay/cover.jpg") -->
+      <a class="cp-cat-card-img" href="stay/" id="catStay">
+        <img class="cp-cat-bg" src="" alt="숙소" onerror="this.style.display='none'" />
+        <div class="cp-cat-info">
+          <span class="cp-cat-icon">🏨</span>
+          <span class="cp-cat-name">숙소</span>
+          <span class="cp-cat-count" id="cnt-stay">--</span>
+        </div>
+      </a>
+    </div>
+
+  </div>
+
+  <div style="padding:12px 18px 16px">
+    <ins class="adsbygoogle" style="display:block;min-height:60px"
+         data-ad-client="ca-pub-6532882266109488" data-ad-slot="0000000000"
+         data-ad-format="auto" data-full-width-responsive="true"></ins>
+  </div>
+  <script>try{(adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){}</script>
+
+  <script>
+  (async function () {
+    const COUNTRY = 'bali';
+
+    async function loadJSON(url) {
+      try { const r = await fetch(url); return r.ok ? r.json() : []; } catch { return []; }
+    }
+
+    const [food, travel, stay, other] = await Promise.all([
+      loadJSON('food/index.json'),
+      loadJSON('travel/index.json'),
+      loadJSON('stay/index.json'),
+      loadJSON('../other/index.json'),
+    ]);
+
+    const allPosts = [...food, ...travel, ...stay, ...other]
+      .filter(p => p.country === COUNTRY)
+      .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+    // 국가 히어로 자동 채움
+    const heroImg = document.getElementById('cpHeroImg');
+    const countEl = document.getElementById('cpCount');
+    if (heroImg && !heroImg.src && allPosts.length) heroImg.src = allPosts[0].thumb || '';
+    if (countEl) countEl.textContent = `${allPosts.length}개의 기록`;
+
+    // 카테고리 개수 + 썸네일 자동 채움
+    const cats = [
+      { posts: travel.filter(p=>p.country===COUNTRY), countId:'cnt-travel', imgId:'catTravel' },
+      { posts: food.filter(p=>p.country===COUNTRY),   countId:'cnt-food',   imgId:'catFood'   },
+      { posts: stay.filter(p=>p.country===COUNTRY),   countId:'cnt-stay',   imgId:'catStay'   },
+    ];
+    cats.forEach(({ posts, countId, imgId }) => {
+      const cEl = document.getElementById(countId);
+      if (cEl) cEl.textContent = `${posts.length}개`;
+      const card = document.getElementById(imgId);
+      if (card) {
+        const bg = card.querySelector('.cp-cat-bg');
+        if (bg && !bg.getAttribute('src') && posts.length) bg.src = posts[0].thumb || '';
+      }
+    });
+  })();
+  </script>
+</body>
+</html>

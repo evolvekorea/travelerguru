@@ -1,569 +1,1290 @@
-/* =========================
-   Font
-========================= */
-@font-face{
-  font-family:'Pretendard Variable';
-  src: local('Pretendard Variable'), local('Pretendard-Regular');
+/* =============================================
+   Fonts
+   ============================================= */
+@font-face {
+  font-family: "Pretendard Variable";
+  src: local("Pretendard Variable"), local("Pretendard-Regular");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 
-/* =========================
+/* =============================================
    Design Tokens
-========================= */
-:root{
-  --bg:#F3F1EC;
-  --ink:#212121;
-  --sub:#6b6b6b;
-  --paper:#fff;
-  --line:#e8e2d9;
-  --brand:#0F8BFF;
-  --chip:#ece7df;
-  --radius:18px;
-  --shadow: 0 6px 16px rgba(0,0,0,.08);
-  --tabbar-h:56px; /* 하단 탭바 높이 */
+   ============================================= */
+:root {
+  --bg: #f7f5f0;
+  --bg-card: #ffffff;
+  --ink: #1a1a1a;
+  --ink-light: #555555;
+  --ink-muted: #999999;
+  --line: #e8e3da;
+  --chip: #efebe3;
+  --radius-sm: 10px;
+  --radius: 14px;
+  --radius-lg: 20px;
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.06);
+  --shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.14);
+  --header-h: 56px;
+  --max-w: 480px;
 }
 
-/* =========================
-   Base
-========================= */
-*{ box-sizing:border-box; }
-
-html,body{
-  margin:0;
-  background:var(--bg);
-  color:var(--ink);
-  font-family:'Pretendard Variable', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', Segoe UI, Roboto, system-ui, sans-serif;
-  -webkit-text-size-adjust: 100%;
-}
-
-/* =========================
-   Header
-========================= */
-.tg-header{
-  position:sticky; top:0; z-index:50;
-  display:flex; align-items:center; justify-content:space-between;
-  padding:12px 14px;
-  padding-top: calc(12px + env(safe-area-inset-top)); /* iOS notch 대응 */
-  background:#ebe7df; border-bottom:1px solid var(--line);
-}
-.brand{ margin:0; font-size:18px; letter-spacing:.4px; }
-.icon-btn{ border:0; background:transparent; font-size:20px; }
-
-/* =========================
-   Layout
-========================= */
-main{
-  padding:12px;
-  padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom)); /* 탭바 공간 확보 */
-}
-
-.row-head{
-  display:flex; align-items:center; justify-content:space-between;
-  margin:6px 2px;
-}
-.row-title{ margin:0; font-size:16px; font-weight:800; }
-.row-more{ text-decoration:none; color:#4a4a4a; font-size:13px; }
-
-/* =========================
-   Horizontal Scroller
-========================= */
-.row.scroller{
-  display:grid; grid-auto-flow:column; grid-auto-columns: 48%; /* ↓ 절반 수준으로 축소 */
-  gap:12px; overflow-x:auto; padding:8px 2px 2px;
-  scroll-snap-type:x mandatory;
-  -webkit-overflow-scrolling:touch;
-  scrollbar-width: none;   
-  overscroll-behavior-x: contain;        /* Firefox */
-}
-.row.scroller::-webkit-scrollbar{ display:none; } /* Chrome/Safari */
-
-@media (min-width:460px){
-  .row.scroller{ grid-auto-columns: 32%; } /* 데스크탑/태블릿에서도 더 작게 */
-}
-
-/* =========================
-   Card
-========================= */
-.card{
-  scroll-snap-align:start;
-  position:relative;
-  border-radius:var(--radius);
-  background:var(--paper);
-  box-shadow:var(--shadow);
-  overflow:hidden;
-  transition: transform .12s ease, box-shadow .12s ease; /* touch feedback */
-}
-.card:active{
-  transform: scale(.98);
-  box-shadow: 0 4px 12px rgba(0,0,0,.06);
-}
-
-.card-img{
-  width:100%;
-  aspect-ratio: 1 / 1;   /* 1:1 정사각형 */
-  height:auto;
-  object-fit:cover;
-  display:block;
-  background:linear-gradient(135deg,#ececec,#e2e2e2);
-}
-
-/* 히어로 배너도 동일하게 정사각형으로 */
-.hero-row .row.scroller .card-img{
-  aspect-ratio: 1 / 1;
-}
-
-.card-body{ padding:10px 12px 12px; }
-
-.card-cat{
-  display:inline-flex; align-items:center; gap:6px;
-  font-size:11px; color:#555;
-  background:#f3f3f3;
-  border-radius:999px; padding:6px 8px;
-  margin-bottom:8px;
-}
-
-.card-title{
-  margin:0 0 6px;
-  font-size:15px; font-weight:800; color:var(--ink);
-  line-height:1.35;
-}
-
-/* -------------------------
-   Excerpt (2줄 말줄임)
-------------------------- */
-/* 기본(모든 브라우저) – 높이 제한으로 fallback */
-.card-excerpt{
+/* =============================================
+   Base Reset
+   ============================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
-  font-size: 13px;
-  color: #595959;
-  line-height: 1.45;
-  max-height: calc(1.45em * 2);
-  overflow: hidden;
+  padding: 0;
 }
 
-/* 표준 + WebKit 같이 선언 (린터 경고 해소 목적 포함) */
-@supports (line-clamp: 2) or (-webkit-line-clamp: 2) {
-  .card-excerpt{
-    display: -webkit-box;          /* WebKit 구현에 필요 */
-    -webkit-box-orient: vertical;  /* WebKit 구현에 필요 */
-    -webkit-line-clamp: 2;         /* 크롬/사파리 등 */
-    line-clamp: 2;                 /* 표준(지원되는 경우) */
-    overflow: hidden;
-  }
+html,
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family:
+    "Pretendard Variable",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Apple SD Gothic Neo",
+    "Malgun Gothic",
+    system-ui,
+    sans-serif;
+  -webkit-text-size-adjust: 100%;
+  word-break: keep-all;
 }
 
-/* =========================
-   Pager (dots)
-========================= */
-.pager{
-  display:flex;
-  justify-content:center; /* ← 가운데 정렬 */
-  align-items:center;
-  gap:6px;
-  padding:8px 0 10px;
-  width:100%;
+a {
+  color: inherit;
+  text-decoration: none;
 }
-.pager .dot{
-  width:8px; height:8px; border-radius:999px; background:#cdc8c0;
-  transition: all .2s ease;
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
 }
-.pager .dot.is-active{
-  width:22px; background:#222;
+img {
+  display: block;
+  max-width: 100%;
 }
-
-/* =========================
-   Tab Bar
-========================= */
-.tabbar{
-  position:fixed; left:0; right:0; bottom:0; z-index:60;
-  display:grid; grid-template-columns:repeat(5,1fr);
-  background:#fff; border-top:1px solid var(--line);
-  height: var(--tabbar-h);
-  padding-bottom: env(safe-area-inset-bottom); /* iOS home indicator */
+ul,
+ol {
+  list-style: none;
 }
-.tab{
-  text-decoration:none; color:#777;
-  padding:8px 0 10px;
-  display:flex; flex-direction:column; align-items:center; gap:4px;
-  font-size:12px;
-}
-.tab span{ font-size:18px; }
-.tab.is-active{ color:#111; font-weight:700; }
-
-/* =========================
-   Ad
-========================= */
-.ad-wrap{ margin:14px 0; }
-/* 광고 로드 안 됐을 때 빈 공간 제거 */
-.ad-wrap:has(ins.adsbygoogle:empty){ display:none; }
-
-/* =========================
-   Footer
-========================= */
-footer{
-  text-align:center; color:#8a867e; font-size:12px;
-  padding:18px 12px 16px; /* 하단 공간 축소 */
-}
-.email-link{ color:#6a88ff; text-decoration:underline; }
-
-/* =========================
-   Dark Mode (optional)
-========================= */
-@media (prefers-color-scheme: dark){
-  :root{
-    --bg:#141414;
-    --paper:#1c1c1c;
-    --ink:#f0f0f0;
-    --sub:#b8b8b8;
-    --line:#2a2a2a;
-  }
-  .tg-header{ background:#1b1b1b; border-bottom-color: var(--line); }
-  .tabbar{ background:#1b1b1b; border-top-color: var(--line); }
-  .card-cat{ background:#2a2a2a; color:#ccc; }
-  .pager .dot{ background:#444; }
-  .pager .dot.is-active{ background:#ddd; }
+input,
+select,
+textarea {
+  font-family: inherit;
 }
 
-/* =========================
-   SNS Split Links (Instagram / YouTube)
-========================= */
-/* 헤더 전체 레이아웃 */
-/* ========== Header ========== */
-.tg-header{
-  position: sticky; top: 0; z-index: 50;
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 10px; height: 56px; padding: 0 14px;
-
-  /* 글래스 + 은은한 그라데이션 */
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.65));
-  backdrop-filter: saturate(140%) blur(8px);
-  -webkit-backdrop-filter: saturate(140%) blur(8px);
-
-  border-bottom: 1px solid rgba(0,0,0,0.06);
-  box-shadow: 0 2px 14px rgba(0,0,0,.06);
+/* =============================================
+   Display Font (Playfair Display)
+   Applied to brand, section headings, hero titles
+   ============================================= */
+.font-display {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
 }
 
-/* 좌우 균형용 빈 박스 (타이틀 중앙정렬 유지) */
-.tg-header .spacer{ width: 72px; }
-
-/* 타이틀 */
-.tg-header .brand{
-  margin: 0; flex: 1; text-align: center;
-  font-size: 18px; font-weight: 800; letter-spacing: .2px;
-}
-.tg-header .brand a{
-  color: #0f172a; text-decoration: none;
-}
-
-/* 오른쪽 SNS 버튼 */
-.header-sns{ display: flex; gap: 8px; }
-.sns-btn{
-  width: 32px; height: 32px; display: grid; place-items: center;
-  font-size: 18px; border-radius: 10px;
-  background: #f6f7fb; border: 1px solid rgba(0,0,0,.06);
-  transition: transform .08s ease, background .2s ease, border-color .2s ease;
-  text-decoration: none; color: #0f172a;
-}
-.sns-btn.insta{ background: #f4f6ff; }
-.sns-btn.yt   { background: #fff5f5; }
-.sns-btn:hover, .sns-btn:focus-visible{
-  transform: translateY(-1px);
-  border-color: rgba(0,0,0,.12);
-  outline: none;
-}
-
-/* 다크모드 살짝 보정 (선택) */
-@media (prefers-color-scheme: dark){
-  .tg-header{
-    background: linear-gradient(180deg, rgba(20,24,32,.75), rgba(20,24,32,.6));
-    border-bottom: 1px solid rgba(255,255,255,.06);
-    box-shadow: 0 2px 14px rgba(0,0,0,.3);
-  }
-  .tg-header .brand a{ color: #e5e7eb; }
-  .sns-btn{ background: #202633; color: #e5e7eb; border-color: rgba(255,255,255,.06); }
-  .sns-btn.insta{ background:#23293a; }
-  .sns-btn.yt   { background:#2b1f1f; }
-}
-
-/* 데스크탑(정밀 포인터)에서는 가로 스크롤바 표시 */
-@media (hover:hover) and (pointer:fine){
-  .row.scroller{ scrollbar-width: thin; }
-  .row.scroller::-webkit-scrollbar{ height:8px; display: initial; }
-  .row.scroller::-webkit-scrollbar-thumb{
-    background: #c4c0b8; border-radius: 8px;
-  }
-  .row.scroller::-webkit-scrollbar-track{
-    background: transparent;
-  }
-}
-
-/* =========================
-   Category List Page
-========================= */
-.page-header{
-  position:sticky; top:0; z-index:50;
-  background:#ebe7df; border-bottom:1px solid var(--line);
-  padding:12px 14px;
-}
-.page-title{ margin:0; font-size:18px; font-weight:800; }
-
-.breadcrumb{ padding:10px 14px 0; color:#666; font-size:12px; }
-.breadcrumb a{ color:#666; text-decoration:none; }
-
-.toolbar{ display:flex; gap:8px; padding:10px 12px; background:var(--bg); position:sticky; top:52px; z-index:40; }
-.tool-input,.tool-select{
-  flex:1; padding:10px 12px;
-  border-radius:12px; border:1px solid #ded8cf;
-  background:#fff; font-size:14px;
-}
-
-.grid{
-  display:grid; grid-template-columns: repeat(2, 1fr);
-  gap:12px; padding:12px;
-}
-@media (min-width:700px){
-  .grid{ grid-template-columns: repeat(3, 1fr); }
-}
-.grid .card-img{ aspect-ratio: 1 / 1; }
-.grid .card{ box-shadow: var(--shadow); }
-.empty{ padding:28px 14px; color:#777; font-size:14px; }
-
-/* =========================
-   Post Page
-========================= */
-.post-header{ padding:16px 14px 8px; background:#ebe7df; border-bottom:1px solid var(--line); }
-.post-title{ margin:0 0 6px; font-size:22px; line-height:1.3; }
-.post-meta{ color:#777; font-size:12px; }
-
-.post-hero{ margin:12px; border-radius:18px; overflow:hidden; box-shadow:var(--shadow); background:#ddd; }
-.post-hero img, .post-hero video{
-  width:100%; display:block; object-fit:cover;
-  aspect-ratio: 1/1; /* 1:1 정사각형 */
-  background:#eee;
-}
-
-.post-body{ padding: 0 14px 14px; }
-.post-body h2{ font-size:18px; margin:18px 0 8px; }
-.post-body p{ margin:10px 0; font-size:15px; color:#333; line-height:1.68; }
-.post-body img{ width:100%; border-radius:12px; margin:12px 0; object-fit:cover; background:#eee; }
-
-.post-tags{ display:flex; gap:8px; flex-wrap:wrap; padding:12px 14px 0; }
-.tag{ font-size:12px; background:#f1eee7; border:1px solid #e7e1d9; padding:6px 10px; border-radius:999px; color:#444; }
-
-.share{ display:flex; gap:8px; padding:8px 14px; }
-.share a{ text-decoration:none; border:1px solid #ded8cf; background:#fff; padding:8px 12px; border-radius:10px; font-size:13px; color:#333; }
-
-.post-nav{ display:flex; justify-content:space-between; gap:8px; padding:12px 14px 20px; }
-.post-nav a{ flex:1; text-decoration:none; background:#fff; border:1px solid #e2dbd2; border-radius:12px; padding:10px; color:#333; text-align:center; }
-
-.related{ padding:10px 12px 24px; }
-.related .row.scroller{ grid-auto-columns: 48%; } /* related도 동일 축소감 */
-.related .card-img{ aspect-ratio:1/1; }
-
-/* ✅ 가로 스크롤(스와이프) 살리기 */
-.row.scroller{
-  touch-action: pan-x pan-y;   /* 가로+세로 모두 허용 */
-  -ms-touch-action: pan-x pan-y; /* 구형 MS 대응(있어도 무해) */
-}
-
-/* =========================
-   Star Badge on Thumbnails
-========================= */
-.star-badge{
-  position:absolute;
-  top:8px; right:8px;
-  z-index:2;
-  display:inline-flex;       /* flex로 변경 */
-  gap:0;                     /* 별 간격 강제 0 */
-  padding:6px 8px;
-  border-radius:999px;
-  background:rgba(0,0,0,.55);
-  color:#fff;
-  font-size:12px;            /* 다시 부모에서도 정상 폰트 크기 유지 */
-  line-height:1;
-  box-shadow:0 4px 12px rgba(0,0,0,.25);
-  -webkit-backdrop-filter: blur(3px);
-  backdrop-filter: blur(3px);
-}
-
-.star-badge .star {
-  display:inline-block;
-  font-size:12px;            /* 별 크기 */
-  margin:0;                  /* 간격 제거 */
-  padding:0;
-}
-
-.star-badge .star.filled { color: gold; }
-.star-badge .star.empty  { color: #ddd; }
-
-.star-badge .score{ display:none; }
-
-/* =========================
-   PC Thumbnail & Card Size Tuning (Paste at END)
-   목적: PC에서 카드/사진이 너무 커 보이는 문제 해결
-========================= */
-
-/* 1) 태블릿/PC: 카드 폭을 더 작게(더 많이 보이게) + 간격/텍스트 슬림화 */
-@media (min-width: 768px){
-  /* 카드 가로폭 축소: 4~5개 보이는 느낌 */
-  .row.scroller{
-    grid-auto-columns: 22%;
-    gap: 10px;
-    padding: 8px 2px 2px;
+/* =============================================
+   PC App Frame (480px centered)
+   ============================================= */
+@media (min-width: 700px) {
+  body {
+    background: #ddd9d0;
   }
 
-  /* PC에서 썸네일을 납작하게: 정사각형(1:1) → 4:3 */
-  .card-img{
-    aspect-ratio: 4 / 3;
-  }
-
-  /* 히어로는 배너 느낌으로 더 납작하게 */
-  .hero-row .row.scroller .card-img{
-    aspect-ratio: 16 / 10;
-  }
-
-  /* 카드 바디/텍스트 조금 컴팩트하게 */
-  .card-body{ padding: 8px 10px 10px; }
-  .card-title{ font-size: 14px; line-height: 1.35; }
-  .card-excerpt{ font-size: 12.5px; }
-}
-
-/* 2) 큰 PC: 더 촘촘하게(5~6개 보이는 느낌) */
-@media (min-width: 1200px){
-  .row.scroller{
-    grid-auto-columns: 18%;
-    gap: 10px;
-  }
-}
-
-/* 3) related(관련 글)도 PC에서 동일 톤으로 */
-@media (min-width: 768px){
-  .related .row.scroller{
-    grid-auto-columns: 22%;
-  }
-}
-@media (min-width: 1200px){
-  .related .row.scroller{
-    grid-auto-columns: 18%;
-  }
-}
-
-/* =========================================================
-   PC = MOBILE APP FRAME (header/main/tabbar unified)
-   - Paste at END of styles.css
-========================================================= */
-
-@media (min-width: 900px){
-
-  /* 1) 페이지를 가운데 "앱 프레임"처럼 */
-  body{
-    background: var(--bg);
-  }
-
-  /* header/main/tabbar를 동일 폭으로 통일 */
   .tg-header,
+  .tg-footer,
   main,
-  .tabbar{
-    width: 420px;
-    max-width: 420px;
+  .cat-header,
+  .star-filter-bar,
+  .cat-toolbar,
+  .cat-main,
+  .cp-hero,
+  .cp-cat-mosaic,
+  .cp-main-wrap {
+    max-width: var(--max-w);
     margin-left: auto;
     margin-right: auto;
   }
 
-  /* 2) 헤더도 프레임 폭에 맞춰 고정(전체폭 sticky 느낌 제거) */
-  .tg-header{
+  .tg-header,
+  .cat-header {
+    position: sticky;
     left: 50%;
     transform: translateX(-50%);
     right: auto;
-    border-left: 1px solid rgba(0,0,0,.06);
-    border-right: 1px solid rgba(0,0,0,.06);
-    border-bottom: 1px solid var(--line);
-    border-radius: 0; /* 필요하면 16px로 */
+    border-left: 1px solid rgba(0, 0, 0, 0.08);
+    border-right: 1px solid rgba(0, 0, 0, 0.08);
   }
 
-  /* 3) 본문도 프레임 내부처럼(양옆 라인) */
-  main{
-    border-left: 1px solid rgba(0,0,0,.06);
-    border-right: 1px solid rgba(0,0,0,.06);
-    padding: 12px;
-    padding-bottom: calc(var(--tabbar-h) + 12px); /* 탭바 공간 확보 */
-  }
-
-  /* 4) 문제의 핵심: tabbar를 "프레임 폭"에만 fixed */
-  .tabbar{
-    position: fixed;
-    left: 50%;
-    transform: translateX(-50%);
-    right: auto;
-    bottom: 0;
-    border-left: 1px solid rgba(0,0,0,.06);
-    border-right: 1px solid rgba(0,0,0,.06);
-    border-top: 1px solid var(--line);
-  }
-
-  /* 5) PC에서 모바일 느낌 유지: 행/카드 비율 모바일 규칙으로 되돌림 */
-  .row.scroller{
-    grid-auto-columns: 48%;
-    gap: 12px;
-  }
-
-  .card-img{
-    aspect-ratio: 1 / 1;
-  }
-
-  .hero-row .row.scroller .card-img{
-    aspect-ratio: 1 / 1;
-  }
-
-  /* 6) PC 전용 튜닝(22%, 18%, 4:3, 16:10)을 확실히 무력화 */
-  .related .row.scroller{
-    grid-auto-columns: 48%;
-  }
-}
-
-/* =========================================================
-   Optional: 더 "앱" 같게 보이게(PC에서만)
-   - 필요 없으면 아래 블록 통째로 삭제
-========================================================= */
-@media (min-width: 900px){
-  /* 프레임 바깥 여백 */
-  body{
-    padding: 20px 0;
-  }
-
-  /* 프레임에 그림자(앱 화면 느낌) */
-  main{
-    box-shadow: 0 16px 40px rgba(0,0,0,.10);
+  main {
+    box-shadow: var(--shadow-lg);
     background: var(--bg);
+    border-left: 1px solid rgba(0, 0, 0, 0.08);
+    border-right: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .tg-footer {
+    background: var(--bg);
+    border-left: 1px solid rgba(0, 0, 0, 0.08);
+    border-right: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .cp-hero,
+  .cp-cat-mosaic,
+  .star-filter-bar,
+  .cat-toolbar,
+  .cat-main {
+    border-left: 1px solid rgba(0, 0, 0, 0.08);
+    border-right: 1px solid rgba(0, 0, 0, 0.08);
   }
 }
 
-.pager { pointer-events:none; }
-
-/* SNS 아이콘 공통 */
-.sns-ico{
-  width: 18px;
-  height: 18px;
-  display: block;
-  fill: currentColor; /* 기본은 글자색 따라감 */
+/* =============================================
+   Header
+   ============================================= */
+.tg-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  background: rgba(247, 245, 240, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
 }
 
-/* YouTube 로고 느낌: 재생삼각형이 더 선명하게 보이도록 */
-.sns-btn.yt{
-  color: #e11d48; /* 원하면 #ff0000로 */
+.brand {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 19px;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 0.3px;
+  color: var(--ink);
+}
+.brand a {
+  color: inherit;
 }
 
-/* Instagram 로고 느낌 */
-.sns-btn.insta{
-  color: #d62976; /* 원하면 #d62976 같은 핑크 계열로 */
+.hd-btn {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  color: var(--ink);
+  transition: background 0.15s;
 }
-
-/* 유튜브 아이콘은 브랜드 컬러 고정 */
-.sns-ico.yt-ico{
+.hd-btn:hover {
+  background: var(--chip);
+}
+.hd-btn svg {
   width: 20px;
   height: 20px;
+}
+
+/* =============================================
+   Search Overlay
+   ============================================= */
+.search-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  transform: translateY(-100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.search-overlay.is-open {
+  transform: translateY(0);
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-card);
+}
+.search-back {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+  flex-shrink: 0;
+}
+.search-back svg {
+  width: 22px;
+  height: 22px;
+}
+
+.search-input {
+  flex: 1;
+  height: 42px;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 16px;
+  color: var(--ink);
+}
+.search-input::placeholder {
+  color: var(--ink-muted);
+}
+
+.search-results {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+.search-empty,
+.search-no-result {
+  padding: 28px 16px;
+  color: var(--ink-muted);
+  font-size: 14px;
+  text-align: center;
+}
+
+.search-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  color: var(--ink);
+  transition: background 0.12s;
+}
+.search-item:hover {
+  background: var(--chip);
+}
+.search-item-thumb {
+  width: 54px;
+  height: 54px;
+  border-radius: 10px;
+  object-fit: cover;
+  background: var(--line);
+  flex-shrink: 0;
+}
+.search-item-body {
+  flex: 1;
+  min-width: 0;
+}
+.search-item-title {
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.search-item-meta {
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-top: 3px;
+}
+
+/* =============================================
+   Drawer (Side Menu)
+   ============================================= */
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+}
+.drawer-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 160;
+  width: 280px;
+  background: var(--bg-card);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 4px 0 30px rgba(0, 0, 0, 0.15);
+}
+.drawer.is-open {
+  transform: translateX(0);
+}
+
+.drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--line);
+}
+.drawer-brand {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 17px;
+  font-weight: 700;
+  font-style: italic;
+}
+.drawer-close {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  color: var(--ink-muted);
+  border-radius: 8px;
+}
+.drawer-close:hover {
+  background: var(--chip);
+}
+
+.drawer-list {
+  flex: 1;
+  padding: 8px 0;
+}
+.drawer-link {
   display: block;
+  padding: 13px 22px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  transition: background 0.12s;
+}
+.drawer-link:hover,
+.drawer-link.is-active {
+  background: var(--chip);
+  font-weight: 700;
+}
+
+.drawer-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  gap: 10px;
+}
+.drawer-sns {
+  font-size: 12px;
+  color: var(--ink-light);
+  padding: 6px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  transition: border-color 0.15s;
+}
+.drawer-sns:hover {
+  border-color: var(--ink);
+}
+
+/* =============================================
+   Main Layout
+   ============================================= */
+main {
+  padding-bottom: 40px;
+}
+
+/* =============================================
+   Section Common
+   ============================================= */
+.section-header {
+  padding: 0 18px 16px;
+}
+.section-title {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  margin-bottom: 5px;
+  color: var(--ink);
+}
+.section-desc {
+  font-size: 13px;
+  color: var(--ink-muted);
+}
+
+.section-more-btn {
+  display: block;
+  width: fit-content;
+  margin: 14px auto 0;
+  padding: 10px 22px;
+  background: transparent;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: 0.3px;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+.section-more-btn:hover {
+  background: var(--ink);
+  color: #fff;
+}
+
+/* =============================================
+   Hero Section
+   ============================================= */
+.hero-section {
+  padding: 18px 0 0;
+}
+
+.hero-label-row {
+  padding: 0 18px 12px;
+}
+.hero-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.hero-wrapper {
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-track {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.hero-slide {
+  min-width: 100%;
+  padding: 0 18px;
+}
+
+.hero-slide-inner {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 3 / 2;
+  background: linear-gradient(135deg, #ccc9c0, #b8b4aa);
+  display: block;
+}
+
+.hero-slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.hero-slide-inner:hover .hero-slide-img {
+  transform: scale(1.03);
+}
+
+.hero-slide-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.78) 0%,
+    rgba(0, 0, 0, 0.3) 50%,
+    transparent 100%
+  );
+}
+
+.hero-slide-body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 22px 20px 22px;
+  color: #fff;
+}
+.hero-slide-cat {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  border-radius: 999px;
+  padding: 4px 11px;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.hero-slide-title {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+.hero-slide-excerpt {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.55;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.hero-dots {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  padding: 14px 0 6px;
+}
+.hero-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #c8c4bc;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+.hero-dot.is-active {
+  width: 22px;
+  background: var(--ink);
+}
+
+/* =============================================
+   Ad Wrap
+   ============================================= */
+.ad-wrap {
+  margin: 4px 18px 10px;
+}
+.ad-wrap:has(ins.adsbygoogle:empty) {
+  display: none;
+}
+
+/* =============================================
+   Country Section
+   ============================================= */
+.country-section {
+  padding: 28px 0 6px;
+}
+
+.country-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding: 0 18px;
+}
+
+.country-card {
+  position: relative;
+  display: block;
+  border-radius: var(--radius);
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(135deg, #ccc9c0, #b8b4aa);
+  text-decoration: none;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+.country-card:hover {
+  transform: scale(1.025);
+  box-shadow: var(--shadow);
+}
+.country-card:active {
+  transform: scale(0.98);
+}
+
+.country-card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.country-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.68) 0%,
+    rgba(0, 0, 0, 0.12) 55%,
+    transparent 100%
+  );
+}
+.country-card-body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 14px 15px 18px;
+  color: #fff;
+}
+.country-card-name {
+  display: block;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+.country-card-count {
+  display: block;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.78);
+  letter-spacing: 0.3px;
+}
+
+/* =============================================
+   Guide Section (Image-focused)
+   ============================================= */
+.guide-section {
+  padding: 28px 0 6px;
+}
+
+.guide-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding: 0 18px;
+}
+
+.guide-card {
+  position: relative;
+  display: block;
+  border-radius: var(--radius);
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  background: linear-gradient(135deg, #ccc9c0, #b8b4aa);
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.guide-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+}
+.guide-card:active {
+  transform: scale(0.98);
+}
+
+.guide-card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.guide-card-fallback-icon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  background: var(--chip);
+}
+.guide-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.78) 0%,
+    rgba(0, 0, 0, 0.1) 55%,
+    transparent 100%
+  );
+}
+.guide-card-body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 13px 14px;
+  color: #fff;
+}
+.guide-card-title {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+/* =============================================
+   Subscribe Section
+   ============================================= */
+.subscribe-section {
+  margin: 28px 18px 0;
+  background: var(--ink);
+  color: #fff;
+  border-radius: var(--radius-lg);
+  padding: 30px 22px;
+  text-align: center;
+}
+.subscribe-icon {
+  font-size: 30px;
+  margin-bottom: 12px;
+}
+.subscribe-title {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+.subscribe-desc {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.58);
+  margin-bottom: 20px;
+  line-height: 1.65;
+}
+.subscribe-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.subscribe-input {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.subscribe-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+.subscribe-input:focus {
+  border-color: rgba(255, 255, 255, 0.45);
+}
+.subscribe-btn {
+  width: 100%;
+  padding: 13px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.3px;
+  transition: opacity 0.15s;
+}
+.subscribe-btn:hover {
+  opacity: 0.9;
+}
+.subscribe-success {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 10px;
+}
+
+/* =============================================
+   Footer
+   ============================================= */
+.tg-footer {
+  padding: 32px 20px 24px;
+  text-align: center;
+  border-top: 1px solid var(--line);
+  margin-top: 28px;
+}
+.footer-brand {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 18px;
+  font-weight: 700;
+  font-style: italic;
+  margin-bottom: 7px;
+}
+.footer-tagline {
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin-bottom: 18px;
+}
+.footer-sns {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.footer-sns-link {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  color: var(--ink-light);
+  transition:
+    border-color 0.15s,
+    color 0.15s;
+}
+.footer-sns-link:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.footer-sns-link svg {
+  width: 18px;
+  height: 18px;
+}
+.footer-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.footer-nav a {
+  font-size: 12px;
+  color: var(--ink-muted);
+}
+.footer-nav span {
+  color: var(--line);
+  font-size: 10px;
+}
+.footer-copy {
+  font-size: 11px;
+  color: var(--ink-muted);
+}
+
+/* =============================================
+   Country Page (cp-*)
+   ============================================= */
+.cat-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  background: rgba(247, 245, 240, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.cat-header-title {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 18px;
+  font-weight: 700;
+}
+.cat-header-center {
+  text-align: center;
+  flex: 1;
+}
+.cat-back {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  color: var(--ink);
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.cat-back:hover {
+  background: var(--chip);
+}
+.cat-back svg {
+  width: 22px;
+  height: 22px;
+}
+.cat-search-btn {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  color: var(--ink);
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+.cat-search-btn:hover {
+  background: var(--chip);
+}
+.cat-search-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Country Hero */
+.cp-hero {
+  position: relative;
+  aspect-ratio: 5/3;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ccc9c0, #b8b4aa);
+}
+.cp-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.cp-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.38);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  gap: 6px;
+}
+.cp-hero-flag {
+  font-size: 46px;
+}
+.cp-hero-name {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 34px;
+  font-weight: 700;
+}
+.cp-hero-count {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.72);
+  letter-spacing: 0.5px;
+}
+
+/* Country Category Mosaic */
+.cp-cat-mosaic {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 3px;
+}
+.cp-cat-row {
+  display: flex;
+  gap: 3px;
+}
+.cp-cat-card-img {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  text-decoration: none;
+  background: linear-gradient(135deg, #2a2a38, #1a1a28);
+  transition: opacity 0.2s;
+}
+.cp-cat-card-img:active {
+  opacity: 0.85;
+}
+.cp-cat-wide {
+  aspect-ratio: 16 / 7;
+  width: 100%;
+}
+.cp-cat-row .cp-cat-card-img {
+  flex: 1;
+  aspect-ratio: 1 / 1;
+}
+.cp-cat-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.cp-cat-card-img:hover .cp-cat-bg {
+  transform: scale(1.04);
+}
+.cp-cat-info {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 18px 12px;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.65) 0%,
+    rgba(0, 0, 0, 0.25) 100%
+  );
+  color: #fff;
+}
+.cp-cat-icon {
+  font-size: 26px;
+}
+.cp-cat-name {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+.cp-cat-count {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* =============================================
+   Category Hero (cover image — cat-hero)
+   ============================================= */
+.cat-hero {
+  position: relative;
+  aspect-ratio: 5 / 3;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ccc9c0, #b8b4aa);
+}
+.cat-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.cat-hero-img[src=""] {
+  display: none;
+}
+.cat-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.38);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  gap: 6px;
+}
+/* When no image, show solid gradient overlay */
+.cat-hero:not(:has(.cat-hero-img[src]:not([src=""]))) .cat-hero-overlay {
+  background: linear-gradient(
+    135deg,
+    rgba(50, 50, 80, 0.7),
+    rgba(20, 20, 40, 0.8)
+  );
+}
+.cat-hero-title {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+}
+.cat-hero-count {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.75);
+  letter-spacing: 0.5px;
+}
+
+/* =============================================
+   Category Listing Page (cat-*)
+   ============================================= */
+.star-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.star-filter-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.sf-btn {
+  flex-shrink: 0;
+  padding: 7px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-muted);
+  background: transparent;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.sf-btn.is-active {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
+.sf-btn:hover:not(.is-active) {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.sf-star {
+  color: #f5a623;
+}
+
+.cat-toolbar {
+  display: flex;
+  gap: 10px;
+  padding: 10px 18px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: var(--header-h);
+  z-index: 40;
+}
+.cat-search-input,
+.cat-sort-select {
+  padding: 9px 13px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--line);
+  background: var(--bg-card);
+  font-size: 13px;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.cat-search-input {
+  flex: 1;
+}
+.cat-search-input:focus,
+.cat-sort-select:focus {
+  border-color: var(--ink);
+}
+.cat-sort-select {
+  flex-shrink: 0;
+}
+
+.cat-main {
+  padding: 14px 18px;
+  padding-bottom: 40px;
+  background: var(--bg);
+}
+
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.cat-card {
+  display: block;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+  color: var(--ink);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+.cat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+}
+.cat-card:active {
+  transform: scale(0.98);
+}
+
+.cat-card-thumb-wrap {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: var(--chip);
+  overflow: hidden;
+}
+.cat-card-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.cat-card:hover .cat-card-thumb {
+  transform: scale(1.04);
+}
+
+.cat-card-rating {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  color: #fff;
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  letter-spacing: 0.5px;
+}
+.star-f {
+  color: #f5a623;
+}
+.star-e {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.cat-card-body {
+  padding: 10px 12px 13px;
+}
+.cat-card-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 5px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+.cat-card-date {
+  font-size: 11.5px;
+  color: var(--ink-muted);
+}
+
+.cat-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 50px 20px;
+  color: var(--ink-muted);
+  font-size: 14px;
+}
+
+/* =============================================
+   Dark Mode
+   ============================================= */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141414;
+    --bg-card: #1e1e1e;
+    --ink: #f0f0f0;
+    --ink-light: #aaaaaa;
+    --ink-muted: #777777;
+    --line: #2c2c2c;
+    --chip: #242424;
+  }
+  .tg-header,
+  .cat-header {
+    background: rgba(20, 20, 20, 0.92);
+  }
+  .search-overlay {
+    background: var(--bg);
+  }
+  .search-box {
+    background: var(--bg-card);
+  }
+  .drawer {
+    background: var(--bg-card);
+  }
+  .subscribe-section {
+    background: #111;
+  }
+  .cat-toolbar {
+    background: var(--bg);
+  }
+  .star-filter-bar {
+    background: var(--bg-card);
+  }
+  .cat-sort-select {
+    color: var(--ink);
+  }
 }
