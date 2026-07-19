@@ -4,7 +4,7 @@
     "excerpt": "우기에 떠난 발리여행 1~2일차",
     "thumb": "/indonesia/travel/images/1.webp",
     "url": "/indonesia/travel/발리여행-1-2일차",
-    "date": "2026-01-10",
+    "date": "2025-11-22",
     "rating": 5,
     "country": "indonesia"
   },
@@ -13,7 +13,16 @@
     "excerpt": "마라리버 조식, 카만달루 우붓, 피손, 투키스 코코넛, 발리 스타벅스, 물의 사원",
     "thumb": "/indonesia/stay/images/Kamandalu3.webp",
     "url": "/indonesia/travel/발리여행-3일차",
-    "date": "2026-07-19",
+    "date": "2025-11-24",
+    "rating": 5,
+    "country": "indonesia"
+  },
+  {
+    "title": "[발리] 발리여행 4일차",
+    "excerpt": "카만달루 우붓 조식, 인피니티풀, 우붓왕궁, 아사이퀸, 컴파운드와룽, 자바라노커피, 코코마켓",
+    "thumb": "https://img.travelerguru.co.kr/travelerguru/images/travel/ubst.webp",
+    "url": "/indonesia/travel/발리여행-4일차",
+    "date": "2025-11-25",
     "rating": 5,
     "country": "indonesia"
   }

@@ -232,7 +232,7 @@
   <!-- 인도네시아 여행기록 카테고리 -->
   <url>
     <loc>https://travelerguru.co.kr/indonesia/travel/</loc>
-    <lastmod>2026-01-10</lastmod>
+    <lastmod>2025-11-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -240,13 +240,19 @@
   <!-- 인도네시아 여행기록 게시물 -->
   <url>
     <loc>https://travelerguru.co.kr/indonesia/travel/발리여행-1-2일차</loc>
-    <lastmod>2026-01-10</lastmod>
+    <lastmod>2025-11-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-    <url>
+  <url>
     <loc>https://travelerguru.co.kr/indonesia/travel/발리여행-3일차</loc>
-    <lastmod>2026-07-19</lastmod>
+    <lastmod>2025-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://travelerguru.co.kr/indonesia/travel/발리여행-4일차</loc>
+    <lastmod>2025-11-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
