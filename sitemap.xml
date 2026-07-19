@@ -244,6 +244,12 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+    <url>
+    <loc>https://travelerguru.co.kr/indonesia/travel/발리여행-3일차</loc>
+    <lastmod>2026-07-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 
   <!-- 인도네시아 숙소 카테고리 -->
   <url>
