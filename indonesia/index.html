@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="인도네시아 여행기록 — travelerguru" />
+  <meta name="description" content="인도네시아 여행기록 - travelerguru" />
   <link rel="canonical" href="https://travelerguru.co.kr/indonesia/" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6532882266109488" crossorigin="anonymous"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-5TV9LY53LD"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-5TV9LY53LD');</script>
-  <title>인도네시아 — travelerguru</title>
+  <title>인도네시아 - travelerguru</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet" />
@@ -18,7 +18,7 @@
 <body>
 
   <header class="cat-header">
-    <a href="../" class="cat-back" aria-label="홈으로">
+    <a href="../" class="cat-back" aria-label="뒤로">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
     </a>
     <div class="cat-header-center"><h1 class="cat-header-title">인도네시아</h1></div>
@@ -30,7 +30,7 @@
     <div class="cp-hero-overlay">
       <span class="cp-hero-flag">🇮🇩</span>
       <span class="cp-hero-name">인도네시아</span>
-      <span class="cp-hero-count" id="cpCount">-- 개의 기록</span>
+      <span class="cp-hero-count" id="cpCount">--개의 기록</span>
     </div>
   </div>
 
@@ -38,7 +38,7 @@
     <a class="cp-cat-card-img cp-cat-wide" href="travel/" id="catTravel">
       <img class="cp-cat-bg" src="" alt="여행기록" onerror="this.style.display='none'" />
       <div class="cp-cat-info">
-        <span class="cp-cat-icon">✈️</span>
+        <span class="cp-cat-icon">✈</span>
         <span class="cp-cat-name">여행기록</span>
         <span class="cp-cat-count" id="cnt-travel">--</span>
       </div>
@@ -47,7 +47,7 @@
       <a class="cp-cat-card-img" href="food/" id="catFood">
         <img class="cp-cat-bg" src="" alt="맛집" onerror="this.style.display='none'" />
         <div class="cp-cat-info">
-          <span class="cp-cat-icon">🍽️</span>
+          <span class="cp-cat-icon">🍽</span>
           <span class="cp-cat-name">맛집</span>
           <span class="cp-cat-count" id="cnt-food">--</span>
         </div>
@@ -67,20 +67,16 @@
 (async function () {
   const COUNTRY = 'indonesia';
 
-  // ================================================================
-  // ★★★ 커버 이미지 직접 수정 ★★★
-  // ================================================================
   const COVERS = {
-    hero:   './stay/images/Kamandalu1.webp',
+    hero: './stay/images/Kamandalu1.webp',
     travel: './travel/images/7.webp',
-    food:   './food/images/pison2.webp',
-    stay:   './stay/images/Kamandalu2.webp',
+    food: './food/images/pison2.webp',
+    stay: './stay/images/Kamandalu2.webp',
   };
-  // ================================================================
 
   async function loadJSON(url) {
     try {
-      const r = await fetch(url);
+      const r = await fetch(url, { cache: 'no-store' });
       return r.ok ? r.json() : [];
     } catch {
       return [];
@@ -94,25 +90,22 @@
     loadJSON('../other/index.json'),
   ]);
 
-  const allPosts = [...food, ...travel, ...stay, ...other]
-    .filter(p => p.country === COUNTRY)
+  const byCountry = (list) => list.filter(p => p.country === COUNTRY);
+  const foodPosts = byCountry(food);
+  const travelPosts = byCountry(travel);
+  const stayPosts = byCountry(stay);
+  const otherPosts = byCountry(other);
+
+  const allPosts = [...foodPosts, ...travelPosts, ...stayPosts, ...otherPosts]
     .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 
-  // ================================================================
-  // 국가 히어로
-  // ================================================================
   const heroImg = document.getElementById('cpHeroImg');
   const countEl = document.getElementById('cpCount');
 
   if (heroImg) {
+    const heroSrc = COVERS.hero || allPosts[0]?.thumb || '';
     heroImg.style.display = 'block';
-
-    const heroSrc =
-      COVERS.hero ||
-      (allPosts.length ? allPosts[0].thumb : '');
-
     heroImg.src = heroSrc;
-
     heroImg.onerror = function () {
       console.log('Hero image load fail:', heroSrc);
     };
@@ -122,64 +115,32 @@
     countEl.textContent = `${allPosts.length}개의 기록`;
   }
 
-  // ================================================================
-  // 카테고리 카드
-  // ================================================================
   const cats = [
-    {
-      posts: travel.filter(p => p.country === COUNTRY),
-      countId: 'cnt-travel',
-      imgId: 'catTravel',
-      coverKey: 'travel'
-    },
-    {
-      posts: food.filter(p => p.country === COUNTRY),
-      countId: 'cnt-food',
-      imgId: 'catFood',
-      coverKey: 'food'
-    },
-    {
-      posts: stay.filter(p => p.country === COUNTRY),
-      countId: 'cnt-stay',
-      imgId: 'catStay',
-      coverKey: 'stay'
-    },
+    { posts: travelPosts, countId: 'cnt-travel', imgId: 'catTravel', coverKey: 'travel' },
+    { posts: foodPosts, countId: 'cnt-food', imgId: 'catFood', coverKey: 'food' },
+    { posts: stayPosts, countId: 'cnt-stay', imgId: 'catStay', coverKey: 'stay' },
   ];
 
   cats.forEach(({ posts, countId, imgId, coverKey }) => {
-
-    const sorted = [...posts].sort((a, b) =>
-      (b.date || '').localeCompare(a.date || '')
-    );
-
-    const cEl = document.getElementById(countId);
-
-    if (cEl) {
-      cEl.textContent = `${posts.length}개`;
-    }
-
+    const sorted = [...posts].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+    const count = document.getElementById(countId);
     const card = document.getElementById(imgId);
 
-    if (card) {
-      const bg = card.querySelector('.cp-cat-bg');
-
-      if (bg) {
-
-        bg.style.display = 'block';
-
-        const imgSrc =
-          COVERS[coverKey] ||
-          (sorted.length ? sorted[0].thumb : '');
-
-        bg.src = imgSrc;
-
-        bg.onerror = function () {
-          console.log('Category image load fail:', imgSrc);
-        };
-      }
+    if (count) {
+      count.textContent = `${posts.length}개`;
     }
-  });
 
+    if (!card) return;
+    const bg = card.querySelector('.cp-cat-bg');
+    if (!bg) return;
+
+    const imgSrc = COVERS[coverKey] || sorted[0]?.thumb || '';
+    bg.style.display = 'block';
+    bg.src = imgSrc;
+    bg.onerror = function () {
+      console.log('Category image load fail:', imgSrc);
+    };
+  });
 })();
 </script>
 </body>

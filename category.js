@@ -1,5 +1,5 @@
 /* =============================================
-   category.js — 공용 카테고리 리스팅 스크립트
+   category.js - 공용 카테고리 리스팅 스크립트
    각 페이지에서 window.CAT_CONFIG 설정 후 로드
    =============================================
    CAT_CONFIG 예시:
@@ -15,43 +15,41 @@
   const { country, jsonUrl, catLabel, hasStar = true } = cfg;
   if (!jsonUrl) return;
 
-  /* ── 데이터 로드 ─────────────────────────── */
+  /* 데이터 로드 */
   let allPosts = [];
   try {
     const r = await fetch(jsonUrl, { cache: 'no-store' });
     allPosts = r.ok ? await r.json() : [];
-  } catch { allPosts = []; }
+  } catch {
+    allPosts = [];
+  }
 
-  // 국가 필터
   let posts = country
     ? allPosts.filter(p => p.country === country)
     : allPosts;
 
-  /* ── 상태 ───────────────────────────────── */
-  let query     = '';
+  let query = '';
   let minRating = 0;
-  let sortBy    = 'date-desc';
+  let sortBy = 'date-desc';
 
-  /* ── 렌더 ───────────────────────────────── */
   function renderPosts() {
     const grid = document.getElementById('postsGrid');
     if (!grid) return;
 
     let list = [...posts];
 
-    // 별점 필터
-    if (minRating > 0) list = list.filter(p => (p.rating || 0) >= minRating);
+    if (minRating > 0) {
+      list = list.filter(p => (p.rating || 0) >= minRating);
+    }
 
-    // 검색어 필터
     if (query) {
       const q = query.toLowerCase();
       list = list.filter(p =>
-        (p.title   || '').toLowerCase().includes(q) ||
+        (p.title || '').toLowerCase().includes(q) ||
         (p.excerpt || '').toLowerCase().includes(q)
       );
     }
 
-    // 정렬
     if (sortBy === 'date-desc') {
       list.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
     } else if (sortBy === 'rating-desc') {
@@ -73,7 +71,7 @@
       card.href = item.url || '#';
 
       const starsHtml = buildStars(item.rating);
-      const dateStr   = (item.date || '').replace(/-/g, '.');
+      const dateStr = (item.date || '').replace(/-/g, '.');
 
       card.innerHTML = `
         <div class="cat-card-thumb-wrap">
@@ -103,7 +101,6 @@
     return s;
   }
 
-  /* ── 별점 필터 버튼 ──────────────────────── */
   document.querySelectorAll('.sf-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.sf-btn').forEach(b => b.classList.remove('is-active'));
@@ -113,7 +110,6 @@
     });
   });
 
-  /* ── 검색창 ─────────────────────────────── */
   const searchInput = document.getElementById('searchInput');
   let debounce;
   searchInput?.addEventListener('input', () => {
@@ -124,22 +120,18 @@
     }, 220);
   });
 
-  /* ── 정렬 셀렉트 ────────────────────────── */
   const sortSelect = document.getElementById('sortSelect');
   sortSelect?.addEventListener('change', () => {
     sortBy = sortSelect.value;
     renderPosts();
   });
 
-  /* ── 초기 렌더 ──────────────────────────── */
   posts.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
   renderPosts();
 
-  /* ── 총 개수 표시 ───────────────────────── */
   const countEl = document.getElementById('postCount');
   if (countEl) countEl.textContent = `${posts.length}개`;
 
-  /* ── 히어로 이미지 (src가 비어있으면 첫 포스트 썸네일로 채움) ── */
   const heroImg = document.getElementById('catHeroImg');
   if (heroImg && !heroImg.getAttribute('src')) {
     const first = posts[0];
