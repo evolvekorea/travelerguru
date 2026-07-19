@@ -5,7 +5,6 @@
     "thumb": "/korea/food/images/g2.webp",
     "url": "/korea/food/광복수제비스타필드하남",
     "date": "2025-09-06",
-    "rating": 3,
     "country": "korea"
   },
   {
@@ -14,7 +13,6 @@
     "thumb": "/korea/food/images/dd2.webp",
     "url": "/korea/food/땀땀롯데잠실점",
     "date": "2025-09-06",
-    "rating": 2,
     "country": "korea"
   },
   {
@@ -23,7 +21,6 @@
     "thumb": "/korea/food/images/n1.webp",
     "url": "/korea/food/네기실비",
     "date": "2025-09-07",
-    "rating": 3,
     "country": "korea"
   },
   {
@@ -32,7 +29,6 @@
     "thumb": "/korea/food/images/mae1.webp",
     "url": "/korea/food/4",
     "date": "2025-09-08",
-    "rating": 4,
     "country": "korea"
   },
   {
@@ -41,7 +37,6 @@
     "thumb": "/korea/food/images/m3.webp",
     "url": "/korea/food/5",
     "date": "2025-09-07",
-    "rating": 4,
     "country": "korea"
   },
   {
@@ -50,7 +45,6 @@
     "thumb": "/korea/food/images/on1.webp",
     "url": "/korea/food/6",
     "date": "2025-09-07",
-    "rating": 3,
     "country": "korea"
   },
   {
@@ -59,7 +53,6 @@
     "thumb": "/korea/food/images/j4.webp",
     "url": "/korea/food/7",
     "date": "2025-09-07",
-    "rating": 4,
     "country": "korea"
   },
   {
@@ -68,8 +61,8 @@
     "thumb": "/korea/food/images/p1.webp",
     "url": "/korea/food/8",
     "date": "2025-09-08",
-    "rating": 5,
-    "country": "korea"
+    "country": "korea",
+    "recommend": true
   },
   {
     "title": "[광화문] 광화문면옥 다녀왔습니다.",
@@ -77,7 +70,6 @@
     "thumb": "/korea/food/images/py1.webp",
     "url": "/korea/food/11",
     "date": "2026-01-15",
-    "rating": 4,
     "country": "korea"
   },
   {
@@ -86,8 +78,8 @@
     "thumb": "/korea/food/images/cow1.webp",
     "url": "/korea/food/12",
     "date": "2026-01-26",
-    "rating": 5,
-    "country": "korea"
+    "country": "korea",
+    "recommend": true
   },
   {
     "title": "[송파] 타코튜즈데이(Taco Tuesday) 석촌호수점 다녀왔습니다.",
@@ -95,7 +87,6 @@
     "thumb": "https://img.travelerguru.co.kr/travelerguru/images/food/tdt1.webp",
     "url": "/korea/food/18",
     "date": "2026-02-09",
-    "rating": 3,
     "country": "korea"
   },
   {
@@ -104,7 +95,6 @@
     "thumb": "/korea/food/images/mang1.webp",
     "url": "/korea/food/19",
     "date": "2026-02-10",
-    "rating": 3,
     "country": "korea"
   },
   {
@@ -113,7 +103,6 @@
     "thumb": "https://img.travelerguru.co.kr/travelerguru/images/food/mexicali1.webp",
     "url": "/korea/food/20",
     "date": "2026-02-11",
-    "rating": 4,
     "country": "korea"
   },
   {
@@ -122,7 +111,6 @@
     "thumb": "https://img.travelerguru.co.kr/travelerguru/images/food/sinsa1.webp",
     "url": "/korea/food/21",
     "date": "2026-02-12",
-    "rating": 3,
     "country": "korea"
   },
   {
@@ -131,7 +119,6 @@
     "thumb": "https://img.travelerguru.co.kr/travelerguru/images/food/minari1.webp",
     "url": "/korea/food/22",
     "date": "2026-02-18",
-    "rating": 4,
     "country": "korea"
   },
   {
@@ -140,8 +127,8 @@
     "thumb": "https://img.travelerguru.co.kr/travelerguru/images/food/ama1.webp",
     "url": "/korea/food/23",
     "date": "2026-02-18",
-    "rating": 5,
-    "country": "korea"
+    "country": "korea",
+    "recommend": true
   },
   {
     "title": "[춘천] 춘천 1등 퇴계막국수 다녀왔습니다.",
@@ -149,7 +136,6 @@
     "thumb": "https://img.travelerguru.co.kr/travelerguru/images/food/mak1.webp",
     "url": "/korea/food/24",
     "date": "2026-02-21",
-    "rating": 4,
     "country": "korea"
   },
   {
@@ -158,7 +144,6 @@
     "thumb": "https://img.travelerguru.co.kr/travelerguru/images/food/yong1.webp",
     "url": "/korea/food/25",
     "date": "2026-02-21",
-    "rating": 3,
     "country": "korea"
   },
   {
@@ -167,8 +152,8 @@
     "thumb": "https://img.travelerguru.co.kr/travelerguru/images/food/etre1.webp",
     "url": "/korea/food/26",
     "date": "2026-02-22",
-    "rating": 5,
-    "country": "korea"
+    "country": "korea",
+    "recommend": true
   },
   {
     "title": "[하남] 하남 스타필드 신상 레스토랑 제이드앤워터(jadeandwater) 다녀왔습니다.",
@@ -176,7 +161,6 @@
     "thumb": "https://img.travelerguru.co.kr/travelerguru/images/food/jade1.webp",
     "url": "/korea/food/27",
     "date": "2026-02-21",
-    "rating": 3,
     "country": "korea"
   },
   {
@@ -185,7 +169,7 @@
     "thumb": "https://img.travelerguru.co.kr/travelerguru/images/food/an1.webp",
     "url": "/korea/food/안동반점",
     "date": "2026-03-23",
-    "rating": 5,
-    "country": "korea"
+    "country": "korea",
+    "recommend": true
   }
 ]

@@ -101,7 +101,7 @@ textarea {
   .tg-footer,
   main,
   .cat-header,
-  .star-filter-bar,
+  .recommend-filter-bar,
   .cat-toolbar,
   .cat-main,
   .cp-hero,
@@ -139,7 +139,7 @@ textarea {
   .cp-hero,
   .cp-cat-mosaic,
   .cp-recent,
-  .star-filter-bar,
+  .recommend-filter-bar,
   .cat-toolbar,
   .cat-main {
     border-left: 1px solid rgba(0, 0, 0, 0.08);
@@ -1033,7 +1033,7 @@ main {
 }
 
 /* =============================================
-   Country Page — Recent Posts Section
+   Country Page ??Recent Posts Section
    ============================================= */
 .cp-recent {
   padding: 20px 14px 32px;
@@ -1114,7 +1114,7 @@ main {
 }
 
 /* =============================================
-   Category Hero (cover image — cat-hero)
+   Category Hero (cover image ??cat-hero)
    ============================================= */
 .cat-hero {
   position: relative;
@@ -1166,7 +1166,7 @@ main {
 /* =============================================
    Category Listing Page (cat-*)
    ============================================= */
-.star-filter-bar {
+.recommend-filter-bar {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -1176,11 +1176,11 @@ main {
   overflow-x: auto;
   scrollbar-width: none;
 }
-.star-filter-bar::-webkit-scrollbar {
+.recommend-filter-bar::-webkit-scrollbar {
   display: none;
 }
 
-.sf-btn {
+.recommend-filter-btn {
   flex-shrink: 0;
   padding: 7px 14px;
   border: 1.5px solid var(--line);
@@ -1192,17 +1192,14 @@ main {
   transition: all 0.15s;
   white-space: nowrap;
 }
-.sf-btn.is-active {
+.recommend-filter-btn.is-active {
   background: var(--ink);
   color: #fff;
   border-color: var(--ink);
 }
-.sf-btn:hover:not(.is-active) {
+.recommend-filter-btn:hover:not(.is-active) {
   border-color: var(--ink);
   color: var(--ink);
-}
-.sf-star {
-  color: #f5a623;
 }
 
 .cat-toolbar {
@@ -1286,7 +1283,7 @@ main {
   transform: scale(1.04);
 }
 
-.cat-card-rating {
+.recommend-badge {
   position: absolute;
   top: 8px;
   right: 8px;
@@ -1296,13 +1293,7 @@ main {
   font-size: 11px;
   padding: 4px 8px;
   border-radius: 999px;
-  letter-spacing: 0.5px;
-}
-.star-f {
-  color: #f5a623;
-}
-.star-e {
-  color: rgba(255, 255, 255, 0.35);
+  font-weight: 700;
 }
 
 .cat-card-body {
@@ -1364,7 +1355,7 @@ main {
   .cat-toolbar {
     background: var(--bg);
   }
-  .star-filter-bar {
+  .recommend-filter-bar {
     background: var(--bg-card);
   }
   .cat-sort-select {

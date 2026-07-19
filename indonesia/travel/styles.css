@@ -1,4 +1,4 @@
-﻿
+
 :root{
   --bg:#faf8f4;
   --paper:#ffffff;
@@ -10,8 +10,8 @@
   --shadow:0 6px 20px rgba(0,0,0,.06);
 
   --radius:18px;
-  --maxw: 840px;   
-  --readw: 680px;  
+  --maxw: 840px;
+  --readw: 680px;
 }
 
 *{ box-sizing: border-box; }
@@ -202,23 +202,6 @@ figcaption{ font-size:12px; color:#666; margin-top:6px; text-align:center; }
 }
 
 
-.star-badge{
-  position:absolute; top:8px; right:8px;
-  letter-spacing: 1px;
-  display:inline-flex; align-items:center;
-  padding:6px 8px; border-radius:12px;
-  background:rgba(255,255,255,.9);
-  border:1px solid #e7e1d9;
-  box-shadow: var(--shadow);
-}
-.star-badge .star{ font-size:12px; line-height:1; display:inline-block; }
-.star-badge .star.filled{ color:#FFC107; }
-.star-badge .star.empty{  color:#D9D9D9; }
-.star-badge .score{ display:none; }
-
-
-
-
 .page-header{
   position: static;
   background:#ebe7df;
@@ -288,8 +271,8 @@ figcaption{ font-size:12px; color:#666; margin-top:6px; text-align:center; }
 
   .tool-select{
     flex: 1 1 0;
-    width: 0;        
-    min-width: 0;    
+    width: 0;
+    min-width: 0;
   }
 }
 
@@ -316,8 +299,8 @@ main{ padding-top: 0; }
 
 @media (max-width: 480px){
   .grid .card-img{
-    aspect-ratio: 1 / 1; 
-    
+    aspect-ratio: 1 / 1;
+
   }
 }
 
@@ -325,12 +308,12 @@ main{ padding-top: 0; }
 
 
 :root{
-  --app-maxw: 480px; 
+  --app-maxw: 480px;
 }
 
 
 @media (min-width: 900px){
-  
+
   .page-header,
   .breadcrumb,
   .toolbar,
@@ -340,42 +323,42 @@ main{ padding-top: 0; }
     margin-right: auto;
   }
 
-  
+
   main{
     padding-left: 12px;
     padding-right: 12px;
   }
 
-  
+
   .grid{
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 
-  
+
   .page-header{ padding-left: 14px; padding-right: 14px; }
   .breadcrumb{ padding-left: 14px; padding-right: 14px; }
 
-  
+
   .toolbar{
     padding-left: 12px;
     padding-right: 12px;
   }
 
-  
+
   .tabbar{
-    position: fixed;             
+    position: fixed;
     left: 50%;
     transform: translateX(-50%);
     width: min(100%, var(--app-maxw));
     max-width: var(--app-maxw);
     border-left: 1px solid var(--line);
     border-right: 1px solid var(--line);
-    border-top-left-radius: 14px;  
-    border-top-right-radius: 14px; 
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
     overflow: hidden;
   }
 
-  
+
   body{
     padding-bottom: var(--tabbar-h);
   }
@@ -385,6 +368,3 @@ main{ padding-top: 0; }
 @media (min-width: 1400px){
   :root{ --app-maxw: 520px; }
 }
-
-
-

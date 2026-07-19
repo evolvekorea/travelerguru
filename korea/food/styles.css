@@ -203,21 +203,6 @@ figcaption{ font-size:12px; color:#666; margin-top:6px; text-align:center; }
   border:0;
 }
 
-/* 별점 배지 */
-.star-badge{
-  position:absolute; top:8px; right:8px;
-  letter-spacing: 1px;
-  display:inline-flex; align-items:center;
-  padding:6px 8px; border-radius:12px;
-  background:rgba(255,255,255,.9);
-  border:1px solid #e7e1d9;
-  box-shadow: var(--shadow);
-}
-.star-badge .star{ font-size:12px; line-height:1; display:inline-block; }
-.star-badge .star.filled{ color:#FFC107; }
-.star-badge .star.empty{  color:#D9D9D9; }
-.star-badge .score{ display:none; }
-
 /* =========================================================
    CATEGORY PAGE (food/travel/stay/other) — FINAL
    목표:

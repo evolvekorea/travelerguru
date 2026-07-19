@@ -1,21 +1,12 @@
 /* =============================================
    category.js - 공용 카테고리 리스팅 스크립트
    각 페이지에서 window.CAT_CONFIG 설정 후 로드
-   =============================================
-   CAT_CONFIG 예시:
-   {
-     country:  'bali',          // 필터할 국가 키
-     jsonUrl:  '../../food/index.json',  // JSON 경로
-     catLabel: '맛집',          // 카테고리 한글명
-     hasStar:  true             // 별점 필터 표시 여부
-   }
    ============================================= */
 (async function () {
   const cfg = window.CAT_CONFIG || {};
-  const { country, jsonUrl, catLabel, hasStar = true } = cfg;
+  const { country, jsonUrl, recommendEnabled = false } = cfg;
   if (!jsonUrl) return;
 
-  /* 데이터 로드 */
   let allPosts = [];
   try {
     const r = await fetch(jsonUrl, { cache: 'no-store' });
@@ -29,7 +20,7 @@
     : allPosts;
 
   let query = '';
-  let minRating = 0;
+  let recommendOnly = false;
   let sortBy = 'date-desc';
 
   function renderPosts() {
@@ -38,8 +29,8 @@
 
     let list = [...posts];
 
-    if (minRating > 0) {
-      list = list.filter(p => (p.rating || 0) >= minRating);
+    if (recommendEnabled && recommendOnly) {
+      list = list.filter(p => p.recommend === true);
     }
 
     if (query) {
@@ -52,10 +43,8 @@
 
     if (sortBy === 'date-desc') {
       list.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
-    } else if (sortBy === 'rating-desc') {
-      list.sort((a, b) => (b.rating || 0) - (a.rating || 0));
-    } else if (sortBy === 'rating-asc') {
-      list.sort((a, b) => (a.rating || 0) - (b.rating || 0));
+    } else if (sortBy === 'date-asc') {
+      list.sort((a, b) => (a.date || '').localeCompare(b.date || ''));
     }
 
     grid.innerHTML = '';
@@ -70,8 +59,10 @@
       card.className = 'cat-card';
       card.href = item.url || '#';
 
-      const starsHtml = buildStars(item.rating);
       const dateStr = (item.date || '').replace(/-/g, '.');
+      const badge = recommendEnabled && item.recommend === true
+        ? '<span class="recommend-badge">👍 추천</span>'
+        : '';
 
       card.innerHTML = `
         <div class="cat-card-thumb-wrap">
@@ -80,7 +71,7 @@
                alt="${item.title || ''}"
                loading="lazy"
                onerror="this.style.opacity='0'">
-          ${starsHtml ? `<span class="cat-card-rating">${starsHtml}</span>` : ''}
+          ${badge}
         </div>
         <div class="cat-card-body">
           <p class="cat-card-title">${item.title || ''}</p>
@@ -91,21 +82,11 @@
     });
   }
 
-  function buildStars(n) {
-    const v = Math.min(5, Math.max(0, parseInt(n) || 0));
-    if (!v) return '';
-    let s = '';
-    for (let i = 1; i <= 5; i++) {
-      s += `<span class="${i <= v ? 'star-f' : 'star-e'}">★</span>`;
-    }
-    return s;
-  }
-
-  document.querySelectorAll('.sf-btn').forEach(btn => {
+  document.querySelectorAll('.recommend-filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.sf-btn').forEach(b => b.classList.remove('is-active'));
+      document.querySelectorAll('.recommend-filter-btn').forEach(b => b.classList.remove('is-active'));
       btn.classList.add('is-active');
-      minRating = parseInt(btn.dataset.min || 0);
+      recommendOnly = btn.dataset.recommend === 'true';
       renderPosts();
     });
   });

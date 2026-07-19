@@ -244,17 +244,7 @@
       const a = document.createElement('a');
       a.href = it.url || '#';
       a.className = 'card';
-
-      const ratingNum = Math.max(0, Math.min(5, Number(it.rating || 0)));
-      const starsHTML = Array.from({ length: 5 }, (_, i) =>
-        `<span class="star ${i < ratingNum ? 'filled' : 'empty'}">★</span>`
-      ).join('');
-      const badge = ratingNum > 0
-        ? `<span class="star-badge" aria-label="별점 ${ratingNum}점">
-            ${starsHTML}
-            <span class="score">${ratingNum}</span>
-          </span>`
-        : '';
+      const badge = '';
 
       a.innerHTML = `
         ${badge}
