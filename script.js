@@ -14,7 +14,7 @@ const COUNTRIES = [
 // ================================================================
 const COUNTRY_COVERS = {
   korea: "", // 대한민국 카드 사진  예) 'korea/food/images/p1.webp'
-  indonesia: "", // 인도네시아 카드 사진 예) 'indonesia/food/images/Tukies1.webp'
+  indonesia: "https://img.travelerguru.co.kr/travelerguru/images/travel/ubst.webp", // 인도네시아 카드 사진 예) 'indonesia/food/images/Tukies1.webp'
 };
 // ================================================================
 
