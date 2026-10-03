@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
-Sitemap: http://www.travelerguru.co.kr/sitemap.xml
+Sitemap: https://travelerguru.co.kr/sitemap.xml
 
 #DaumWebMasterTool:1e40c8f94ec1494ce84db55a8354f10f1f25ccff25a13e966d2ea14d225f3737:LIrpZAQGS3+EKpQKpgrqqw==

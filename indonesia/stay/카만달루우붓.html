@@ -7,13 +7,13 @@
   <link rel="stylesheet" href="./styles.css">
   <link rel="icon" href="data:,">
   <meta name="description" content="카만달루 우붓(Kamandalu Ubud) 리조트 다녀왔습니다.">
-  <link rel="canonical" href="https://www.travelerguru.co.kr/stay/카만달루우붓">
+  <link rel="canonical" href="https://travelerguru.co.kr/indonesia/stay/카만달루우붓">
 
   <!-- OG -->
   <meta property="og:title" content="발리 카만달루 우붓(Kamandalu Ubud) 리조트 다녀왔습니다.">
   <meta property="og:description" content="우붓에 있는 5성급 리조트, 카만달루 우붓(Kamandalu Ubud) 리조트 다녀왔습니다.">
-  <meta property="og:url" content="https://www.travelerguru.co.kr/stay/카만달루우붓">  <!-- Article 구조화 데이터 -->
-  <meta property="og:image" content="https://www.travelerguru.co.kr/stay/images/Kamandalu1.webp">
+  <meta property="og:url" content="https://travelerguru.co.kr/indonesia/stay/카만달루우붓">  <!-- Article 구조화 데이터 -->
+  <meta property="og:image" content="https://travelerguru.co.kr/indonesia/stay/images/Kamandalu1.webp">
   <meta property="og:type" content="article">
 
   <!-- Google Analytics 코드 -->
@@ -40,10 +40,10 @@
     "datePublished": "2026-02-02",
     "dateModified": "2026-02-02",
     "author": { "@type": "Person", "name": "Traveler Guru" },
-    "image": "https://www.travelerguru.co.kr/stay/images/Kamandalu1.webp",
+    "image": "https://travelerguru.co.kr/indonesia/stay/images/Kamandalu1.webp",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "https://www.travelerguru.co.kr/stay/카만달루우붓"
+      "@id": "https://travelerguru.co.kr/indonesia/stay/카만달루우붓"
     }
   }
   </script>
@@ -51,7 +51,7 @@
 <body>
 
 <header class="tg-header">
-  <a class="icon-btn" href="/stay/" aria-label="뒤로">←</a>
+  <a class="icon-btn" href="/indonesia/stay/" aria-label="뒤로">←</a>
   <h1 class="brand">숙소</h1>
   <span class="icon-btn" aria-hidden="true"> </span>
 </header>
@@ -281,11 +281,15 @@
   // URL 정규화: 절대화 → /index.html, 끝 슬래시 제거
   const normPath = (u) => {
     const url = new URL(u, location.origin);
-    return url.pathname.replace(/\/index\.html$/i,'').replace(/\/+$/,'');
+    return decodeURIComponent(url.pathname).replace(/\/index\.html$/i,'').replace(/\.html$/i,'').replace(/\/+$/,'');
   };
 
   const currentPath = normPath(location.href);
-  const currentCat  = currentPath.split('/').filter(Boolean)[0] || '';
+  const categoryOf = (path) => {
+    const parts = path.split('/').filter(Boolean);
+    return ['korea', 'indonesia'].includes(parts[0]) ? parts[1] || '' : parts[0] || '';
+  };
+  const currentCat = categoryOf(currentPath);
 
   try{
     const res  = await fetch('./index.json', { cache:'no-store' });
@@ -294,7 +298,7 @@
     // 정규화 + 카테고리 주입
     list = list.map(it => {
       const p   = normPath(it.url || '#');
-      const cat = p.split('/').filter(Boolean)[0] || '';
+      const cat = categoryOf(p);
       return { ...it, _path:p, _cat:cat };
     });
 

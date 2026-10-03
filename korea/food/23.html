@@ -7,12 +7,12 @@
   <link rel="stylesheet" href="./styles.css">
   <link rel="icon" href="data:,">
   <meta name="description" content="제주에서 온 두쫀쿠 맛집, 초콜릿 전문점 AMA 아마 성수 다녀왔습니다.">
-  <link rel="canonical" href="https://www.travelerguru.co.kr/food/23">
+  <link rel="canonical" href="https://travelerguru.co.kr/korea/food/23">
 
   <!-- OG -->
   <meta property="og:title" content="제주에서 온 두쫀쿠 맛집, AMA 아마 성수 다녀왔습니다.">
   <meta property="og:description" content="제주에서 온 두쫀쿠 맛집, 초콜릿 전문점 AMA 아마 성수 다녀왔습니다.">
-  <meta property="og:url" content="https://www.travelerguru.co.kr/food/23">  <!-- Article 구조화 데이터 -->
+  <meta property="og:url" content="https://travelerguru.co.kr/korea/food/23">  <!-- Article 구조화 데이터 -->
   <meta property="og:image" content="https://img.travelerguru.co.kr/travelerguru/images/food/ama1.webp">
   <meta property="og:type" content="article">
 
@@ -43,7 +43,7 @@
     "image": "https://img.travelerguru.co.kr/travelerguru/images/food/ama1.webp",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "https://www.travelerguru.co.kr/food/23"
+      "@id": "https://travelerguru.co.kr/korea/food/23"
     }
   }
   </script>
@@ -51,7 +51,7 @@
 <body>
 
 <header class="tg-header">
-  <a class="icon-btn" href="/food/" aria-label="뒤로">←</a>
+  <a class="icon-btn" href="/korea/food/" aria-label="뒤로">←</a>
   <h1 class="brand">맛집</h1>
   <span class="icon-btn" aria-hidden="true"> </span>
 </header>
@@ -264,11 +264,15 @@
   // URL 정규화: 절대화 → /index.html, 끝 슬래시 제거
   const normPath = (u) => {
     const url = new URL(u, location.origin);
-    return url.pathname.replace(/\/index\.html$/i,'').replace(/\/+$/,'');
+    return decodeURIComponent(url.pathname).replace(/\/index\.html$/i,'').replace(/\.html$/i,'').replace(/\/+$/,'');
   };
 
   const currentPath = normPath(location.href);
-  const currentCat  = currentPath.split('/').filter(Boolean)[0] || '';
+  const categoryOf = (path) => {
+    const parts = path.split('/').filter(Boolean);
+    return ['korea', 'indonesia'].includes(parts[0]) ? parts[1] || '' : parts[0] || '';
+  };
+  const currentCat = categoryOf(currentPath);
 
   try{
     const res  = await fetch('./index.json', { cache:'no-store' });
@@ -277,7 +281,7 @@
     // 정규화 + 카테고리 주입
     list = list.map(it => {
       const p   = normPath(it.url || '#');
-      const cat = p.split('/').filter(Boolean)[0] || '';
+      const cat = categoryOf(p);
       return { ...it, _path:p, _cat:cat };
     });
 

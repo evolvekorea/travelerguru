@@ -307,18 +307,22 @@ async function main() {
     indoTravelPosts,
     indoStayPosts,
     korFoodPosts,
+    korTravelPosts,
+    korStayPosts,
     otherPosts,
   ] = await Promise.all([
     fetchJSON("indonesia/food/index.json"),
     fetchJSON("indonesia/travel/index.json"),
     fetchJSON("indonesia/stay/index.json"),
     fetchJSON("korea/food/index.json"),
+    fetchJSON("korea/travel/index.json"),
+    fetchJSON("korea/stay/index.json"),
     fetchJSON("other/index.json"),
   ]);
 
   const foodPosts = [...indoFoodPosts, ...korFoodPosts];
-  const travelPosts = [...indoTravelPosts];
-  const stayPosts = [...indoStayPosts];
+  const travelPosts = [...indoTravelPosts, ...korTravelPosts];
+  const stayPosts = [...indoStayPosts, ...korStayPosts];
 
   foodPosts.forEach((p) => {
     p._catLabel = "맛집";

@@ -7,13 +7,13 @@
   <link rel="stylesheet" href="./styles.css">
   <link rel="icon" href="data:,">
   <meta name="description" content="스타필드 하남 신세계백화점 내 '광복수제비' 솔직 후기">
-  <link rel="canonical" href="https://www.travelerguru.co.kr/food/광복수제비스타필드하남">
+  <link rel="canonical" href="https://travelerguru.co.kr/korea/food/광복수제비스타필드하남">
 
   <!-- OG -->
   <meta property="og:title" content="스타필드 하남 수제비 맛집, 조미료 없는 건강한 한끼">
   <meta property="og:description" content="스타필드 하남 신세계백화점 내 '광복수제비' 솔직 후기">
-  <meta property="og:url" content="https://www.travelerguru.co.kr/food/광복수제비스타필드하남">
-  <meta property="og:image" content="https://www.travelerguru.co.kr/food/images/g2.webp">
+  <meta property="og:url" content="https://travelerguru.co.kr/korea/food/광복수제비스타필드하남">
+  <meta property="og:image" content="https://travelerguru.co.kr/korea/food/images/g2.webp">
   <meta property="og:type" content="article">
 
   <!-- Google Analytics 코드 -->
@@ -39,10 +39,10 @@
     "datePublished": "2025-09-06",
     "dateModified": "2025-09-06",
     "author": { "@type": "Person", "name": "Traveler Guru" },
-    "image": "https://www.travelerguru.co.kr/food/images/g2.webp",
+    "image": "https://travelerguru.co.kr/korea/food/images/g2.webp",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "https://www.travelerguru.co.kr/food/광복수제비스타필드하남"
+      "@id": "https://travelerguru.co.kr/korea/food/광복수제비스타필드하남"
     }
   }
   </script>
@@ -50,7 +50,7 @@
 <body>
 
 <header class="tg-header">
-  <a class="icon-btn" href="/food/" aria-label="뒤로">←</a>
+  <a class="icon-btn" href="/korea/food/" aria-label="뒤로">←</a>
   <h1 class="brand">맛집</h1>
   <span class="icon-btn" aria-hidden="true"> </span>
 </header>
@@ -251,11 +251,15 @@
   // URL 정규화: 절대화 → /index.html, 끝 슬래시 제거
   const normPath = (u) => {
     const url = new URL(u, location.origin);
-    return url.pathname.replace(/\/index\.html$/i,'').replace(/\/+$/,'');
+    return decodeURIComponent(url.pathname).replace(/\/index\.html$/i,'').replace(/\.html$/i,'').replace(/\/+$/,'');
   };
 
   const currentPath = normPath(location.href);
-  const currentCat  = currentPath.split('/').filter(Boolean)[0] || '';
+  const categoryOf = (path) => {
+    const parts = path.split('/').filter(Boolean);
+    return ['korea', 'indonesia'].includes(parts[0]) ? parts[1] || '' : parts[0] || '';
+  };
+  const currentCat = categoryOf(currentPath);
 
   try{
     const res  = await fetch('./index.json', { cache:'no-store' });
@@ -264,7 +268,7 @@
     // 정규화 + 카테고리 주입
     list = list.map(it => {
       const p   = normPath(it.url || '#');
-      const cat = p.split('/').filter(Boolean)[0] || '';
+      const cat = categoryOf(p);
       return { ...it, _path:p, _cat:cat };
     });
 

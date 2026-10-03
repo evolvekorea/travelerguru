@@ -7,13 +7,13 @@
   <link rel="stylesheet" href="./styles.css">
   <link rel="icon" href="data:,">
   <meta name="description" content="발리행 대한항공 KE433 비즈니스 후기, 프레스티지 스위트 2.0">
-  <link rel="canonical" href="https://www.travelerguru.co.kr/other/2">
+  <link rel="canonical" href="https://travelerguru.co.kr/other/2">
 
   <!-- OG -->
   <meta property="og:title" content="발리행 대한항공 KE433 비즈니스 후기(프레스티지 스위트 2.0)">
   <meta property="og:description" content="발리행 대한항공 KE433 비즈니스 후기(프레스티지 스위트 2.0)">
-  <meta property="og:url" content="https://www.travelerguru.co.kr/other/2">
-  <meta property="og:image" content="https://www.travelerguru.co.kr/other/images/KE433_1.webp">
+  <meta property="og:url" content="https://travelerguru.co.kr/other/2">
+  <meta property="og:image" content="https://travelerguru.co.kr/other/images/KE433_1.webp">
   <meta property="og:type" content="article">
 
   <!-- Google Analytics 코드 -->
@@ -40,10 +40,10 @@
     "datePublished": "2025-11-26",
     "dateModified": "2025-11-26",
     "author": { "@type": "Person", "name": "Traveler Guru" },
-    "image": "https://www.travelerguru.co.kr/other/images/KE433_1.webp",
+    "image": "https://travelerguru.co.kr/other/images/KE433_1.webp",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "https://www.travelerguru.co.kr/other/2"
+      "@id": "https://travelerguru.co.kr/other/2"
     }
   }
   </script>
@@ -305,11 +305,15 @@
   // URL 정규화: 절대화 → /index.html, 끝 슬래시 제거
   const normPath = (u) => {
     const url = new URL(u, location.origin);
-    return url.pathname.replace(/\/index\.html$/i,'').replace(/\/+$/,'');
+    return decodeURIComponent(url.pathname).replace(/\/index\.html$/i,'').replace(/\.html$/i,'').replace(/\/+$/,'');
   };
 
   const currentPath = normPath(location.href);
-  const currentCat  = currentPath.split('/').filter(Boolean)[0] || '';
+  const categoryOf = (path) => {
+    const parts = path.split('/').filter(Boolean);
+    return ['korea', 'indonesia'].includes(parts[0]) ? parts[1] || '' : parts[0] || '';
+  };
+  const currentCat = categoryOf(currentPath);
 
   try{
     const res  = await fetch('./index.json', { cache:'no-store' });
@@ -318,7 +322,7 @@
     // 정규화 + 카테고리 주입
     list = list.map(it => {
       const p   = normPath(it.url || '#');
-      const cat = p.split('/').filter(Boolean)[0] || '';
+      const cat = categoryOf(p);
       return { ...it, _path:p, _cat:cat };
     });
 

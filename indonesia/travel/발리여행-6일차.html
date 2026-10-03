@@ -7,12 +7,12 @@
   <link rel="stylesheet" href="./styles.css">
   <link rel="icon" href="data:,">
   <meta name="description" content="발리 여행 6일차: 홀리데이인 짱구 조식, 퍼피요가, 센소리움, 티켓투더문, 기기수수카페, 짱구비치, Santanera 레스토랑, 슬러시아일랜드">
-  <link rel="canonical" href="https://www.travelerguru.co.kr/indonesia/travel/발리여행-6일차">
+  <link rel="canonical" href="https://travelerguru.co.kr/indonesia/travel/발리여행-6일차">
 
   <!-- OG -->
   <meta property="og:title" content="발리 여행 6일차｜홀리데이인 짱구 조식·퍼피요가·센소리움">
   <meta property="og:description" content="발리 여행 6일차: 홀리데이인 짱구 조식, 퍼피요가, 센소리움, 티켓투더문, 기기수수카페, 짱구비치, Santanera 레스토랑, 슬러시아일랜드">
-  <meta property="og:url" content="https://www.travelerguru.co.kr/indonesia/travel/발리여행-6일차">
+  <meta property="og:url" content="https://travelerguru.co.kr/indonesia/travel/발리여행-6일차">
   <meta property="og:image" content="https://img.travelerguru.co.kr/travelerguru/images/travel/zzanggupool1.webp">
   <meta property="og:type" content="article">
 
@@ -43,7 +43,7 @@
     "image": "https://img.travelerguru.co.kr/travelerguru/images/travel/zzanggupool1.webp",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "https://www.travelerguru.co.kr/indonesia/travel/발리여행-6일차"
+      "@id": "https://travelerguru.co.kr/indonesia/travel/발리여행-6일차"
     }
   }
   </script>
@@ -51,7 +51,7 @@
 <body>
 
 <header class="tg-header">
-  <a class="icon-btn" href="/travel/" aria-label="뒤로">←</a>
+  <a class="icon-btn" href="/indonesia/travel/" aria-label="뒤로">←</a>
   <h1 class="brand">여행</h1>
   <span class="icon-btn" aria-hidden="true"> </span>
 </header>
@@ -435,11 +435,15 @@
 
   const normPath = (u) => {
     const url = new URL(u, location.origin);
-    return url.pathname.replace(/\/index\.html$/i,'').replace(/\/+$/,'');
+    return decodeURIComponent(url.pathname).replace(/\/index\.html$/i,'').replace(/\.html$/i,'').replace(/\/+$/,'');
   };
 
   const currentPath = normPath(location.href);
-  const currentCat  = currentPath.split('/').filter(Boolean)[0] || '';
+  const categoryOf = (path) => {
+    const parts = path.split('/').filter(Boolean);
+    return ['korea', 'indonesia'].includes(parts[0]) ? parts[1] || '' : parts[0] || '';
+  };
+  const currentCat = categoryOf(currentPath);
 
   try{
     const res  = await fetch('./index.json', { cache:'no-store' });
@@ -447,7 +451,7 @@
 
     list = list.map(it => {
       const p   = normPath(it.url || '#');
-      const cat = p.split('/').filter(Boolean)[0] || '';
+      const cat = categoryOf(p);
       return { ...it, _path:p, _cat:cat };
     });
 
