@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
@@ -11,137 +11,11 @@
   <title>인도네시아 - travelerguru</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css" />
+
+
   <link rel="icon" href="data:," />
+
+<link rel="stylesheet" href="/layout.css?v=20261013-1">
+<script defer src="/layout.js?v=20261013-1"></script>
 </head>
-<body>
-
-  <header class="cat-header">
-    <a href="../" class="cat-back" aria-label="뒤로">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-    </a>
-    <div class="cat-header-center"><h1 class="cat-header-title">인도네시아</h1></div>
-    <div style="width:18px"></div>
-  </header>
-
-  <div class="cp-hero" id="cpHero">
-    <img class="cp-hero-img" id="cpHeroImg" src="" alt="인도네시아" loading="eager" onerror="this.style.display='none'" />
-    <div class="cp-hero-overlay">
-      <span class="cp-hero-flag">🇮🇩</span>
-      <span class="cp-hero-name">인도네시아</span>
-      <span class="cp-hero-count" id="cpCount">--개의 기록</span>
-    </div>
-  </div>
-
-  <div class="cp-cat-mosaic">
-    <a class="cp-cat-card-img cp-cat-wide" href="travel/" id="catTravel">
-      <img class="cp-cat-bg" src="" alt="여행기록" onerror="this.style.display='none'" />
-      <div class="cp-cat-info">
-        <span class="cp-cat-icon">✈</span>
-        <span class="cp-cat-name">여행기록</span>
-        <span class="cp-cat-count" id="cnt-travel">--</span>
-      </div>
-    </a>
-    <div class="cp-cat-row">
-      <a class="cp-cat-card-img" href="food/" id="catFood">
-        <img class="cp-cat-bg" src="" alt="맛집" onerror="this.style.display='none'" />
-        <div class="cp-cat-info">
-          <span class="cp-cat-icon">🍽</span>
-          <span class="cp-cat-name">맛집</span>
-          <span class="cp-cat-count" id="cnt-food">--</span>
-        </div>
-      </a>
-      <a class="cp-cat-card-img" href="stay/" id="catStay">
-        <img class="cp-cat-bg" src="" alt="숙소" onerror="this.style.display='none'" />
-        <div class="cp-cat-info">
-          <span class="cp-cat-icon">🏨</span>
-          <span class="cp-cat-name">숙소</span>
-          <span class="cp-cat-count" id="cnt-stay">--</span>
-        </div>
-      </a>
-    </div>
-  </div>
-
-<script>
-(async function () {
-  const COUNTRY = 'indonesia';
-
-  const COVERS = {
-    hero: 'https://img.travelerguru.co.kr/travelerguru/images/travel/balieasttour7.webp',
-    travel: './travel/images/7.webp',
-    food: './food/images/pison2.webp',
-    stay: './stay/images/Kamandalu2.webp',
-  };
-
-  async function loadJSON(url) {
-    try {
-      const r = await fetch(url, { cache: 'no-store' });
-      return r.ok ? r.json() : [];
-    } catch {
-      return [];
-    }
-  }
-
-  const [food, travel, stay, other] = await Promise.all([
-    loadJSON('food/index.json'),
-    loadJSON('travel/index.json'),
-    loadJSON('stay/index.json'),
-    loadJSON('../other/index.json'),
-  ]);
-
-  const byCountry = (list) => list.filter(p => p.country === COUNTRY);
-  const foodPosts = byCountry(food);
-  const travelPosts = byCountry(travel);
-  const stayPosts = byCountry(stay);
-  const otherPosts = byCountry(other);
-
-  const allPosts = [...foodPosts, ...travelPosts, ...stayPosts, ...otherPosts]
-    .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
-
-  const heroImg = document.getElementById('cpHeroImg');
-  const countEl = document.getElementById('cpCount');
-
-  if (heroImg) {
-    const heroSrc = COVERS.hero || allPosts[0]?.thumb || '';
-    heroImg.style.display = 'block';
-    heroImg.src = heroSrc;
-    heroImg.onerror = function () {
-      console.log('Hero image load fail:', heroSrc);
-    };
-  }
-
-  if (countEl) {
-    countEl.textContent = `${allPosts.length}개의 기록`;
-  }
-
-  const cats = [
-    { posts: travelPosts, countId: 'cnt-travel', imgId: 'catTravel', coverKey: 'travel' },
-    { posts: foodPosts, countId: 'cnt-food', imgId: 'catFood', coverKey: 'food' },
-    { posts: stayPosts, countId: 'cnt-stay', imgId: 'catStay', coverKey: 'stay' },
-  ];
-
-  cats.forEach(({ posts, countId, imgId, coverKey }) => {
-    const sorted = [...posts].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
-    const count = document.getElementById(countId);
-    const card = document.getElementById(imgId);
-
-    if (count) {
-      count.textContent = `${posts.length}개`;
-    }
-
-    if (!card) return;
-    const bg = card.querySelector('.cp-cat-bg');
-    if (!bg) return;
-
-    const imgSrc = COVERS[coverKey] || sorted[0]?.thumb || '';
-    bg.style.display = 'block';
-    bg.src = imgSrc;
-    bg.onerror = function () {
-      console.log('Category image load fail:', imgSrc);
-    };
-  });
-})();
-</script>
-</body>
-</html>
+<body data-layout="listing"><header class="sitehead"><div class="wrap head"><a class="brand" href="/">Traveler Guru<small>여행의 순간을 기록합니다</small></a><nav class="mainnav"><a href="/#destinations">여행지</a><a href="/?category=travel">여행기</a><a href="/?category=food">맛집</a><a href="/?category=stay">숙소</a><a href="/other/">여행 가이드</a></nav><form class="search" id="searchForm" action="/" role="search"><span aria-hidden="true">⌕</span><input aria-label="여행 기록 검색" placeholder="도시, 맛집, 숙소 검색" id="searchInput" name="q" type="search"></form></div></header><main class="wrap" id="layoutMain"><div class="breadcrumb"><a href="/">홈</a> / <span id="breadCountry"></span></div><div class="countrytitle"><div id="listFlag"></div><div><div class="eyebrow" id="countryEn"></div><h1 id="countryName"></h1><p id="countryDescription"></p></div></div><div class="filters" id="filters" aria-label="기록 분류"></div><div class="list-toolbar"><p class="resulthead" id="resultCount" aria-live="polite"></p><label>정렬 <select id="sortSelect"><option value="new">최신순</option><option value="old">오래된순</option><option value="title">제목순</option></select></label></div><div class="grid listgrid" id="listPosts"></div><p id="loadStatus" role="status">기록을 불러오는 중입니다.</p><noscript><p>기록 목록을 보려면 JavaScript를 켜 주세요.</p><a href="/korea/food/">대한민국 맛집</a> · <a href="/indonesia/travel/">인도네시아 여행기</a></noscript></main><footer class="footer"><div class="wrap foot"><a class="brand" href="/">Traveler Guru</a><p>모든 여행은 하나의 이야기가 됩니다.</p><div><a href="https://www.instagram.com/traveler_guru1" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.youtube.com/@traveler_guru1" target="_blank" rel="noopener">YouTube</a></div></div></footer></body></html>

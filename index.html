@@ -27,9 +27,9 @@
   <!-- Playfair Display (display font) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css" />
+
+
 
   <meta property="og:title" content="travelerguru — 여행가 구루의 트래블 노트" />
   <meta property="og:description" content="여행가 구루의 트래블 노트, 맛집, 여행, 숙소 등" />
@@ -37,132 +37,16 @@
   <meta property="og:image" content="https://img.travelerguru.co.kr/travelerguru/images/travel/ubst.webp" />
   <meta property="og:type" content="website" />
   <link rel="icon" href="data:," />
+
+<link rel="stylesheet" href="/layout.css?v=20261013-1">
+<script defer src="/layout.js?v=20261013-1"></script>
 </head>
-<body>
-
-  <!-- 헤더 -->
-  <header class="tg-header">
-    <button class="hd-btn menu-btn" id="menuBtn" aria-label="메뉴">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-           stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/>
-        <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
-      </svg>
-    </button>
-    <h1 class="brand"><a href="/">travelerguru</a></h1>
-    <button class="hd-btn search-btn" id="searchBtn" aria-label="검색">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-           stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-      </svg>
-    </button>
-  </header>
-
-  <!-- 검색 오버레이 -->
-  <div class="search-overlay" id="searchOverlay" aria-hidden="true">
-    <div class="search-box">
-      <button class="search-back" id="searchBack" aria-label="뒤로">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-             stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="15 18 9 12 15 6"/>
-        </svg>
-      </button>
-      <input type="search" id="searchInput" class="search-input"
-             placeholder="여행지, 맛집을 검색하세요" autocomplete="off" />
-    </div>
-    <div class="search-results" id="searchResults">
-      <p class="search-empty">검색어를 입력하세요</p>
-    </div>
-  </div>
-
-  <!-- 사이드 드로어 -->
-  <div class="drawer-backdrop" id="drawerBackdrop"></div>
-  <nav class="drawer" id="drawer">
-    <div class="drawer-head">
-      <span class="drawer-brand">travelerguru</span>
-      <button class="drawer-close" id="drawerClose">✕</button>
-    </div>
-    <ul class="drawer-list">
-      <li><a href="/" class="drawer-link is-active">홈</a></li>
-      <li><a href="korea/" class="drawer-link">한국</a></li>
-      <li><a href="indonesia/" class="drawer-link">인도네시아</a></li>
-      <li><a href="other/" class="drawer-link">여행 가이드</a></li>
-    </ul>
-    <div class="drawer-footer">
-      <a href="https://www.instagram.com/traveler_guru1" target="_blank" rel="noopener" class="drawer-sns">Instagram</a>
-      <a href="https://www.youtube.com/@traveler_guru1" target="_blank" rel="noopener" class="drawer-sns">YouTube</a>
-    </div>
-  </nav>
-
-  <main>
-
-    <!-- 히어로: 여행기록 (travel 카테고리만) -->
-    <section class="hero-section" aria-label="여행기록">
-      <div class="hero-label-row">
-        <span class="hero-section-label">오늘의 추천 여행기</span>
-      </div>
-      <div class="hero-wrapper">
-        <div class="hero-track" id="heroTrack"></div>
-      </div>
-      <div class="hero-dots" id="heroDots"></div>
-    </section>
-
-    <!-- 광고 -->
-    <section class="ad-wrap">
-      <ins class="adsbygoogle"
+<body data-layout="home"><header class="sitehead"><div class="wrap head"><a class="brand" href="/">Traveler Guru<small>여행의 순간을 기록합니다</small></a><nav class="mainnav"><a href="/#destinations">여행지</a><a href="/?category=travel">여행기</a><a href="/?category=food">맛집</a><a href="/?category=stay">숙소</a><a href="/other/">여행 가이드</a></nav><form class="search" id="searchForm" action="/" role="search"><span aria-hidden="true">⌕</span><input aria-label="여행 기록 검색" placeholder="도시, 맛집, 숙소 검색" id="searchInput" name="q" type="search"></form></div></header><main class="wrap" id="layoutMain"><div id="homeView"><section class="featured"><div class="sectionhead"><h1>오늘의 추천 여행기</h1><a href="/?category=travel" class="more">여행기 전체 보기 →</a></div><a class="feature-link" id="featureLink"><img id="featureImage" alt=""><div class="feature-copy"><div id="featureMeta"></div><h2 id="featureTitle"></h2><p id="featureExcerpt"></p></div></a><div class="feature-controls"><div id="featureDots"></div><div class="feature-buttons"><button id="featurePrev" aria-label="이전 여행기">←</button><span id="featureCounter"></span><button id="featureNext" aria-label="다음 여행기">→</button><button id="featurePause" aria-label="자동 넘김 정지">Ⅱ</button></div></div></section>
+<section class="section" id="destinations"><div class="sectionhead"><div><h2>어느 나라로 떠나볼까요?</h2><p>나라를 고르면 여행기와 맛집, 숙소를 한눈에.</p></div><span class="eyebrow">02 COUNTRIES</span></div><div class="countries" id="countries"></div></section>
+<section class="section"><div class="sectionhead"><div><h2>새로 남긴 기록</h2><p>최근 다녀온 곳의 솔직한 이야기</p></div><a href="/?category=all" class="more">전체 기록 보기 →</a></div><div class="grid" id="recent"></div></section>
+<div class="layout-ad"><ins class="adsbygoogle"
            style="display:block;min-height:60px"
            data-ad-client="ca-pub-6532882266109488"
            data-ad-slot="9705708704"
            data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-    </section>
-
-    <!-- 국가별 여행 기록 -->
-    <section class="country-section" aria-label="국가별 여행 기록">
-      <div class="section-header">
-        <h2 class="section-title">국가별 여행 기록</h2>
-        <p class="section-desc">여러 나라의 여행 기록을 확인해보세요</p>
-      </div>
-      <div class="country-grid" id="countryGrid"></div>
-    </section>
-
-    <!-- 여행 가이드 -->
-    <section class="guide-section" aria-label="여행 가이드">
-      <div class="section-header">
-        <h2 class="section-title">여행 가이드</h2>
-        <p class="section-desc">여행 준비에 도움이 되는 정보들을 모아봤어요</p>
-      </div>
-      <div class="guide-grid" id="guideGrid"></div>
-      <a href="other/" class="section-more-btn">더보기 →</a>
-    </section>
-
-
-  </main>
-
-  <!-- 푸터 -->
-  <footer class="tg-footer">
-    <p class="footer-brand">travelerguru</p>
-    <p class="footer-tagline">모든 여행은 하나의 이야기가 됩니다.</p>
-    <div class="footer-sns">
-      <a href="https://www.instagram.com/traveler_guru1" target="_blank" rel="noopener"
-         aria-label="인스타그램" class="footer-sns-link">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-          <circle cx="12" cy="12" r="4"/>
-          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-        </svg>
-      </a>
-      <a href="https://www.youtube.com/@traveler_guru1" target="_blank" rel="noopener"
-         aria-label="유튜브" class="footer-sns-link">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M22.5 6.5a2.8 2.8 0 0 0-2-2C18.8 4 12 4 12 4s-6.8 0-8.5.5a2.8 2.8 0 0 0-2 2A29 29 0 0 0 1 12a29 29 0 0 0 .5 5.5 2.8 2.8 0 0 0 2 2C5.2 20 12 20 12 20s6.8 0 8.5-.5a2.8 2.8 0 0 0 2-2A29 29 0 0 0 23 12a29 29 0 0 0-.5-5.5z"/>
-          <polygon points="10,15 16,12 10,9" fill="currentColor" stroke="none"/>
-        </svg>
-      </a>
-    </div>
-    <p class="footer-copy">© 2026 travelerguru. All rights reserved.</p>
-  </footer>
-
-  <script defer src="script.js"></script>
-  <script>try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}</script>
-</body>
-</html>
+           data-full-width-responsive="true"></ins></div><div class="destination-collections" id="destinationCollections"></div></div><div id="listingView" hidden><div class="breadcrumb"><a href="/">홈</a> / <span id="breadCountry"></span></div><div class="countrytitle"><div id="listFlag"></div><div><div class="eyebrow" id="countryEn"></div><h1 id="countryName"></h1><p id="countryDescription"></p></div></div><div class="filters" id="filters" aria-label="기록 분류"></div><div class="list-toolbar"><p class="resulthead" id="resultCount" aria-live="polite"></p><label>정렬 <select id="sortSelect"><option value="new">최신순</option><option value="old">오래된순</option><option value="title">제목순</option></select></label></div><div class="grid listgrid" id="listPosts"></div></div><p id="loadStatus" role="status">기록을 불러오는 중입니다.</p><noscript><p>기록 목록을 보려면 JavaScript를 켜 주세요.</p><a href="/korea/food/">대한민국 맛집</a> · <a href="/indonesia/travel/">인도네시아 여행기</a></noscript></main><footer class="footer"><div class="wrap foot"><a class="brand" href="/">Traveler Guru</a><p>모든 여행은 하나의 이야기가 됩니다.</p><div><a href="https://www.instagram.com/traveler_guru1" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.youtube.com/@traveler_guru1" target="_blank" rel="noopener">YouTube</a></div></div></footer></body></html>

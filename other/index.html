@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>여행 가이드 - 구루의 트래블 노트</title>
   <link rel="canonical" href="https://travelerguru.co.kr/other/">
-  <link rel="stylesheet" href="./styles.css">
+
   <link rel="icon" href="data:,">
   <meta name="description" content="여행 가이드 카테고리: 여행가이드">
   <!-- OG -->
@@ -29,90 +29,8 @@
   </script>
 
 
+
+<link rel="stylesheet" href="/layout.css?v=20261013-1">
+<script defer src="/layout.js?v=20261013-1"></script>
 </head>
-<body>
-
-<header class="page-header">
-  <h1 class="page-title">여행 가이드</h1>
-</header>
-
-<nav class="breadcrumb">
-  <a href="/">홈</a> › <strong>여행 가이드</strong>
-</nav>
-
-<section class="toolbar" aria-label="필터">
-  <input id="q" class="tool-input" type="search" placeholder="제목/본문 검색" aria-label="검색">
-  <select id="sort" class="tool-select" aria-label="정렬">
-    <option value="new">최신순</option>
-    <option value="old">오래된순</option>
-    <option value="title">제목순</option>
-  </select>
-</section>
-
-<main>
-  <div id="grid" class="grid" aria-live="polite"></div>
-  <p id="empty" class="empty" hidden>검색 결과가 없습니다.</p>
-</main>
-
-<script>
-  const CATEGORY_LABEL = '여행 가이드';
-
-  const grid = document.getElementById('grid');
-  const emptyEl = document.getElementById('empty');
-  const q = document.getElementById('q');
-  const sortSel = document.getElementById('sort');
-
-  let raw = [], view = [];
-
-  function card(item){
-    const a = document.createElement('a');
-    a.href = item.url || '#';
-    a.className = 'card';
-    const badge = '';
-
-    a.innerHTML = `
-      ${badge}
-      <img class="card-img" src="${item.thumb || ''}" alt="${item.title || ''}" loading="lazy">
-      <div class="card-body">
-        <span class="card-cat"># ${CATEGORY_LABEL}</span>
-        <h3 class="card-title">${item.title || ''}</h3>
-        <p class="card-excerpt">${item.excerpt || ''}</p>
-      </div>`;
-    return a;
-  }
-
-  function render(){
-    grid.innerHTML = '';
-    view.forEach(it => grid.appendChild(card(it)));
-    emptyEl.hidden = view.length > 0;
-  }
-
-  function apply(){
-    const keyword = (q.value || '').trim().toLowerCase();
-
-    view = raw.filter(it => {
-      const okKeyword = !keyword ||
-        (it.title||'').toLowerCase().includes(keyword) ||
-        (it.excerpt||'').toLowerCase().includes(keyword);
-      return okKeyword;
-    });
-
-    const s = sortSel.value;
-    if (s === 'new') view.sort((a,b)=> (b.date||'').localeCompare(a.date||''));
-    if (s === 'old') view.sort((a,b)=> (a.date||'').localeCompare(b.date||''));
-    if (s === 'title') view.sort((a,b)=> (a.title||'').localeCompare(b.title||''));
-
-    render();
-  }
-
-  (async function init(){
-    const res = await fetch('index.json', { cache: 'no-store' });
-    raw = await res.json();
-
-    apply();
-    q.addEventListener('input', apply);
-    sortSel.addEventListener('change', apply);
-  })();
-</script>
-</body>
-</html>
+<body data-layout="listing"><header class="sitehead"><div class="wrap head"><a class="brand" href="/">Traveler Guru<small>여행의 순간을 기록합니다</small></a><nav class="mainnav"><a href="/#destinations">여행지</a><a href="/?category=travel">여행기</a><a href="/?category=food">맛집</a><a href="/?category=stay">숙소</a><a href="/other/">여행 가이드</a></nav><form class="search" id="searchForm" action="/" role="search"><span aria-hidden="true">⌕</span><input aria-label="여행 기록 검색" placeholder="도시, 맛집, 숙소 검색" id="searchInput" name="q" type="search"></form></div></header><main class="wrap" id="layoutMain"><div class="breadcrumb"><a href="/">홈</a> / <span id="breadCountry"></span></div><div class="countrytitle"><div id="listFlag"></div><div><div class="eyebrow" id="countryEn"></div><h1 id="countryName"></h1><p id="countryDescription"></p></div></div><div class="filters" id="filters" aria-label="기록 분류"></div><div class="list-toolbar"><p class="resulthead" id="resultCount" aria-live="polite"></p><label>정렬 <select id="sortSelect"><option value="new">최신순</option><option value="old">오래된순</option><option value="title">제목순</option></select></label></div><div class="grid listgrid" id="listPosts"></div><p id="loadStatus" role="status">기록을 불러오는 중입니다.</p><noscript><p>기록 목록을 보려면 JavaScript를 켜 주세요.</p><a href="/korea/food/">대한민국 맛집</a> · <a href="/indonesia/travel/">인도네시아 여행기</a></noscript></main><footer class="footer"><div class="wrap foot"><a class="brand" href="/">Traveler Guru</a><p>모든 여행은 하나의 이야기가 됩니다.</p><div><a href="https://www.instagram.com/traveler_guru1" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.youtube.com/@traveler_guru1" target="_blank" rel="noopener">YouTube</a></div></div></footer></body></html>
