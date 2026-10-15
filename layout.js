@@ -29,6 +29,16 @@ function enhanceArticle(){
   const fields=[...prose.children].filter(p=>p.tagName==='P'&&p.querySelector('br')&&fieldLabels.includes(p.firstChild?.textContent?.trim()));
   if(firstFigure&&fields.length>=2){
     const lead=document.createElement('div');lead.className='articlelead';
+    const leadImage=firstFigure.querySelector('img');
+    if(leadImage){
+      const sizeLead=()=>{
+        const width=leadImage.naturalWidth||Number(leadImage.getAttribute('width'));
+        const height=leadImage.naturalHeight||Number(leadImage.getAttribute('height'));
+        lead.classList.toggle('articlelead--portrait',width>0&&height>width);
+      };
+      sizeLead();
+      leadImage.addEventListener('load',sizeLead,{once:true});
+    }
     const quick=document.createElement('aside');quick.className='quick';quick.setAttribute('aria-label','방문 전 정보');
     quick.innerHTML='<h2>방문 전 한눈에</h2><dl></dl>';
     fields.forEach(p=>{const row=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=p.firstChild.textContent.trim();p.firstChild.remove();if(p.firstChild?.nodeName==='BR')p.firstChild.remove();dd.append(p);row.append(dt,dd);quick.querySelector('dl').append(row)});

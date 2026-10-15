@@ -47,6 +47,14 @@ body[data-layout="article"] .sitehead .brand{font-size:29px;font-family:Georgia,
 body[data-layout="article"] .prose p{word-break:keep-all;overflow-wrap:break-word}
 
 /* Travel series keep their own membership and reading order. */
+/* Let portrait lead photos fill their own column without letterboxing or cropping. */
+body[data-layout="article"] .articlelead--portrait{grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:40px;align-items:start}
+body[data-layout="article"] .articlelead--portrait figure{background:transparent;min-width:0}
+body[data-layout="article"] .articlelead--portrait .frame{border-radius:8px;overflow:hidden}
+body[data-layout="article"] .articlelead--portrait .frame img{display:block;width:100%;height:auto;max-height:none}
+body[data-layout="article"] .articlelead--portrait figcaption{padding:10px 0}
+@media(max-width:900px) and (min-width:601px){body[data-layout="article"] .articlelead--portrait{grid-template-columns:minmax(0,.85fr) minmax(0,1fr);gap:24px}}
+@media(max-width:600px){body[data-layout="article"] .articlelead--portrait{grid-template-columns:minmax(0,1fr);gap:22px}}
 .series-context{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 20px;background:var(--soft);border-radius:8px;font-size:13px;line-height:1.7;margin-bottom:20px}.series-context a{font-weight:700;text-decoration:underline;text-underline-offset:4px}
 .series-navigation{margin:18px 0 42px;padding:26px;border:1px solid var(--line);border-radius:10px;background:var(--soft)}.series-navigation-head{display:flex;align-items:center;justify-content:space-between;gap:20px}.series-navigation h2{font-size:22px;margin:8px 0}.series-navigation p{font-size:13px;color:var(--muted);margin:0}.series-neighbors{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}.series-neighbors a,.series-boundary{padding:18px;background:#ffffffb0;border-radius:7px;line-height:1.7}.series-neighbors small{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}.series-neighbors strong{font-size:15px;font-weight:600;word-break:keep-all}.series-boundary{display:flex;align-items:center;color:var(--muted);font-size:13px}.series-neighbors a:hover{background:white;outline:1px solid var(--green)}
 @media(max-width:600px){.series-context,.series-navigation-head{align-items:flex-start;flex-direction:column;gap:10px}.series-navigation{padding:20px}.series-neighbors{grid-template-columns:1fr}.series-navigation h2{font-size:20px}.series-context{font-size:12px}}
